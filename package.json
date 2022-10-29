@@ -12,12 +12,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "DANGEROUSLY_DISABLE_HOST_CHECK=true concurrently npm:server:start npm:client:start",
+    "server:start": "nodemon server",
+    "client:start": "react-scripts start",
+    "client:build": "react-scripts build",
+    "client:test": "react-scripts test",
+    "client:eject": "react-scripts eject"
   },
-  "proxy": "localhost:3001",
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",
