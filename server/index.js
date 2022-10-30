@@ -1,11 +1,13 @@
 const express = require("express")
-
 const app = express()
+//Import users.js to main server file
+const users = require("./routes/users")
+
+//Return users JSON on request to /api/users
+app.use("/api/users", users)
 
 app.get("/api", (req, res) => {
-  res.send("lmao")
+  res.send("Hello World from express!")
 })
 
-app.listen(3001, () =>
-  console.log("Express server is running on localhost:3001")
-)
+app.listen(1234, () => console.log("Express listening on port 1234"))
