@@ -19,9 +19,6 @@ function App() {
     <div className="main">
       <div className="text-center">
         <h1>Instameet! 🤖</h1>
-        <a href="https://www.google.com">
-          <img src="https://culverduck.com/wp-content/uploads/2020/11/duck-animate-1-500x500.png"></img>
-        </a>
       </div>
       {/* add text box to name the schedule here */}
       <div className="calendar">
