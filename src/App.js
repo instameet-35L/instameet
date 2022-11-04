@@ -1,7 +1,7 @@
 import "./App.css"
-import React, { useState } from 'react';
+import React, { useState } from "react"
 import Calendar from "react-calendar"
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css"
 
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
@@ -14,34 +14,37 @@ import 'react-calendar/dist/Calendar.css';
 */
 
 function App() {
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState(new Date())
   return (
     <div className="main">
-      <div className='text-center'>
-        <h1 align='center'>Instameet! 🤖</h1>
+      <div className="text-center">
+        <h1>Instameet! 🤖</h1>
+        <a href="https://www.google.com">
+          <img src="https://culverduck.com/wp-content/uploads/2020/11/duck-animate-1-500x500.png"></img>
+        </a>
       </div>
       {/* add text box to name the schedule here */}
-      <div className='calendar'>
-        <Calendar 
-              onChange={setValue} //when a date is clicked
-              value={value}   //date = value
-              selectRange={true}  //can select a range of dates
-              />  
+      <div className="calendar">
+        <Calendar
+          onChange={setValue} //when a date is clicked
+          value={value} //date = value
+          selectRange={true} //can select a range of dates
+        />
       </div>
       <div>
         {value.length > 1 ? ( //if more than one date is selected, should this be 1 or 0
-          <p className='text-center'>
-            <span className='bold'>Start:</span>{' '}{value[0].toDateString()}
+          <p className="text-center">
+            <span className="bold">Start:</span> {value[0].toDateString()}
             &nbsp;&nbsp;|&nbsp; &nbsp;
-            <span className='bold'>End:</span>{' '}{value[1].toDateString()}
+            <span className="bold">End:</span> {value[1].toDateString()}
           </p>
-        ) : ( //if 1 date is selected
-          <p className='text-center'> 
-            <span className='bold'>Selected Date:</span>{' '}{value.toDateString()}
+        ) : (
+          //if 1 date is selected
+          <p className="text-center">
+            <span className="bold">Selected Date:</span> {value.toDateString()}
           </p>
         )}
       </div>
-
     </div>
   )
 }
