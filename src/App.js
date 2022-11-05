@@ -2,6 +2,7 @@ import "./App.css"
 import React, { useState } from "react"
 import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
+import TestAPI from "./components/TestAPI"
 
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
@@ -19,6 +20,7 @@ function App() {
     <div className="main">
       <div className="text-center">
         <h1>Instameet! 🤖</h1>
+        <TestAPI />
       </div>
       {/* add text box to name the schedule here */}
       <div className="calendar">

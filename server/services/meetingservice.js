@@ -12,7 +12,7 @@ async function createMeeting(body) {
 //Finds all Meeting documents
 async function getAllMeetings() {
   const allMeetings = await Meeting.find({})
-  console.log(allMeetings)
+  console.log("incoming connection")
   return allMeetings
 }
 
