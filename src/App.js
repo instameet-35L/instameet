@@ -1,7 +1,8 @@
 import "./App.css"
 import React, { useState } from "react"
 import Calendar from "react-calendar"
-import "react-calendar/dist/Calendar.css"
+import 'react-calendar/dist/Calendar.css';
+import './index.css'
 
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
@@ -17,8 +18,10 @@ function App() {
   const [value, setValue] = useState(new Date())
   return (
     <div className="main">
-      <div className="text-center">
-        <h1>Instameet! 🤖</h1>
+      <div className='text-center'>
+        <h1 align='center'>Instameet! 🤖</h1>
+        <a href="localhost:3000"><div className="logo" href="../"></div></a>
+        {/* <a href="localhost:3000"><img src="/instameet-logo.jpeg" alt="Instameet Logo" width="200" height="300" /></a> */}
       </div>
       {/* add text box to name the schedule here */}
       <div className="calendar">
