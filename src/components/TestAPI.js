@@ -14,9 +14,11 @@ export default function TestAPI() {
   }, [])
 
   return (
-    <div>
-      <div>Under here is data from API</div>
-      <div>{data}</div>
-    </div>
+    <>
+      <ul>
+        <li>{data[0].username}</li>
+        <li>{data[1].username}</li>
+      </ul>
+    </>
   )
 }

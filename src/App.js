@@ -1,12 +1,14 @@
 import "./App.css"
 import React from "react"
 import Cal from "./setupCal.js"
+import TestAPI from "./components/TestAPI"
 
 function App() {
   return (
     <div className="main">
       <div className="text-center">
         <h1 align="center">Instameet! 🤖</h1>
+        <TestAPI />
         <a href="localhost:3000">
           <div className="logo" href="../"></div>
         </a>
