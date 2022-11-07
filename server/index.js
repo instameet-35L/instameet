@@ -5,6 +5,7 @@ const morgan = require("mongoose-morgan")
 const bodyParser = require("body-parser")
 const { connect } = require("./mongoConfig")
 
+//HTTP Request Logger sending info to MongoDB
 app.use(
   morgan(
     {
