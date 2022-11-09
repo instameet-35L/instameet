@@ -1,8 +1,8 @@
 import "./App.css"
-import React, { useState } from 'react';
+import React, { useState } from "react"
 import Calendar from "react-calendar"
-import 'react-calendar/dist/Calendar.css';
-
+import "react-calendar/dist/Calendar.css"
+import Input from "./components/Input"
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
 
@@ -14,40 +14,42 @@ import 'react-calendar/dist/Calendar.css';
 */
 
 function Cal() {
-    const [value, setValue] = useState(new Date());
-    return (
-      <div className="main">
-        <div>
-          <form>
+  const [value, setValue] = useState(new Date())
+  return (
+    <div className="main">
+      <div>
+        <Input />
+        <form>
             <label for="scheduleName">Please enter your event name below: </label><br/>
             <input type="text" id="scheduleName" name="scheduleName"/>
           </form>
-        </div>
-        <div className='calendar'>
-          <Calendar 
-                onChange={setValue} //when a date is clicked
-                value={value}   //date = value
-                selectRange={true}  //can select a range of dates
-                />  
-        </div>
-        <div>
-          {value.length > 1 ? ( //if more than one date is selected, should this be 1 or 0
-            <p className='text-center'>
-              <span className='bold'>Start:</span>{' '}{value[0].toDateString()}
-              &nbsp;&nbsp;|&nbsp; &nbsp;
-              <span className='bold'>End:</span>{' '}{value[1].toDateString()}
-            </p>
-          ) : ( //if 1 date is selected
-            <p className='text-center'> 
-              <span className='bold'>Start:</span>{' '}{value.toDateString()}
+      </div>
+      <div className="calendar">
+        <Calendar
+          onChange={setValue} //when a date is clicked
+          value={value} //date = value
+          selectRange={true} //can select a range of dates
+          //allowPartialRange={true}
+        />
+      </div>
+      <div>
+        {value.length > 1 ? ( //if more than one date is selected, should this be 1 or 0
+          <p className="text-center">
+            <span className="bold">Start:</span> {value[0].toDateString()}
+            &nbsp;&nbsp;|&nbsp; &nbsp;
+            <span className="bold">End:</span> {value[1].toDateString()}
+          </p>
+        ) : (
+          //if 1 date is selected
+          <p className="text-center">
+            <span className='bold'>Start:</span>{' '}{value.toDateString()}
               &nbsp;&nbsp;|&nbsp; &nbsp;
               <span className='bold'>End:</span>{' '}{value.toDateString()}
-            </p>
-          )}
-        </div>
-  
+          </p>
+        )}
       </div>
-    )
-  }
+    </div>
+  )
+}
 
-  export default Cal
+export default Cal

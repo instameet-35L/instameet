@@ -59,3 +59,11 @@ body {
   flex: 1;
   flex-direction: column;
 }
+
+.logo {
+  background-image: url(../images/instameet-logo.jpeg);
+  background-size: contain;
+  height: 100px;
+  background-repeat: no-repeat;
+  color: red;
+}
