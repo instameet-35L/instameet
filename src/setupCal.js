@@ -6,22 +6,36 @@ import Input from "./components/Input"
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
 
-/* 
-  BUGS TO FIX:
-  -how to unselect range and go back to a singular day
-  -potentially use hooks to add another state variable to control this?
-  -look into onChange function or allowPartialRange or selectRange to see why double click is required
+/*
+TO DO:
+-Figure out how many days are in the range
+-limit range size to 14 days
 */
 
 function Cal() {
   const [value, setValue] = useState(new Date())
+  const GetNumberOfDays = ((start,end) => {
+    const date1 = new Date(start);
+    const date2 = new Date(end);
+
+    // One day in milliseconds
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    // Calculating the time difference between two dates
+    const diffInTime = date2.getTime() - date1.getTime();
+
+    // Calculating the no. of days between two dates
+    const diffInDays = Math.round(diffInTime / oneDay);
+
+    return diffInDays;
+});
   return (
     <div className="main">
       <div>
-        <Input />
         <form>
             <label for="scheduleName">Please enter your event name below: </label><br/>
-            <input type="text" id="scheduleName" name="scheduleName"/>
+            <Input />
+            {/* <input type="text" id="scheduleName" name="scheduleName"/> */}
           </form>
       </div>
       <div className="calendar">
@@ -33,14 +47,16 @@ function Cal() {
         />
       </div>
       <div>
-        {value.length > 1 ? ( //if more than one date is selected, should this be 1 or 0
+        {value.length > 1 ? ( //every click after the first one
           <p className="text-center">
             <span className="bold">Start:</span> {value[0].toDateString()}
             &nbsp;&nbsp;|&nbsp; &nbsp;
             <span className="bold">End:</span> {value[1].toDateString()}
-          </p>
+          </p>,
+          console.log(GetNumberOfDays(value[0], value[1]))
+          //if the above print is >14, give error message 
         ) : (
-          //if 1 date is selected
+          //only at very beginning
           <p className="text-center">
             <span className='bold'>Start:</span>{' '}{value.toDateString()}
               &nbsp;&nbsp;|&nbsp; &nbsp;
