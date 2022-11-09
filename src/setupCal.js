@@ -18,15 +18,16 @@ function Cal() {
     return (
       <div className="main">
         <div>
-            <input type="text"/>
+          <form>
+            <label for="scheduleName">Please enter your event name below: </label><br/>
+            <input type="text" id="scheduleName" name="scheduleName"/>
+          </form>
         </div>
         <div className='calendar'>
           <Calendar 
                 onChange={setValue} //when a date is clicked
                 value={value}   //date = value
                 selectRange={true}  //can select a range of dates
-                //allowPartialRange={true}
-                
                 />  
         </div>
         <div>
@@ -38,7 +39,9 @@ function Cal() {
             </p>
           ) : ( //if 1 date is selected
             <p className='text-center'> 
-              <span className='bold'>Selected Date:</span>{' '}{value.toDateString()}
+              <span className='bold'>Start:</span>{' '}{value.toDateString()}
+              &nbsp;&nbsp;|&nbsp; &nbsp;
+              <span className='bold'>End:</span>{' '}{value.toDateString()}
             </p>
           )}
         </div>

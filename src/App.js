@@ -12,9 +12,9 @@ function App() {
         <a href="localhost:3000">
           <div className="logo" href="../"></div>
         </a>
-        {/* <a href="localhost:3000"><img src="/instameet-logo.jpeg" alt="Instameet Logo" width="200" height="300" /></a> */}
-      </div>
-      <div>
+        <a href="localhost:3000"><img src="/instameet-logo.jpeg" alt="Instameet Logo" width="200" height="300" /></a>
+     </div>
+      <div> 
         <Cal />
       </div>
     </div>
@@ -22,3 +22,4 @@ function App() {
 }
 
 export default App
+//

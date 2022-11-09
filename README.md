@@ -68,3 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Calendar Component Instructions:
+-The Calendar Component always selects a range
+-When selecting date(s), you must select a start to the range and an end to the range
+Selecting 1 date example:
+1. Click desired date (to mark the start of the range)
+2. Click desired date again (to show the end of the range)
