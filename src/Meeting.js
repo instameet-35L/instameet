@@ -9,7 +9,6 @@ export default function Meeting() {
     async function getMeeting(id) {
       const response = await fetch(`/api/meeting/${id}`)
       const body = await response.json()
-      console.log(`body: ${body}`)
 
       setMeeting(body)
     }
