@@ -1,23 +1,27 @@
 import { useState, useEffect } from "react"
 
 export default function TestAPI() {
-  const [data, setData] = useState("loading")
+  const [data, setData] = useState()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch("http://localhost:3001/api/test")
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result)
-        setData(result)
+      .then((res) => {
+        setData(res)
+        setLoading(false)
       })
       .catch(console.error)
   }, [])
 
+  if (loading) return <div>Data Loading...</div>
+
   return (
     <>
       <ul>
-        <li>{data[0].username}</li>
-        <li>{data[1].username}</li>
+        {data.map((el) => (
+          <li>{el.username}</li>
+        ))}
       </ul>
     </>
   )
