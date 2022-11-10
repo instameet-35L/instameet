@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 //Connect to MongoDB Atlas
 connect()
 
-app.use("/api/test", require("./routes/meetingroutes"))
+app.use("/api/meeting", require("./routes/meeting"))
 
 app.listen(3001, () =>
   console.log("Express server is running on localhost:3001")
