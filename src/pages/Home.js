@@ -1,8 +1,8 @@
-import "./Home.css"
+import "../css/Home.css"
 import React from "react"
-import Cal from "./setupCal.js"
-import TestAPI from "./components/TestAPI"
-import ScheduleCreator from "./components/MeetingCreator"
+import Cal from "../components/Cal.js"
+import TestAPI from "../components/TestAPI"
+import ScheduleCreator from "../components/CreateMeeting"
 
 export default function Home() {
   return (

@@ -1,60 +1,57 @@
-import "./FillSchedule.css"
-import React from 'react';
+import React from "react"
 
 /*
- * Currently, FillSchedule is a grid where you can select your 
+ * Currently, FillSchedule is a grid where you can select your
  * availibility. Right now, you can select and unselect grid entries.
  * What needs to be changed:
  *   - Need to add dates at top of grid corresponding to dates chosen
- *     by event creator. 
- *   - Need to make the grid dynamically allocated so that the grid has the 
+ *     by event creator.
+ *   - Need to make the grid dynamically allocated so that the grid has the
  *     number of columns equal to the number of days chosen by the event creator.
  *   - Need to change how grid displays when a user selects it so that instead
  *     of containing an 'X' when selected, it will change color or something
  *     along that style.
  */
 
-
 function Entry(props) {
-    return (
-      <button className="entry" onClick={props.onClick}>
-        {props.value}
-      </button>
-    );
-  }
-  
-  
+  return (
+    <button className="entry" onClick={props.onClick}>
+      {props.value}
+    </button>
+  )
+}
+
 class Board extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        entries: Array(24).fill(null),
-      };
+    super(props)
+    this.state = {
+      entries: Array(24).fill(null),
+    }
   }
 
   handleClick(i) {
-      console.log("clicked!");
-      const entries = this.state.entries.slice();
-      this.state.entries[i] === null ? entries[i] = 'X' : entries[i] = null;
-      this.setState({
-          entries: entries,
-      });
-    }
+    console.log("clicked!")
+    const entries = this.state.entries.slice()
+    this.state.entries[i] === null ? (entries[i] = "X") : (entries[i] = null)
+    this.setState({
+      entries: entries,
+    })
+  }
 
-    renderEntry(i) {
-      return (
-        <Entry 
-            value={this.state.entries[i]}
-            onClick={() => this.handleClick(i)}
-        />
-      );
-    }
-  
+  renderEntry(i) {
+    return (
+      <Entry
+        value={this.state.entries[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    )
+  }
+
   render() {
-      const status = 'Your availibility:';
+    const status = "Your availibility:"
     return (
       <div>
-        <div className='status'>{status}</div>
+        <div className="status">{status}</div>
         <div className="board-row">
           {this.renderEntry(0)}
           {this.renderEntry(1)}
@@ -96,10 +93,10 @@ class Board extends React.Component {
           {this.renderEntry(23)}
         </div>
       </div>
-    );
+    )
   }
 }
-  
+
 class Game extends React.Component {
   render() {
     return (
@@ -112,19 +109,11 @@ class Game extends React.Component {
           <ol>{/* TODO */}</ol>
         </div>
       </div>
-    );
+    )
   }
 }
-  
- 
-export default Game;
 
-
-
-
-
-
-
+export default Game
 
 /*CONCERNS
 - I am not sure that I can use this grid to make diff numbers
@@ -146,17 +135,15 @@ changes color
 */
 
 // How do i get this to displayyyyyyy...
-  
-  // ========================================
-  
+
+// ========================================
+
 //   const root = ReactDOM.createRoot(document.getElementById("root"));
 //   root.render(<Game />);
 
-
-
 //export default FillSchedule
 
-// function FillSchedule(props) 
+// function FillSchedule(props)
 // {
 //     return(
 //         <div class="grid-container">
@@ -191,10 +178,9 @@ changes color
 //           <div>14a</div>
 //           <div>14b</div>
 //         </div>
-    
+
 //         )
 // }
-
 
 // class myGrid {
 //     constructor(props) {
@@ -202,28 +188,23 @@ changes color
 //             selected: false,
 //         }
 //     }
-    
+
 //     handleClick() {
 //         console.log("button clicked!");
 //         if (this.state.selected !== false)
 //         {
 //             this.setState({
 //                 selected: true,
-//             }) 
+//             })
 //         }
 //         else
 //         {
 //             this.setState({
 //                 selected: false,
-//             }) 
+//             })
 //         }
 //     }
 // }
-
-
-
-
-
 
 // {
 //   return (
@@ -232,33 +213,32 @@ changes color
 //         <div class="grid-item grid-item-2"></div>
 //         <div class="grid-item grid-item-3"></div>
 
-
 //     </div>
 
 //   )
-    // const myGrid = new Grid({
-    //     columns: ['Name', 'Email', 'Phone Number'],
-    //     search: true,
-    //     data: [
-    //       ['John', 'john@example.com', '(353) 01 222 3333'],
-    //       ['Mark', 'mark@gmail.com',   '(01) 22 888 4444'],
-    //       ['Eoin', 'eo3n@yahoo.com',   '(05) 10 878 5554'],
-    //       ['Nisen', 'nis900@gmail.com',   '313 333 1923']
-    //     ],
-    //     style: {
-    //       table: {
-    //         border: '3px solid #ccc'
-    //       },
-    //       th: {
-    //         'background-color': 'rgba(0, 0, 0, 0.1)',
-    //         color: '#000',
-    //         'border-bottom': '3px solid #ccc',
-    //         'text-align': 'center'
-    //       },
-    //       td: {
-    //         'text-align': 'center'
-    //       }
-    //     }
-    //   });
+// const myGrid = new Grid({
+//     columns: ['Name', 'Email', 'Phone Number'],
+//     search: true,
+//     data: [
+//       ['John', 'john@example.com', '(353) 01 222 3333'],
+//       ['Mark', 'mark@gmail.com',   '(01) 22 888 4444'],
+//       ['Eoin', 'eo3n@yahoo.com',   '(05) 10 878 5554'],
+//       ['Nisen', 'nis900@gmail.com',   '313 333 1923']
+//     ],
+//     style: {
+//       table: {
+//         border: '3px solid #ccc'
+//       },
+//       th: {
+//         'background-color': 'rgba(0, 0, 0, 0.1)',
+//         color: '#000',
+//         'border-bottom': '3px solid #ccc',
+//         'text-align': 'center'
+//       },
+//       td: {
+//         'text-align': 'center'
+//       }
+//     }
+//   });
 //     return(myGrid);
 //}

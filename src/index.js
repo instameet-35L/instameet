@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import "./index.css"
-import Home from "./Home"
-import Meeting from "./Meeting"
+import "./css/index.css"
+import Home from "./pages/Home"
+import Meeting from "./pages/Meeting"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
