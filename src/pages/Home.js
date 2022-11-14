@@ -2,7 +2,7 @@ import "../css/Home.css"
 import React from "react"
 import Cal from "../components/Cal.js"
 import TestAPI from "../components/TestAPI"
-import ScheduleCreator from "../components/CreateMeeting"
+import CreateMeeting from "../components/CreateMeeting"
 
 export default function Home() {
   return (
@@ -23,7 +23,14 @@ export default function Home() {
         </a>
       </div>
       <div>
-        <ScheduleCreator />
+        <CreateMeeting
+          title={"test"}
+          timeframe={{
+            start: new Date("2022-11-10"),
+            end: new Date(),
+          }}
+          creator={{ mongoId: 1, name: "Paul Zhang" }}
+        />
       </div>
     </div>
   )

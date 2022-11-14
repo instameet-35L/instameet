@@ -3,11 +3,9 @@ const { createMeeting, getMeeting } = require("../services/meeting")
 
 const router = express.Router()
 
-router.post("/", (req, res) => {
-  // Get HTTP body from req
-  const body = req.body
+router.post("/new", (req, res) => {
   // Call service-layer function createMeeting
-  createMeeting(body)
+  createMeeting(req.body)
     .then((response) => {
       // On completetion of createMeeting, let client know it was a success
       res.status(200).send(response)
@@ -17,7 +15,7 @@ router.post("/", (req, res) => {
     })
 })
 
-router.get("/:meetingId", (req, res) => {
+router.get("/id/:meetingId", (req, res) => {
   getMeeting(req.params.meetingId)
     .then((response) => {
       res.status(200).send(response)

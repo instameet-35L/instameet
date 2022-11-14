@@ -3,12 +3,11 @@ const ObjectId = require("mongodb").ObjectId
 
 // Create meeting document
 async function createMeeting(body) {
-  console.log("Incoming POST request!")
-  // Take data from http body
-  const username = body
-  const meeting = new Meeting(username)
-  const meetingtoSave = await meeting.save()
-  return meetingtoSave
+  console.log(`POST request: ${JSON.stringify(body)}`)
+
+  const meeting = new Meeting(body.meetingData)
+
+  return await meeting.save()
 }
 
 async function getMeeting(id) {

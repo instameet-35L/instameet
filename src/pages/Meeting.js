@@ -7,7 +7,7 @@ export default function Meeting() {
 
   useEffect(() => {
     async function getMeeting(id) {
-      const response = await fetch(`/api/meeting/${id}`)
+      const response = await fetch(`/api/meeting/id/${id}`)
       const body = await response.json()
 
       setMeeting(body)
