@@ -14,4 +14,8 @@ async function getMeeting(id) {
   return await Meeting.findById(ObjectId(id))
 }
 
-module.exports = { createMeeting, getMeeting }
+async function getAllMeeting() {
+  return await Meeting.find({})
+}
+
+module.exports = { createMeeting, getMeeting, getAllMeeting }
