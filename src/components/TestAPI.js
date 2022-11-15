@@ -5,7 +5,7 @@ export default function TestAPI() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/test")
+    fetch("http://localhost:3001/api/meeting/all")
       .then((response) => response.json())
       .then((res) => {
         setData(res)
@@ -19,9 +19,11 @@ export default function TestAPI() {
   return (
     <>
       <ul>
-        {data.map((el) => (
-          <li>{el.username}</li>
-        ))}
+        {data.map((el) => {
+          if (el.username) {
+            return <li>{el.username}</li>
+          }
+        })}
       </ul>
     </>
   )

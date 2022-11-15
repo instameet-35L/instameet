@@ -8,17 +8,17 @@ export default function Home() {
   return (
     <div className="main">
       <div className="text-center">
-        <h1 align="center">Instameet! 🤖</h1>
+        <h1 align="center">Instameet! 🤖 </h1>
         <TestAPI />
-        <a href="localhost:3000">
+        {/* <a href="localhost:3000">
           <div className="logo" href="../"></div>
-        </a>
+        </a> */}
         <a href="localhost:3000">
           <img
-            src="/instameet-logo.jpeg"
+            src="./images/instameet-logo.jpeg"
             alt="Instameet Logo"
             width="200"
-            height="300"
+            height="auto"
           />
         </a>
       </div>
