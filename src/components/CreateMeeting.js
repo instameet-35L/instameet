@@ -35,7 +35,7 @@ export default function CreateMeeting({ title, timeframe, creator }) {
       {meetingId !== "" && meetingId !== undefined && (
         <Navigate to={`/${meetingId}`} />
       )}
-      <button className="button" onClick={requestNewMeeting}>
+      <button className="buttonMeeting" onClick={requestNewMeeting}>
         Create Meeting
       </button>
     </>

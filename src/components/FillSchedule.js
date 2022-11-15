@@ -1,4 +1,5 @@
 import React from "react"
+import "../css/FillSchedule.css"
 
 /*
  * Currently, FillSchedule is a grid where you can select your
@@ -50,6 +51,7 @@ class Board extends React.Component {
   render() {
     const status = "Your availibility:"
     return (
+
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
@@ -103,10 +105,6 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
         </div>
       </div>
     )

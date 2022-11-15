@@ -2,6 +2,7 @@ import "../css/Home.css"
 import React from "react"
 import Cal from "../components/Cal.js"
 import TestAPI from "../components/TestAPI"
+import Game from "../components/FillSchedule"  // Missy added for testing
 import CreateMeeting from "../components/CreateMeeting"
 
 export default function Home() {
@@ -31,6 +32,9 @@ export default function Home() {
           }}
           creator={{ mongoId: 1, name: "Paul Zhang" }}
         />
+      </div>
+      <div>
+        <Game />
       </div>
     </div>
   )
