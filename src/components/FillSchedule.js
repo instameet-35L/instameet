@@ -26,14 +26,14 @@ class Board extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: Array(24).fill(null),
+      entries: Array(100).fill(null),   // should this be array(100) or should there not be a specific sizE??
     }
   }
 
   handleClick(i) {
     console.log("clicked!")
     const entries = this.state.entries.slice()
-    this.state.entries[i] === null ? (entries[i] = "X") : (entries[i] = null)
+    this.state.entries[i] === null ? (entries[i] = 'X') : (entries[i] = null)
     this.setState({
       entries: entries,
     })
@@ -50,49 +50,32 @@ class Board extends React.Component {
 
   render() {
     const status = "Your availibility:"
-    return (
+    let rows = []
+    const numCols = 6;    // would just need arathi's num from the calendar
+    for (let r = 0; r < 24; r++)
+    {
+      let children = []
+      let scale = r * numCols;
 
+      for (let c = 0 + scale; c < numCols + scale; c++)
+      {
+        children.push(this.renderEntry(c))
+      }
+
+      rows.push(
+        <div key={r} className="board-row">
+          {children}
+        </div>
+
+      )
+
+    }
+
+    return (
       <div>
         <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderEntry(0)}
-          {this.renderEntry(1)}
-          {this.renderEntry(2)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(3)}
-          {this.renderEntry(4)}
-          {this.renderEntry(5)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(6)}
-          {this.renderEntry(7)}
-          {this.renderEntry(8)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(9)}
-          {this.renderEntry(10)}
-          {this.renderEntry(11)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(12)}
-          {this.renderEntry(13)}
-          {this.renderEntry(14)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(15)}
-          {this.renderEntry(16)}
-          {this.renderEntry(17)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(18)}
-          {this.renderEntry(19)}
-          {this.renderEntry(20)}
-        </div>
-        <div className="board-row">
-          {this.renderEntry(21)}
-          {this.renderEntry(22)}
-          {this.renderEntry(23)}
+        <div>
+          {rows}
         </div>
       </div>
     )
@@ -114,24 +97,13 @@ class Game extends React.Component {
 export default Game
 
 /*CONCERNS
-- I am not sure that I can use this grid to make diff numbers
-of grids (ie, say a event maker chooses 3 days, then we would 
-need 24*3 = 72 entries but if they choose 5 days, then we would
-need 24*5 = 120 entries and I am not sure if this can do that)
 - I need to use some sort of onClick() thing, but I am not sure
 if we want users to be able to drag their availibity or if they
 would have to click each box (each hr) of their availibility
 - I need to get data from the setupCal (I need to see how many
 days the event planner chose; how do I do this?)
-
-- turn each div into a button instead that when you select it,
-changes color
-- tic tac toe
-- changing state, buttons on/off
-- first, just hard code buttons that change state
-- second, try to make them dynamically allocated like in tic-tac-toe
+- Need to make box change color when its selected
 */
-
 // How do i get this to displayyyyyyy...
 
 // ========================================
