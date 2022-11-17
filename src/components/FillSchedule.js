@@ -26,14 +26,14 @@ class Board extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: Array(100).fill(null),   // should this be array(100) or should there not be a specific sizE??
+      entries: Array(100).fill(null), // should this be array(100) or should there not be a specific sizE??
     }
   }
 
   handleClick(i) {
     console.log("clicked!")
     const entries = this.state.entries.slice()
-    this.state.entries[i] === null ? (entries[i] = 'X') : (entries[i] = null)
+    this.state.entries[i] === null ? (entries[i] = "X") : (entries[i] = null)
     this.setState({
       entries: entries,
     })
@@ -43,7 +43,9 @@ class Board extends React.Component {
     return (
       <Entry
         value={this.state.entries[i]}
-        onClick={() => this.handleClick(i)}
+        onClick={(event) => {
+          event.target.style.background = "black"
+        }}
       />
     )
   }
@@ -51,14 +53,12 @@ class Board extends React.Component {
   render() {
     const status = "Your availibility:"
     let rows = []
-    const numCols = 6;    // would just need arathi's num from the calendar
-    for (let r = 0; r < 24; r++)
-    {
+    const numCols = 6 // would just need arathi's num from the calendar
+    for (let r = 0; r < 24; r++) {
       let children = []
-      let scale = r * numCols;
+      let scale = r * numCols
 
-      for (let c = 0 + scale; c < numCols + scale; c++)
-      {
+      for (let c = 0 + scale; c < numCols + scale; c++) {
         children.push(this.renderEntry(c))
       }
 
@@ -66,17 +66,13 @@ class Board extends React.Component {
         <div key={r} className="board-row">
           {children}
         </div>
-
       )
-
     }
 
     return (
       <div>
         <div className="status">{status}</div>
-        <div>
-          {rows}
-        </div>
+        <div>{rows}</div>
       </div>
     )
   }
