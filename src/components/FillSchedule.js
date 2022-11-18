@@ -30,14 +30,14 @@ class Board extends React.Component {
     }
   }
 
-  handleClick(i) {
-    console.log("clicked!")
-    const entries = this.state.entries.slice()
-    this.state.entries[i] === null ? (entries[i] = "X") : (entries[i] = null)
-    this.setState({
-      entries: entries,
-    })
-  }
+  // handleClick(i) {
+  //   console.log("clicked!")
+  //   const entries = this.state.entries.slice()
+  //   this.state.entries[i] === null ? (entries[i] = "X") : (entries[i] = null)
+  //   this.setState({
+  //     entries: entries,
+  //   })
+  // }
 
   renderEntry(i) {
     return (
@@ -45,7 +45,7 @@ class Board extends React.Component {
         value={this.state.entries[i]}
         onClick={(event) => {
           event.target.style.background =
-            event.target.style.background === "black" ? "white" : "black"
+            event.target.style.background === "#2D68C4" ? "white" : "#2D68C4"
         }}
       />
     )
@@ -54,6 +54,7 @@ class Board extends React.Component {
   render() {
     const status = "Your availibility:"
     let rows = []
+    //let dateRows = []
     const numCols = 6 // would just need arathi's num from the calendar
     for (let r = 0; r < 24; r++) {
       let children = []
@@ -70,9 +71,18 @@ class Board extends React.Component {
       )
     }
 
+    // let dateChildren = []
+    // for (let dc = 0; dc < numCols; dc++)
+    // {
+    //   dateChildren.push(
+    //     <div key={dc} className="dates"></div>
+    //   )
+    // }
+
     return (
       <div>
         <div className="status">{status}</div>
+        {/* <div className="dates">{dateChildren}</div> */}
         <div>{rows}</div>
       </div>
     )
