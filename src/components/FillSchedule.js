@@ -45,7 +45,7 @@ class Board extends React.Component {
         value={this.state.entries[i]}
         onClick={(event) => {
           event.target.style.background =
-            event.target.style.background === "#2D68C4" ? "white" : "#2D68C4"
+            event.target.style.background === "skyblue" ? "white" : "skyblue"
         }}
       />
     )
