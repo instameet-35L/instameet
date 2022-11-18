@@ -32,6 +32,10 @@ ol, ul {
   width: 40px;
 }
 
+.entry:hover {
+  background: rgb(30, 126, 210);
+}
+
 .dates {
   background: #fff;
   border: 1px solid #999;
