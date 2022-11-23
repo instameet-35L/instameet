@@ -8,7 +8,7 @@ import TitleForm from "../components/TitleForm"
 
 export default function Home() {
   const [title, setTitle] = useState()
-  const [value, setValue] = useState(new Date())
+  const [timeframe, setValue] = useState(new Date())
 
   return (
     <div className="main">
@@ -23,14 +23,11 @@ export default function Home() {
           />
         </a>
       </div>
-      <Cal myValue={value} mySetValue={setValue} />
+      <Cal myValue={timeframe} mySetValue={setValue} />
       <TitleForm setTitle={setTitle} />
       <CreateMeeting
         title={title}
-        timeframe={{
-          start: new Date("2022-11-10"),
-          end: new Date(),
-        }}
+        timeframe={{ start: timeframe[0], end: timeframe[1] }}
         creator={{ mongoId: 1, name: "Paul Zhang" }}
       />
       <Game />
