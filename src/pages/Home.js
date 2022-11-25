@@ -2,7 +2,7 @@ import "../css/Home.css"
 import React, { useState } from "react"
 import Cal from "../components/Cal.js"
 import TestAPI from "../components/TestAPI"
-import Game from "../components/FillSchedule" // Missy added for testing
+import Board from "../components/FillSchedule" // Missy added for testing
 import CreateMeeting from "../components/CreateMeeting"
 import TitleForm from "../components/TitleForm"
 
@@ -30,7 +30,7 @@ export default function Home() {
         timeframe={{ start: timeframe[0], end: timeframe[1] }}
         creator={{ mongoId: 1, name: "Paul Zhang" }}
       />
-      <Game />
+      <Board />
     </div>
   )
 }

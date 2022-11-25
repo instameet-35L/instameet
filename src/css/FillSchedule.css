@@ -22,7 +22,7 @@ ol, ul {
   background: #fff;
   border: 1px solid #000;
   float: left;
-  font-size: 16px;
+  font-size: 8px;
   font-weight: bold;
   line-height: 25px;
   height: 25px;
@@ -76,14 +76,14 @@ ol, ul {
   background: #ddd;
 }
 
-.game {
+/* .board {
   display: flex;
   flex-direction: row;
-}
+} */
 
-.game-info {
+/* .game-info {
   margin-left: 20px;
-}
+} */
 
 /* .tableHover :hover {
   color: white;
