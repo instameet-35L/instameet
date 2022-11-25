@@ -22,11 +22,21 @@ function Entry(props) {
   )
 }
 
+function DateEntry(props) {
+  return (
+    <div className="dateEntry">
+      date
+      {props.value}
+    </div>
+  )
+}
+
 class Board extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       entries: Array(100).fill(null), // should this be array(100) or should there not be a specific sizE??
+      dateEntries: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     }
   }
 
@@ -39,10 +49,14 @@ class Board extends React.Component {
   //   })
   // }
 
+  // loopDates(i){
+
+  // }
+
   renderEntry(i) {
     return (
       <Entry
-        value={this.state.entries[i]}
+       // value={this.state.entries[i]}
         onClick={(event) => {
           event.target.style.background =
             event.target.style.background === "skyblue" ? "white" : "skyblue"
@@ -51,11 +65,20 @@ class Board extends React.Component {
     )
   }
 
+  renderDateEntry(i) {
+    return (
+      <DateEntry
+        value={this.state.dateEntries[i]}
+      />
+    )
+  }
+
   render() {
     const status = "Your availibility:"
     let rows = []
-    //let dateRows = []
+    let dateRows = []
     const numCols = 6 // would just need arathi's num from the calendar
+    let dateChildren = []
     for (let r = 0; r < 24; r++) {
       let children = []
       let scale = r * numCols
@@ -65,11 +88,20 @@ class Board extends React.Component {
       }
 
       rows.push(
-        <div key={r} className="board-row">
-          {children}
-        </div>
+          <div key={r} className="board-row">
+            {children}
+          </div>
       )
     }
+    // creating the row of dates below
+    for (let c = 0; c < numCols; c++) {
+      dateChildren.push(this.renderDateEntry(c))
+    }
+    dateRows.push(
+      <div key={0} className="board-row">
+            {dateChildren}
+      </div>
+    )
 
     // let dateChildren = []
     // for (let dc = 0; dc < numCols; dc++)
@@ -83,6 +115,8 @@ class Board extends React.Component {
       <div>
         <div className="status">{status}</div>
         {/* <div className="dates">{dateChildren}</div> */}
+        <div>{dateRows}</div>
+        {/* <p>Test, above are the dates</p> */}
         <div>{rows}</div>
       </div>
     )

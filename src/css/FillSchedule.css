@@ -17,6 +17,7 @@ ol, ul {
   margin-bottom: 10px;
 }
 
+
 .entry {
   background: #fff;
   border: 1px solid #000;
@@ -32,11 +33,27 @@ ol, ul {
   width: 40px;
 }
 
+.dateEntry {
+  background: rgb(235, 111, 111);
+  border: 1px solid #000;
+  float: left;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 25px;
+  height: 25px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 40px;
+}
+
 .entry:hover {
+  cursor: pointer;
   background: rgb(30, 126, 210);
 }
 
-.dates {
+/* .dates {
   background: #fff;
   border: 1px solid #999;
   float: left;
@@ -49,7 +66,7 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 40px;
-}
+} */
 
 .entry:focus {
   outline: none;
