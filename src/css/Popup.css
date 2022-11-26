@@ -1,0 +1,20 @@
+.notification_wrapper {
+    /* background-color: red; */
+    border:dotted black;
+    border-style: hidden hidden dashed hidden;
+    /* width: 100vw; */
+    /* height: 40px; */
+    padding: 10px; /* T L B R */
+}
+.wrapper {
+    border: solid black;
+    border-width: 5px ;
+    width: 25vw;
+    padding: 20px;
+}
+.contentfraction {
+    margin-top:10px;
+}
+.contenttime {
+    margin-top:10px;
+}
