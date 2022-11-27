@@ -25,7 +25,7 @@ function Cal({ myValue, setMyValue }) {
     return numDays
   }
   return (
-    <div className="calender">
+    <div className="calendar">
       <div>
         <form>
           {/* <label for="scheduleName">Please enter your event name below: </label> */}
@@ -35,7 +35,7 @@ function Cal({ myValue, setMyValue }) {
         </form>
         <p>Please select a range of dates that is 14 days or less</p>
       </div>
-      <div className="calendar">
+      <div className="calComponent">
         <Calendar
           onChange={setMyValue} //when a date is clicked
           value={myValue} //date = value

@@ -30,7 +30,7 @@ export default function Home() {
         timeframe={{ start: timeframe[0], end: timeframe[1] }}
         creator={{ mongoId: 1, name: "Paul Zhang" }}
       />
-      <Board />
+      {/* <Board /> */}
     </div>
   )
 }

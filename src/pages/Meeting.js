@@ -21,26 +21,21 @@ export default function Meeting() {
 
   return (
     <>
-    {/* <div className="flex flex-row basis=1/3">
-      <Game/>
-    </div>
-    <div className="flex flex-row basis=1/3">{JSON.stringify(meeting)}</div> */}
-    <div className="text-center content-center justify-evenly">
-    <div className="text-lg">INSERT NAV BAR HERE</div>
-    <div className="flex flex-row space-x-2">
+    <div className="content-center">
+    <div className="text-center text-lg">INSERT NAV BAR HERE</div>
+    <div className="flex flex-row space-x-2 justify-center">
       <div className="flex-grow: 1 flex-nowrap min-w-[33%]"><Board/></div>
       <div className="flex-grow: 1 flex-nowrap min-w-[33%]"><Board/></div>
-      <div className="flex-grow: 1 max-w-[20%]">
+      <div className="flex-grow: 1 max-w-[20%] content-center">
         <fieldset>
-        <legend>Choose whose schedules to display:</legend>
+        <legend>Select whose schedules to display:</legend>
             <div>
-              <input type="checkbox" id="scales" name="scales"/>
-              <label for="scales">Scales</label>
+              <input type="checkbox" id="A" name="People" value="A"/>
+              <label for="A">Person A</label>
             </div>
-
             <div>
-              <input type="checkbox" id="horns" name="horns"/>
-              <label for="horns">Horns</label>
+              <input type="checkbox" id="B" name="People" value="B"/>
+              <label for="B">Person B</label>
             </div>
         </fieldset>
         {JSON.stringify(meeting)}
