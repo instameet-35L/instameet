@@ -14,20 +14,91 @@ import "../css/FillSchedule.css"
  *     along that style.
  */
 
+/*==========================MANAGING DIFF COLORS OF GROUP ENTRIES BELOW=============================*/
+
 function GroupEntry(props) {
   return (
-  <div>
-    {/* <style>
-      .groupEntry {
-        background-color: red;
-      }
-    </style> */}
-    <div className="groupEntry" >
+    <div className="groupEntry bg-blue-000">
       {props.value}
     </div>
-  </div>
   )
 }
+// 100, 300, 400, 500, 700, 800
+
+function GroupEntry100(props) {
+  return (
+    <div className="groupEntry bg-blue-100">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry200(props) {
+  return (
+    <div className="groupEntry bg-blue-200">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry300(props) {
+  return (
+    <div className="groupEntry bg-blue-300">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry400(props) {
+  return (
+    <div className="groupEntry bg-blue-400">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry500(props) {
+  return (
+    <div className="groupEntry bg-blue-500">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry600(props) {
+  return (
+    <div className="groupEntry bg-blue-600">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry700(props) {
+  return (
+    <div className="groupEntry bg-blue-700">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry800(props) {
+  return (
+    <div className="groupEntry bg-blue-800">
+      {props.value}
+    </div>
+  )
+}
+
+function GroupEntry900(props) {
+  return (
+    <div className="groupEntry bg-blue-900">
+      {props.value}
+    </div>
+  )
+}
+
+/*==========================MANAGING DIFF COLORS OF GROUP ENTRIES ABOVE=============================*/
+
 
 function DateEntry(props) {
   return (
@@ -69,12 +140,82 @@ class GroupBoard extends React.Component {
   //   })
   // }
 
+  renderSwitch(numUsrsAvail, i) {
+    switch(numUsrsAvail) {
+      case 0:
+        return (
+        <GroupEntry
+          value={i}
+        />
+        )
+      case 1:
+        return (
+        <GroupEntry100
+          value={i}
+        />
+        )
+      case 2:
+        return (
+        <GroupEntry200
+          value={i}
+        />
+        )
+      case 3:
+        return (
+        <GroupEntry300
+          value={i}
+        />
+        )
+      case 4:
+        return (
+        <GroupEntry400
+          value={i}
+        />
+        )
+      case 5:
+        return (
+        <GroupEntry500
+          value={i}
+        />
+        )
+      case 6:
+        return (
+        <GroupEntry600
+          value={i}
+        />
+        )
+      case 7:
+        return (
+        <GroupEntry700
+          value={i}
+        />
+        )
+      case 8:
+        return (
+        <GroupEntry800
+          value={i}
+        />
+        )
+      default:
+        return (
+          <GroupEntry900
+            value={i}
+          />
+          )
+    }
+  }
 
-  renderGroupEntry(i, numClicks) {
+  renderGroupEntry(i, numUsrsAvail) {
     return (
-      <GroupEntry
-        value={i}
-      />
+      <div>
+        <div>
+          {this.renderSwitch(numUsrsAvail, i)}
+        </div>
+        {/* <GroupEntry
+          value={i}
+          colorScale={numUsrsAvail}
+        /> */}
+      </div>
     )
   }
 
@@ -102,7 +243,7 @@ class GroupBoard extends React.Component {
     let dateChildren = []
     let timeI = 0
     let entryI = 0
-    let numClicks = 5
+    let numUsrsAvail = 0
     // let colorArray = [[1, 2, 3], 
     //                   [4, 5, 6]]
     for (let r = 0; r < 17; r++) {
@@ -115,8 +256,9 @@ class GroupBoard extends React.Component {
           timeI++
         }
         else {
-          children.push(this.renderGroupEntry(entryI, numClicks)) // 5*r + c // , colorArray[r][c] 
+          children.push(this.renderGroupEntry(entryI, numUsrsAvail)) // 5*r + c // , colorArray[r][c] 
           entryI++
+          numUsrsAvail++
         }
       }
 
@@ -125,6 +267,7 @@ class GroupBoard extends React.Component {
             {children}
           </div>
       )
+      numUsrsAvail++
     }
     // creating the row of dates below
     for (let c = 0; c < numCols; c++) {
