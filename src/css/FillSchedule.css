@@ -33,6 +33,21 @@ ol, ul {
   width: 50px;
 }
 
+.groupEntry {
+  background: #fff;
+  border: 1px solid #000;
+  float: left;
+  font-size: 8px;
+  font-weight: bold;
+  line-height: 25px;
+  height: 25px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+}
+
 .dateEntry {
   background: rgb(235, 111, 111);
   border: 1px solid #000;

@@ -14,11 +14,18 @@ import "../css/FillSchedule.css"
  *     along that style.
  */
 
-function Entry(props) {
+function GroupEntry(props) {
   return (
-    <button className="entry" onClick={props.onClick}>
+  <div>
+    {/* <style>
+      .groupEntry {
+        background-color: red;
+      }
+    </style> */}
+    <div className="groupEntry" >
       {props.value}
-    </button>
+    </div>
+  </div>
   )
 }
 
@@ -39,11 +46,11 @@ function TimeEntry(props) {
   )
 }
 
-class Board extends React.Component {
+class GroupBoard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: Array(100).fill(null), // should this be array(100) or should there not be a specific sizE??
+      groupEntries: Array(100).fill(null), // should this be array(100) or should there not be a specific sizE??
       dateEntries: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],  // put each date here
       timeEntries: ["6:00 AM", "7:00 AM", "8:00 AM",
         "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
@@ -63,14 +70,10 @@ class Board extends React.Component {
   // }
 
 
-  renderEntry(i) {
+  renderGroupEntry(i, numClicks) {
     return (
-      <Entry
+      <GroupEntry
         value={i}
-        onClick={(event) => {
-          event.target.style.background =
-            event.target.style.background === "skyblue" ? "white" : "skyblue"
-        }}
       />
     )
   }
@@ -92,24 +95,27 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = "Your availibility:"
+    const status = "Group availibility:"
     let rows = []
     let dateRows = []
     const numCols = 8 // would just need arathi's num from the calendar
     let dateChildren = []
     let timeI = 0
     let entryI = 0
+    let numClicks = 5
+    // let colorArray = [[1, 2, 3], 
+    //                   [4, 5, 6]]
     for (let r = 0; r < 17; r++) {
       let children = []
-      let scale = r * numCols
-      for (let c = 0 + scale; c < numCols + scale; c++) {
-        if ((c + scale) % scale === 0 || c === 0)
+      // let scale = r * numCols
+      for (let c = 0; c < numCols; c++) {
+        if (c === 0) // (c + scale) % scale === 0 || 
         {
           children.push(this.renderTimeEntry(timeI))
           timeI++
         }
         else {
-          children.push(this.renderEntry(entryI))
+          children.push(this.renderGroupEntry(entryI, numClicks)) // 5*r + c // , colorArray[r][c] 
           entryI++
         }
       }
@@ -130,36 +136,28 @@ class Board extends React.Component {
       </div>
     )
 
-    // let dateChildren = []
-    // for (let dc = 0; dc < numCols; dc++)
-    // {
-    //   dateChildren.push(
-    //     <div key={dc} className="dates"></div>
-    //   )
-    // }
-
     return (
-      <div>
-        <div className="status">{status}</div>
-        {/* <div>{startDate}</div> */}
-        {/* <div className="dates">{dateChildren}</div> */}
-        <div>{dateRows}</div>
-        {/* <p>Test, above are the dates</p> */}
-        <div>{rows}</div>
-      </div>
-    )
+        <div>
+          <div className="status">{status}</div>
+          {/* <div>{startDate}</div> */}
+          {/* <div className="dates">{dateChildren}</div> */}
+          <div>{dateRows}</div>
+          {/* <p>Test, above are the dates</p> */}
+          <div>{rows}</div>
+        </div>
+      )
+    }
   }
-}
-
-export default Board
-
-/*CONCERNS
-- I need to use some sort of onClick() thing, but I am not sure
-if we want users to be able to drag their availibity or if they
-would have to click each box (each hr) of their availibility
-- I need to get data from the setupCal (I need to see how many
-days the event planner chose; how do I do this?)
-- Need to make box change color when its selected
-*/
-// How do i get this to displayyyyyyy...
-
+  
+  export default GroupBoard
+  
+  /*CONCERNS
+  - I need to use some sort of onClick() thing, but I am not sure
+  if we want users to be able to drag their availibity or if they
+  would have to click each box (each hr) of their availibility
+  - I need to get data from the setupCal (I need to see how many
+  days the event planner chose; how do I do this?)
+  - Need to make box change color when its selected
+  */
+  // How do i get this to displayyyyyyy...
+  
