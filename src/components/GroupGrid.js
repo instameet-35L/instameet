@@ -14,109 +14,6 @@ import "../css/FillSchedule.css"
  *     along that style.
  */
 
-/*==========================MANAGING DIFF COLORS OF GROUP ENTRIES BELOW=============================*/
-
-function GroupEntry(props) {
-  return (
-    <div className="groupEntry bg-blue-000">
-      {props.value}
-    </div>
-  )
-}
-// 100, 300, 400, 500, 700, 800
-
-function GroupEntry100(props) {
-  return (
-    <div className="groupEntry bg-blue-100">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry200(props) {
-  return (
-    <div className="groupEntry bg-blue-200">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry300(props) {
-  return (
-    <div className="groupEntry bg-blue-300">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry400(props) {
-  return (
-    <div className="groupEntry bg-blue-400">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry500(props) {
-  return (
-    <div className="groupEntry bg-blue-500">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry600(props) {
-  return (
-    <div className="groupEntry bg-blue-600">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry700(props) {
-  return (
-    <div className="groupEntry bg-blue-700">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry800(props) {
-  return (
-    <div className="groupEntry bg-blue-800">
-      {props.value}
-    </div>
-  )
-}
-
-function GroupEntry900(props) {
-  return (
-    <div className="groupEntry bg-blue-900">
-      {props.value}
-    </div>
-  )
-}
-
-/*==========================MANAGING DIFF COLORS OF GROUP ENTRIES ABOVE=============================*/
-
-
-function DateEntry(props) {
-  return (
-    <div className="dateEntry">
-      date
-      {props.value1}
-    </div>
-  )
-}
-
-function TimeEntry(props) {
-  return (
-    <div className="dateEntry">
-      {props.value2}
-    </div>
-  )
-}
-
 class GroupBoard extends React.Component {
   constructor(props) {
     super(props)
@@ -144,64 +41,67 @@ class GroupBoard extends React.Component {
     switch(numUsrsAvail) {
       case 0:
         return (
-        <GroupEntry
-          value={i}
-        />
+        // <GroupEntry
+        //   value={i}
+        // />
+          <div className="groupEntry bg-blue-000">
+            {i}
+          </div>
         )
       case 1:
         return (
-        <GroupEntry100
-          value={i}
-        />
+          <div className="groupEntry bg-blue-100">
+            {i}
+          </div>
         )
       case 2:
         return (
-        <GroupEntry200
-          value={i}
-        />
+          <div className="groupEntry bg-blue-200">
+            {i}
+          </div>
         )
       case 3:
         return (
-        <GroupEntry300
-          value={i}
-        />
+          <div className="groupEntry bg-blue-300">
+            {i}
+          </div>
         )
       case 4:
         return (
-        <GroupEntry400
-          value={i}
-        />
+          <div className="groupEntry bg-blue-400">
+            {i}
+          </div>
         )
       case 5:
         return (
-        <GroupEntry500
-          value={i}
-        />
+          <div className="groupEntry bg-blue-500">
+            {i}
+          </div>
         )
       case 6:
         return (
-        <GroupEntry600
-          value={i}
-        />
+          <div className="groupEntry bg-blue-600">
+            {i}
+          </div>
         )
       case 7:
         return (
-        <GroupEntry700
-          value={i}
-        />
+          <div className="groupEntry bg-blue-700">
+            {i}
+          </div>
         )
       case 8:
         return (
-        <GroupEntry800
-          value={i}
-        />
+          <div className="groupEntry bg-blue-800">
+            {i}
+          </div>
         )
       default:
         return (
-          <GroupEntry900
-            value={i}
-          />
-          )
+          <div className="groupEntry bg-blue-900">
+            {i}
+          </div>
+        )
     }
   }
 
@@ -211,27 +111,24 @@ class GroupBoard extends React.Component {
         <div>
           {this.renderSwitch(numUsrsAvail, i)}
         </div>
-        {/* <GroupEntry
-          value={i}
-          colorScale={numUsrsAvail}
-        /> */}
       </div>
     )
   }
 
   renderDateEntry(i) {
     return (
-      <DateEntry
-        value1={this.state.dateEntries[i]}
-      />
+      <div className="dateEntry">
+        date
+        {this.state.dateEntries[i]}
+      </div>
     )
   }
 
   renderTimeEntry(i) {
     return (
-      <TimeEntry
-        value2={this.state.timeEntries[i]}
-      />
+      <div className="dateEntry">
+        {this.state.timeEntries[i]}
+      </div>
     )
   }
 
