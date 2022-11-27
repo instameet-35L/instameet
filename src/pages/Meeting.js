@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Board from "../components/FillSchedule" //grid component for individuals
+import GroupBoard from "../components/GroupGrid"
 
 export default function Meeting() {
   const meetingId = useParams().meetingId
@@ -28,8 +29,9 @@ export default function Meeting() {
     <div className="text-center content-center justify-evenly">
     <div className="text-lg">INSERT NAV BAR HERE</div>
     <div className="flex flex-row space-x-2">
-      <div className="flex-grow: 1 flex-nowrap min-w-[33%]"><Board/></div>
-      <div className="flex-grow: 1 flex-nowrap min-w-[33%]"><Board/></div>
+      <div className="flex-grow: 1 flex-nowrap min-w-[33%]"><Board /></div>
+      {/* maybe add: <Board startDate={meeting.timeframe.start} /> */}
+      <div className="flex-grow: 1 flex-nowrap min-w-[33%]"><GroupBoard/></div>
       <div className="flex-grow: 1 max-w-[20%]">
         <fieldset>
         <legend>Choose whose schedules to display:</legend>
