@@ -5,7 +5,7 @@ import Input from "./Input"
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
 
-function Cal({myValue, mySetValue}) {
+function Cal({myValue, setMyValue}) {
   const GetNumberOfDays = (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -26,7 +26,7 @@ function Cal({myValue, mySetValue}) {
     <div className="main">
       <div>
         <form>
-          <label for="scheduleName">Please enter your event name below: </label>
+          {/* <label for="scheduleName">Please enter your event name below: </label> */}
           <br />
           <Input />
           {/* <input type="text" id="scheduleName" name="scheduleName"/> */}
@@ -35,7 +35,7 @@ function Cal({myValue, mySetValue}) {
       </div>
       <div className="calendar">
         <Calendar
-          onChange={mySetValue} //when a date is clicked
+          onChange={setMyValue} //when a date is clicked
           value={myValue} //date = value
           selectRange={true} //can select a range of dates
           //allowPartialRange={true}
@@ -48,8 +48,19 @@ function Cal({myValue, mySetValue}) {
            &nbsp;&nbsp;|&nbsp; &nbsp;
            <span>End:</span> {myValue[1].toDateString()}
            </p>) 
-        : (myValue.length > 1 && <p><span style={{color: "red"}}>ERROR: </span>
-                                Please select a range that has 14 days or less</p>)}
+        : (myValue.length > 1 
+              && (
+                <div>
+                  <p><span style={{color: "red"}}>ERROR: </span>
+                  Please select a range that has 14 days or less</p>
+                   {/* {setMyValue(null)}
+                  {(myValue===null) ?
+                    (console.log("HEY WE MADE IT NULL"))
+                  : (console.log("UH OH"))} */}
+                </div>
+              ))}
+          <br></br>
+        {/* if error set value to null */}
       </div>
     </div>
   )

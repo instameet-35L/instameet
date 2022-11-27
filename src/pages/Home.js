@@ -8,7 +8,7 @@ import TitleForm from "../components/TitleForm"
 
 export default function Home() {
   const [title, setTitle] = useState()
-  const [timeframe, setValue] = useState(new Date())
+  const [timeframe, setValue] = useState(new Date())  //calendar props
 
   return (
     <div className="main">
@@ -23,8 +23,8 @@ export default function Home() {
           />
         </a>
       </div>
-      <Cal myValue={timeframe} mySetValue={setValue} />
       <TitleForm setTitle={setTitle} />
+      <Cal myValue={timeframe} setMyValue={setValue} />
       <CreateMeeting
         title={title}
         timeframe={{ start: timeframe[0], end: timeframe[1] }}

@@ -95,7 +95,7 @@ class Board extends React.Component {
     const status = "Your availibility:"
     let rows = []
     let dateRows = []
-    const numCols = 8 // would just need arathi's num + 1 from the calendar
+    const numCols = 15 // would just need arathi's num from the calendar
     let dateChildren = []
     let timeI = 0
     let entryI = 0
