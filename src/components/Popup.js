@@ -1,4 +1,5 @@
 import React from "react";
+// import { useEffect, useState } from "react"
 import '../css/Popup.css'
 
 /**
@@ -17,13 +18,15 @@ const Popup = (props) => {
                     
                 </div>
                 <div className="contentfraction">
-                    {props.registered} / {props.total} has filled their availability
+                    {props.registered} people have filled their availability
           
                 </div>
                 <div className ="contenttime">
                     {props.time} is the best time
                 </div>
-
+                <div className="button bg-blue-400">
+                   Done
+                </div>
             </div>
         </div>
     )

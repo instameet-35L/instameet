@@ -1,20 +1,34 @@
 .notification_wrapper {
     /* background-color: red; */
-    border:dotted black;
+    border:dotted grey;
     border-style: hidden hidden dashed hidden;
     /* width: 100vw; */
     /* height: 40px; */
     padding: 10px; /* T L B R */
+    font-size: 18px;
 }
 .wrapper {
-    border: solid black;
+    border: solid grey;
     border-width: 5px ;
     width: 25vw;
     padding: 20px;
+    border-radius: 25px;
 }
 .contentfraction {
     margin-top:10px;
 }
 .contenttime {
     margin-top:10px;
+}
+.button {
+
+  /* background-color: #4CAF50; Green */
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 11px;
+  margin-top:10px;
 }
