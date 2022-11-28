@@ -3,10 +3,12 @@ const {
   createMeeting,
   getMeeting,
   getAllMeeting,
+  getOrInsertUser,
 } = require("../services/meeting")
 
 const router = express.Router()
 
+// Creates a new meeting
 router.post("/new", (req, res) => {
   // Call service-layer function createMeeting
   createMeeting(req.body)
@@ -19,7 +21,8 @@ router.post("/new", (req, res) => {
     })
 })
 
-router.get("/id/:meetingId", (req, res) => {
+// Retrieves JSON object representing a meeting's data
+router.get("/get/:meetingId", (req, res) => {
   getMeeting(req.params.meetingId)
     .then((response) => {
       res.status(200).send(response)
@@ -29,6 +32,22 @@ router.get("/id/:meetingId", (req, res) => {
     })
 })
 
+// Update meeting data in database
+router.post("/update/:meetingId", (req, res) => {
+  if (req.body.user !== undefined) {
+    getOrInsertUser(req.params.meetingId, req.body.user)
+      .then((response) => res.status(200).send(response))
+      .catch((error) => {
+        res.status(400).send(error)
+      })
+  } else {
+    res.status(400).send("No user defined")
+  }
+})
+
+// Retrieves all meetings.
+//
+// TODO: Do we need this?
 router.get("/all", (req, res) => {
   getAllMeeting()
     .then((response) => {

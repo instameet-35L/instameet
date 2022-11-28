@@ -10,19 +10,18 @@ import NavBar from "../components/NavBar"
 
 export default function Home() {
   const [title, setTitle] = useState()
-  const [timeframe, setValue] = useState(new Date()) //calendar props
+  const [timeframe, setTimeframe] = useState(new Date()) //calendar props
 
   return (
     <div className="main flex grow flex-col items-stretch pb-20 gap-5 bg-[#FAF9F6]">
       <NavBar />
       <div className="flex grow justify-evenly">
         <TitleForm setTitle={setTitle} />
-        <Cal myValue={timeframe} setMyValue={setValue} />
+        <Cal myValue={timeframe} setMyValue={setTimeframe} />
       </div>
       <CreateMeeting
         title={title}
         timeframe={{ start: timeframe[0], end: timeframe[1] }}
-        creator={{ mongoId: 1, name: "Paul Zhang" }}
       />
       {/* <Board /> */}
     </div>

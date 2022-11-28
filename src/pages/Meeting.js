@@ -2,14 +2,18 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Board from "../components/FillSchedule" //grid component for individuals
 import GroupBoard from "../components/GroupGrid"
+import LoginForm from "../components/LoginForm"
 
 export default function Meeting() {
   const meetingId = useParams().meetingId
   const [meeting, setMeeting] = useState(null)
 
+  // Make sure this is defined before the meeting schedule can be edited
+  const [name, setName] = useState(null)
+
   useEffect(() => {
     async function getMeeting(id) {
-      const response = await fetch(`/api/meeting/id/${id}`)
+      const response = await fetch(`/api/meeting/get/${id}`)
       const body = await response.json()
 
       setMeeting(body)
@@ -25,6 +29,9 @@ export default function Meeting() {
       <div className="content-center">
         <div className="text-center text-lg">INSERT NAV BAR HERE</div>
         <div className="flex flex-row space-x-2 justify-center">
+          <div className="flex-grow: 1 flex-nowrap min-w-[33%]">
+            <LoginForm setName={setName} meetingId={meetingId} />
+          </div>
           <div className="flex-grow: 1 flex-nowrap min-w-[33%]">
             <Board />
           </div>

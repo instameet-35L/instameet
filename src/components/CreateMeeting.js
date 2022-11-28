@@ -21,11 +21,13 @@ export default function CreateMeeting({ title, timeframe, creator }) {
       },
       body: JSON.stringify(newMeetingData),
     })
-    const data = await response.json()
 
-    if (response.status !== 200) {
+    if (!response.ok) {
       setIsValid(false)
+      return
     }
+
+    const data = await response.json()
 
     setMeetingId(data._id)
   }
@@ -46,7 +48,7 @@ export default function CreateMeeting({ title, timeframe, creator }) {
           class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <p class="font-bold">u done messed up ur input</p>
+          <p class="font-bold">Invalid input</p>
         </div>
       )}
     </div>
