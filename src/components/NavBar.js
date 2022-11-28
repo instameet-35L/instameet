@@ -17,7 +17,9 @@ export default function NavBar() {
         <a className="pr-2" href="localhost:3000">
           Home
         </a>
-        <a className="border-l border-dotted pl-2">About</a>
+        <a className="border-l-2 pl-2" href="/about">
+          About
+        </a>
       </div>
     </div>
   )

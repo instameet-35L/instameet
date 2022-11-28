@@ -10,7 +10,7 @@ app.use(
   morgan(
     {
       connectionString:
-        "mongodb+srv://admin:8SNACsvytPppuy61@instameet.curxeae.mongodb.net/httplog?retryWrites=true&w=majority",
+        "mongodb+srv://admin:FD1V0ZHFdfSOSJK2@instameet.curxeae.mongodb.net/httplog?retryWrites=true&w=majority",
       collection: "logs",
       dbName: "httplogs",
     },

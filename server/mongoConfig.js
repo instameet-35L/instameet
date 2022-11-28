@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const connect = () => {
   const url =
-    "mongodb+srv://admin:8SNACsvytPppuy61@instameet.curxeae.mongodb.net/testMeetings?retryWrites=true&w=majority"
+    "mongodb+srv://admin:FD1V0ZHFdfSOSJK2@instameet.curxeae.mongodb.net/testMeetings?retryWrites=true&w=majority"
   mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
