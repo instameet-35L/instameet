@@ -32,11 +32,7 @@ function DateEntry(props) {
 }
 
 function TimeEntry(props) {
-  return (
-    <div className="dateEntry">
-      {props.value2}
-    </div>
-  )
+  return <div className="dateEntry">{props.value2}</div>
 }
 
 class Board extends React.Component {
@@ -44,12 +40,26 @@ class Board extends React.Component {
     super(props)
     this.state = {
       entries: Array(100).fill(null), // should this be array(100) or should there not be a specific sizE??
-      dateEntries: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],  // put each date here
-      timeEntries: ["6:00 AM", "7:00 AM", "8:00 AM",
-        "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
-        "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", 
-        "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM",
-        "9:00 PM", "10:00 PM"]
+      dateEntries: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], // put each date here
+      timeEntries: [
+        "6:00 AM",
+        "7:00 AM",
+        "8:00 AM",
+        "9:00 AM",
+        "10:00 AM",
+        "11:00 AM",
+        "12:00 PM",
+        "1:00 PM",
+        "2:00 PM",
+        "3:00 PM",
+        "4:00 PM",
+        "5:00 PM",
+        "6:00 PM",
+        "7:00 PM",
+        "8:00 PM",
+        "9:00 PM",
+        "10:00 PM",
+      ],
     }
   }
 
@@ -61,7 +71,6 @@ class Board extends React.Component {
   //     entries: entries,
   //   })
   // }
-
 
   renderEntry(i) {
     return (
@@ -76,19 +85,11 @@ class Board extends React.Component {
   }
 
   renderDateEntry(i) {
-    return (
-      <DateEntry
-        value1={this.state.dateEntries[i]}
-      />
-    )
+    return <DateEntry value1={this.state.dateEntries[i]} />
   }
 
   renderTimeEntry(i) {
-    return (
-      <TimeEntry
-        value2={this.state.timeEntries[i]}
-      />
-    )
+    return <TimeEntry value2={this.state.timeEntries[i]} />
   }
 
   render() {
@@ -103,21 +104,19 @@ class Board extends React.Component {
       let children = []
       let scale = r * numCols
       for (let c = 0 + scale; c < numCols + scale; c++) {
-        if ((c + scale) % scale === 0 || c === 0)
-        {
+        if ((c + scale) % scale === 0 || c === 0) {
           children.push(this.renderTimeEntry(timeI))
           timeI++
-        }
-        else {
+        } else {
           children.push(this.renderEntry(entryI))
           entryI++
         }
       }
 
       rows.push(
-          <div key={r} className="board-row">
-            {children}
-          </div>
+        <div key={r} className="board-row">
+          {children}
+        </div>
       )
     }
     // creating the row of dates below
@@ -126,7 +125,7 @@ class Board extends React.Component {
     }
     dateRows.push(
       <div key={0} className="board-row">
-            {dateChildren}
+        {dateChildren}
       </div>
     )
 
@@ -139,11 +138,13 @@ class Board extends React.Component {
     // }
 
     return (
-      <div>
+      <div className="">
         <div className="status">{status}</div>
         {/* <div>{startDate}</div> */}
         {/* <div className="dates">{dateChildren}</div> */}
-        <div>{dateRows}</div>
+        <div className="inline-block w-20 h-20 overflow-scroll whitespace-nowrap">
+          {dateRows}
+        </div>
         {/* <p>Test, above are the dates</p> */}
         <div>{rows}</div>
       </div>
@@ -162,4 +163,3 @@ days the event planner chose; how do I do this?)
 - Need to make box change color when its selected
 */
 // How do i get this to displayyyyyyy...
-
