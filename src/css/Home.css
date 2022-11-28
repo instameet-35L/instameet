@@ -42,13 +42,13 @@ body {
   justify-content: center;
 }
 
-.main {
+/* .main {
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
   flex-direction: row;
-}
+} */
 
 .logo {
   background-image: url(../../public/images/instameet-logo.jpeg);

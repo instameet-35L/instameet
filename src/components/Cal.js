@@ -25,12 +25,12 @@ function Cal({ myValue, setMyValue }) {
     return numDays
   }
   return (
-    <div className="calendar">
+    <div className="calendar self-center">
       <div>
         <form>
           {/* <label for="scheduleName">Please enter your event name below: </label> */}
           <br />
-          <Input />
+          {/* <Input /> */}
           {/* <input type="text" id="scheduleName" name="scheduleName"/> */}
         </form>
         <p>Please select a range of dates that is 14 days or less</p>
