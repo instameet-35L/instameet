@@ -6,6 +6,12 @@
     /* height: 40px; */
     padding: 10px; /* T L B R */
     font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; 
+    padding-bottom: 10px;
 }
 .wrapper {
     border: solid grey;
@@ -31,4 +37,15 @@
   display: inline-block;
   font-size: 11px;
   margin-top:10px;
+}
+
+.close {
+    transition: all 200ms ease-in-out; 
+    padding: 5px; 
+    border-radius: 50%;
+}
+
+.close:hover {
+    background-color: rgba(0, 0, 0, 0.126);
+    transform: scale(1.3);
 }
