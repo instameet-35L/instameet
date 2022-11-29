@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "../css/FillSchedule.css"
 
 /*
@@ -6,76 +6,189 @@ import "../css/FillSchedule.css"
  * - Need props to be passed
  */
 
-function renderSwitch(i, numUsrsAvail) {
+//ASK PAUL TO RELOAD THE PAGE WHEN COLOR BUTTONS ARE CLICKED
+
+function renderSwitch(colorBlue, i, numUsrsAvail) {
   switch(numUsrsAvail) {
     case 0:
-      return (
-        <div className="groupEntry bg-blue-000">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-000">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-000">
+            {i}
+          </div>
+        )
+      }
+
     case 1:
-      return (
-        <div className="groupEntry bg-blue-100">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-100">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-100">
+            {i}
+          </div>
+        )
+      }
     case 2:
-      return (
-        <div className="groupEntry bg-blue-200">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-200">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-200">
+            {i}
+          </div>
+        )
+      }
     case 3:
-      return (
-        <div className="groupEntry bg-blue-300">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-300">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-300">
+            {i}
+          </div>
+        )
+      }
     case 4:
-      return (
-        <div className="groupEntry bg-blue-400">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-400">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-400">
+            {i}
+          </div>
+        )
+      }
     case 5:
-      return (
-        <div className="groupEntry bg-blue-500">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-500">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-500">
+            {i}
+          </div>
+        )
+      }
     case 6:
-      return (
-        <div className="groupEntry bg-blue-600">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-600">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-600">
+            {i}
+          </div>
+        )
+      }
     case 7:
-      return (
-        <div className="groupEntry bg-blue-700">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-700">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-700">
+            {i}
+          </div>
+        )
+      }
     case 8:
-      return (
-        <div className="groupEntry bg-blue-800">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-800">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-800">
+            {i}
+          </div>
+        )
+      }
     default:
-      return (
-        <div className="groupEntry bg-blue-900">
-          {i}
-        </div>
-      )
+      if(colorBlue)
+      {
+        return (
+          <div className="groupEntry bg-blue-900">
+            {i}
+          </div>
+        )
+      }
+      else
+      {
+        return (
+          <div className="groupEntry bg-orange-900">
+            {i}
+          </div>
+        )
+      }
   }
 }
 
-function renderGroupEntry(i, numUsrsAvail) {
+function renderGroupEntry(colorBlue, i, numUsrsAvail) {
   return (
     <div>
       <div>
-        {renderSwitch(i, numUsrsAvail)}
+        {renderSwitch(colorBlue, i, numUsrsAvail)}
       </div>
     </div>
   )
@@ -99,6 +212,7 @@ function renderTimeEntry(i, timeEntries) {
 }
 
 function GroupGrid() {
+  const [blue, setBlue] = useState(true)
   const dateEntries = ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]  // put each date here
   const timeEntries = ["6:00 AM", "7:00 AM", "8:00 AM",
     "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
@@ -136,7 +250,7 @@ function GroupGrid() {
           timeI++
         }
         else {
-          children.push(renderGroupEntry(entryI, numUsrsAvail))
+          children.push(renderGroupEntry(blue, entryI, numUsrsAvail))
           entryI++
           numUsrsAvail++
         }
@@ -152,12 +266,48 @@ function GroupGrid() {
     return rows
   }
 
+  function changeColor(event){
+    console.log("CHANGE COLOR")
+    if(event.target.value === "blue")
+    {
+      setBlue(true)
+      console.log(event.target.value + ":GOT BLUE");
+      //RELOAD THE PAGE
+    }
+    else if(event.target.value === "orange")
+    {
+      setBlue(false)
+      console.log(event.target.value + ":GOT ORANGE"); 
+      //RELOAD THE PAGE
+    } 
+  }
+
   return (
     <div>
       <div className="status">{"Group availibility:"}</div>
       {/* <div>{startDate}</div> */}
       <div>{MakeMyGridDateRow()}</div>
       <div>{MakeMyGridRows()}</div>
+      <br/>
+      <div>
+      <form>
+        <fieldset>
+          <legend>Please select the color to display on the grid:</legend>
+          <label>Blue &nbsp;
+            <input type="radio" name="color" value="blue" onChange={changeColor} defaultChecked/>
+          </label>
+          <br/>
+          <label>Orange &nbsp;
+            <input type="radio" name="color" value="orange" onChange={changeColor}/>
+          </label>
+          {/* <br/>
+          <label>Red &nbsp;
+            <input type="radio" name="color" onChange={changeColor("red")}/>
+          </label> */}
+        </fieldset>
+      </form>
+
+      </div>
     </div>
   )
 }

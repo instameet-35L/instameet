@@ -25,22 +25,22 @@ function Cal({ myValue, setMyValue }) {
     return numDays
   }
   return (
-    <div className="calendar self-center">
-      <div>
+    <div className="calendar self-center justify-items-center">
+      {/* <div>
         <form>
-          {/* <label for="scheduleName">Please enter your event name below: </label> */}
+          <label for="scheduleName">Please enter your event name below: </label>
           <br />
-          {/* <Input /> */}
-          {/* <input type="text" id="scheduleName" name="scheduleName"/> */}
+          <Input />
+          <input type="text" id="scheduleName" name="scheduleName"/>
         </form>
-        <p>Please select a range of dates that is 14 days or less</p>
-      </div>
-      <div className="calComponent">
+        
+      </div> */}
+      <div>
+      <span>Please select a range of dates that is 14 days or smaller</span>
         <Calendar
           onChange={setMyValue} //when a date is clicked
           value={myValue} //date = value
           selectRange={true} //can select a range of dates
-          //allowPartialRange={true}
         />
       </div>
       <div>
