@@ -10,7 +10,6 @@ export default function CreateMeeting({ title, timeframe, creator }) {
       meetingData: {
         title,
         timeframe,
-        users: [creator],
       },
     }
 
@@ -33,22 +32,22 @@ export default function CreateMeeting({ title, timeframe, creator }) {
   }
 
   return (
-    <div class="flex flex-col items-center space-y-5">
+    <div className="flex flex-col items-center space-y-5">
       {meetingId !== null && meetingId !== undefined && (
         <Navigate to={`/${meetingId}`} />
       )}
       <button
-        class="text-base font-medium rounded-lg p-3 bg-cyan-600 text-white w-max"
+        className="text-base font-medium rounded-lg p-3 bg-cyan-600 text-white w-max"
         onClick={requestNewMeeting}
       >
         Create Meeting
       </button>
       {!isValid && (
         <div
-          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <p class="font-bold">Invalid input</p>
+          <p className="font-bold">Invalid input</p>
         </div>
       )}
     </div>

@@ -1,12 +1,15 @@
 export default function TitleForm({ setTitle }) {
   return (
-    <form class="mb-3 xl:w-96 self-center">
-      <label class="form-label inline-block mb-2 text-gray-700" for="title">
+    <form className="mb-3 xl:w-96 self-center">
+      <label
+        className="form-label inline-block mb-2 text-gray-700"
+        htmlFor="title"
+      >
         Please enter your event name below:
       </label>
       <input
         type="text"
-        class="form-control
+        className="form-control
         block
         w-full
         px-3

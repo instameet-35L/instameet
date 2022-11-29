@@ -15,17 +15,16 @@ async function getMeeting(id) {
 async function getOrInsertUser(id, name) {
   const meeting = await getMeeting(id)
 
-  console.log(meeting.users.length)
-
   const existingUser = meeting.users.find((user) => {
     return user.name === name
   })
 
   if (existingUser === undefined) {
     meeting.users.push({ name, available: [] })
-    return await meeting.save()
+    await meeting.save()
+    return name
   } else {
-    return existingUser
+    return existingUser.name
   }
 }
 

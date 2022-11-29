@@ -2,28 +2,44 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import GroupGrid from "../components/GroupGrid"
 import IndivGrid from "../components/IndivGrid"
-import LoginForm from "../components/LoginForm"
+import Login from "../components/Login"
 import NavBar from "../components/NavBar"
 
 export default function Meeting() {
   const meetingId = useParams().meetingId
   const [meeting, setMeeting] = useState(null)
 
-  // Make sure this is defined before the meeting schedule can be edited
+  // Please don't use `setName`, that's handled by the login code
   const [name, setName] = useState(null)
 
   useEffect(() => {
     async function getMeeting(id) {
       const response = await fetch(`/api/meeting/get/${id}`)
+
+      if (!response.ok) {
+        return
+      }
+
       const body = await response.json()
 
       setMeeting(body)
     }
 
-    if (!meeting) {
+    // Necessary to prevent race conditions caused by network responses arriving
+    // out-of-order (see
+    // https://beta.reactjs.org/apis/react/useEffect#fetching-data-with-effects)
+    let fetched = false
+
+    if (!fetched) {
       getMeeting(meetingId)
     }
-  })
+
+    return () => {
+      fetched = true
+    }
+  }, [meetingId, name])
+
+  console.log([meeting, meetingId, name])
 
   return (
     <>
@@ -35,8 +51,8 @@ export default function Meeting() {
         <div className="flex flex-row space-x-2 justify-center">
           <div className="flex-grow: 1 flex-nowrap min-w-[33%]">
             <IndivGrid />
-            <br/>
-            <LoginForm setName={setName} meetingId={meetingId} />
+            <br />
+            <Login setName={setName} meetingId={meetingId} />
           </div>
           {/* maybe add: <Board startDate={meeting.timeframe.start} /> */}
           <div className="flex-grow: 1 flex-nowrap min-w-[33%]">
@@ -47,11 +63,11 @@ export default function Meeting() {
               <legend>Select whose schedules to display:</legend>
               <div>
                 <input type="checkbox" id="A" name="People" value="A" />
-                <label for="A">Person A</label>
+                <label htmlFor="A">Person A</label>
               </div>
               <div>
                 <input type="checkbox" id="B" name="People" value="B" />
-                <label for="B">Person B</label>
+                <label htmlFor="B">Person B</label>
               </div>
             </fieldset>
             {/* {JSON.stringify(meeting)} */}
