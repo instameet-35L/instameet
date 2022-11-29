@@ -17,13 +17,14 @@ export default function Meeting() {
   //not null -> someone is logged in and changing their availability
 
   const [nameDict, setNameDict] = useState(null)
-  //dictionary of all users mapped to a boolean of 
+  //dictionary of all users mapped to a boolean of
   //whether they should be displayed in the group grid
   //if bool == true --> display
   //if bool == false --> don't display
 
   useEffect(() => {
     async function getMeeting(id) {
+      console.log("god help me")
       const response = await fetch(`/api/meeting/get/${id}`)
 
       if (!response.ok) {
@@ -87,13 +88,16 @@ export default function Meeting() {
         </div>
         <div className="flex flex-row space-x-2 justify-evenly px-10">
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            <IndivGrid />
+            {/* <IndivGrid meetingInfo={meeting} currUsrName={name}/> !!! PUT BACK */}
+            <IndivGrid meetingInfo={meeting} />
             <br />
             <Login setName={setName} meetingId={meetingId} />
+            {/* ABOVE CORRECT? NOTE: !!! BROKEN  took out startDay={meeting.timeframe.start} */}
           </div>
           {/* maybe add: <Board startDate={meeting.timeframe.start} /> */}
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            <GroupGrid blue={true}/>
+            <GroupGrid nameDict={nameDict} />
+            {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
             <fieldset>
@@ -116,22 +120,20 @@ export default function Meeting() {
   )
 }
 
-function Checkboxes({username, setDict}){
-
+function Checkboxes({ username, setDict }) {
   const UpdateDisplay = () => {
-    if(this.checked)  //if check
-    {
-      console.log(username+"IS CHECKED")
-      setDict(prevState => ({...prevState, username: true}))
-    }
-    else{
-      console.log(username+"IS UNCHECKED")
-      setDict(prevState => ({...prevState, username: false}))
+    if (this.checked) {
+      //if check
+      console.log(username + "IS CHECKED")
+      setDict((prevState) => ({ ...prevState, username: true }))
+    } else {
+      console.log(username + "IS UNCHECKED")
+      setDict((prevState) => ({ ...prevState, username: false }))
     }
   }
-  return(
+  return (
     <div>
-      <input type="checkbox" onChange={UpdateDisplay}/>
+      <input type="checkbox" onChange={UpdateDisplay} />
       <label>{username}</label>
     </div>
   )
