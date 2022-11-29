@@ -17,7 +17,7 @@ export default function Meeting() {
   //not null -> someone is logged in and changing their availability
 
   const [nameDict, setNameDict] = useState(null)
-  //dictionary of all users mapped to a boolean of 
+  //dictionary of all users mapped to a boolean of
   //whether they should be displayed in the group grid
   //if bool == true --> display
   //if bool == false --> don't display
@@ -25,7 +25,6 @@ export default function Meeting() {
   useEffect(() => {
     async function getMeeting(id) {
       const response = await fetch(`/api/meeting/get/${id}`)
-
       if (!response.ok) {
         return
       }
@@ -53,34 +52,34 @@ export default function Meeting() {
 
   console.log([meeting, meetingId, name])
 
-  // function makeBoxes(){  //creates a checkbox for each user
-  //   let nameList = []
-  //   for(let i = 0; i < meeting.users.length; i++)
-  //   {
-  //     nameList.push(<Checkboxes username={meeting.users[i].name}
-  //                               setDict={setNameDict}/>)
-  //   }
+  function MakeBoxes() {
+    if (meeting === null) {
+      return
+    }
+    //creates a checkbox for each user
+    let nameList = []
+    for (let i = 0; i < meeting.users.length; i++) {
+      nameList.push(
+        <Checkboxes username={meeting.users[i].name} setDict={setNameDict} />
+      )
+      setNameDict((prevState) => ({ ...prevState, username: true }))
+    }
+    console.log("name", nameDict)
+    return <div>{nameList}</div>
+  }
 
-  //   return(
-  //     <div>
-  //       {nameList}
-  //     </div>
-  //   )
-  // }
-
-  // function createDict(){ //fills nameDict with current users
-  //   if(meeting===null)
-  //     return
-  //   for(let i = 0; i < meeting.users.length; i++)
-  //   {
+  // function createDict() {
+  //   //fills nameDict with current users
+  //   if (meeting === null) return
+  //   for (let i = 0; i < meeting.users.length; i++) {
   //     let username = meeting.users[i].name
-  //     setNameDict(prevState => ({...prevState, username: true}))
+  //     setNameDict((prevState) => ({ ...prevState, username: true }))
   //   }
   // }
 
   return (
     <>
-      <div className="content-center bg-[#FAF9F6] w-[100%]">
+      <div className="content-center bg-[#FAF9F6] grow">
         {/* <div><NavBar/></div> */}
         <div className="pb-7">
           <NavBar />
@@ -93,7 +92,7 @@ export default function Meeting() {
           </div>
           {/* maybe add: <Board startDate={meeting.timeframe.start} /> */}
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            <GroupGrid blue={true}/>
+            <GroupGrid blue={true} />
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
             <fieldset>
@@ -106,7 +105,7 @@ export default function Meeting() {
                 <input type="checkbox" id="B" name="People" value="B" />
                 <label htmlFor="B">Person B</label>
               </div>
-              {/* {makeBoxes()} */}
+              <MakeBoxes />
             </fieldset>
             {/* {JSON.stringify(meeting)} */}
           </div>
@@ -116,22 +115,25 @@ export default function Meeting() {
   )
 }
 
-function Checkboxes({username, setDict}){
-
-  const UpdateDisplay = () => {
-    if(this.checked)  //if check
-    {
-      console.log(username+"IS CHECKED")
-      setDict(prevState => ({...prevState, username: true}))
-    }
-    else{
-      console.log(username+"IS UNCHECKED")
-      setDict(prevState => ({...prevState, username: false}))
+function Checkboxes({ username, setDict }) {
+  function UpdateDisplay(checked) {
+    if (checked) {
+      //if check
+      console.log(username + "IS CHECKED")
+      setDict((prevState) => ({ ...prevState, username: true }))
+    } else {
+      console.log(username + "IS UNCHECKED")
+      setDict((prevState) => ({ ...prevState, username: false }))
     }
   }
-  return(
+
+  return (
     <div>
-      <input type="checkbox" onChange={UpdateDisplay}/>
+      <input
+        type="checkbox"
+        onChange={(event) => UpdateDisplay(event.target.value)}
+        defaultChecked
+      />
       <label>{username}</label>
     </div>
   )
