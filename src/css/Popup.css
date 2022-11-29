@@ -4,7 +4,7 @@
     border-style: hidden hidden dashed hidden;
     /* width: 100vw; */
     /* height: 40px; */
-    padding: 10px; /* T L B R */
+    padding: 5px; /* T L B R */
     font-size: 18px;
     display: flex;
     flex-direction: row;
@@ -26,10 +26,10 @@
 .contenttime {
     margin-top:10px;
 }
-.button {
+/* .button { */
 
   /* background-color: #4CAF50; Green */
-  border: none;
+  /* border: none;
   color: white;
   padding: 10px 32px;
   text-align: center;
@@ -37,7 +37,7 @@
   display: inline-block;
   font-size: 11px;
   margin-top:10px;
-}
+} */
 
 .close {
     transition: all 200ms ease-in-out; 
