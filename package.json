@@ -19,9 +19,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently npm:server:start npm:client:start",
-    "server:start": "nodemon server",
-    "client:start": "react-scripts start",
+    "start": "concurrently npm:server npm:client",
+    "server": "nodemon server",
+    "client": "react-scripts start",
     "client:build": "react-scripts build",
     "client:test": "react-scripts test",
     "client:eject": "react-scripts eject"
