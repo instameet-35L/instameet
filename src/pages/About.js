@@ -1,8 +1,14 @@
 import React from "react"
+import NavBar from "../components/NavBar"
 
 export default function About() {
   return (
     <div className="about page">
+    <div className="content-center bg-[#FAF9F6] w-[100%]">
+        {/* <div><NavBar/></div> */}
+        <div className="pb-20">
+          <NavBar />
+        </div>
     <div className="text-center text-lg">Welcome to Instameet!</div>
     <div>
       <p>
@@ -13,6 +19,7 @@ export default function About() {
       availabilities will be stored and displayed on the group grid, shown in the middle of the page.
       The checkboxes on the right hand side allow users to isolate specific members' availabilities.
       </p>
+    </div>
     </div>
     </div>
   )

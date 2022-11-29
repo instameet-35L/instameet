@@ -3,7 +3,7 @@ import React from "react"
 export default function NavBar() {
   return (
     <div className="flex flex-row justify-between flex-grow-1 px-3 max-h-24 bg-[#383436]">
-      <a href="localhost:3000">
+      <a href="/">
         <img
           src="./images/image.png"
           alt="Instameet Logo"
@@ -14,7 +14,7 @@ export default function NavBar() {
         instameet
       </div>
       <div className="self-center text-white text-xl flex">
-        <a className="pr-2" href="localhost:3000">
+        <a className="pr-2" href="/">
           Home
         </a>
         <a className="border-l-2 pl-2" href="/about">
