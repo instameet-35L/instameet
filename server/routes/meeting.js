@@ -61,11 +61,9 @@ router.get("/all", (req, res) => {
 
 // Adds availability to users[i].available
 //Pass in meetingId, then meetingTime, then username
+//Returns updated meeting Object
+//Probably use for loop to call API on every meetingTime for a user
 router.post("/available/:meetingId/:meetingTime/:userName", (req, res) => {
-  // const targetMeeting = getMeeting(req.params.meetingId).catch((error) =>
-  //   res.status(404).send(error)
-  // )
-  // console.log(targetMeeting)
   addToAvailability(
     req.params.meetingId,
     req.params.meetingTime,
