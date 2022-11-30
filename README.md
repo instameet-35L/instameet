@@ -1,3 +1,8 @@
+Instameet
+This web application is for people to coordinate meeting times and avoid scheduling conflicts. Users can create a blank schedule for others to fill out. To mark their available times and receive notifications, users can register for an account. It’s inspired by when2meet but with improved UI/UX design and better accessibility for those that are vision-impaired and color-blind. We specifically chose blue and orange as colors to display the grid with as those are the most common colors that are visible to those with color-blindness. 
+
+Our web application has two pages with the first page allowing a user to set up a meeting with a set range of dates and 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
