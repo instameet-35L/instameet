@@ -4,6 +4,7 @@ import GroupGrid from "../components/GroupGrid"
 import IndivGrid from "../components/IndivGrid"
 import Login from "../components/Login"
 import NavBar from "../components/NavBar"
+import CheckBoxes from "../components/CheckBox"
 
 export default function Meeting() {
   const meetingId = useParams().meetingId
@@ -16,7 +17,9 @@ export default function Meeting() {
   //null -> no one is logged in
   //not null -> someone is logged in and changing their availability
 
-  const [nameDict, setNameDict] = useState(null)
+  // Please do not change the default value of {}, the `CheckBoxes` component
+  // depends on it
+  const [displayUsers, setDisplayUsers] = useState({})
   //dictionary of all users mapped to a boolean of
   //whether they should be displayed in the group grid
   //if bool == true --> display
@@ -24,7 +27,6 @@ export default function Meeting() {
 
   useEffect(() => {
     async function getMeeting(id) {
-      console.log("god help me")
       const response = await fetch(`/api/meeting/get/${id}`)
       if (!response.ok) {
         return
@@ -47,36 +49,9 @@ export default function Meeting() {
     return () => {
       fetched = true
     }
-
-    // createDict()
   }, [meetingId, name])
 
-  console.log([meeting, meetingId, name])
-
-  function MakeBoxes() {
-    if (meeting === null) {
-      return
-    }
-    //creates a checkbox for each user
-    let nameList = []
-    for (let i = 0; i < meeting.users.length; i++) {
-      nameList.push(
-        <Checkboxes username={meeting.users[i].name} setDict={setNameDict} />
-      )
-      setNameDict((prevState) => ({ ...prevState, username: true }))
-    }
-    console.log("name", nameDict)
-    return <div>{nameList}</div>
-  }
-
-  // function createDict() {
-  //   //fills nameDict with current users
-  //   if (meeting === null) return
-  //   for (let i = 0; i < meeting.users.length; i++) {
-  //     let username = meeting.users[i].name
-  //     setNameDict((prevState) => ({ ...prevState, username: true }))
-  //   }
-  // }
+  console.log([meeting, meetingId, name, displayUsers])
 
   return (
     <>
@@ -93,48 +68,23 @@ export default function Meeting() {
             <Login setName={setName} meetingId={meetingId} />
             {/* ABOVE CORRECT? NOTE: !!! BROKEN  took out startDay={meeting.timeframe.start} */}
           </div>
-          {/* maybe add: <Board startDate={meeting.timeframe.start} /> */}
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            <GroupGrid nameDict={nameDict} />
+            <GroupGrid nameDict={displayUsers} />
             {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
-            <fieldset>
-              <legend>Select whose schedules to display:</legend>
-              <div>
-                <input type="checkbox" id="A" name="People" value="A" />
-                <label htmlFor="A">Person A</label>
-              </div>
-              <div>
-                <input type="checkbox" id="B" name="People" value="B" />
-                <label htmlFor="B">Person B</label>
-              </div>
-              <MakeBoxes />
-            </fieldset>
-            {/* {JSON.stringify(meeting)} */}
+            <div>
+              {/* <legend>Select whose schedules to display:</legend>
+              <input type="checkbox" />
+                  <label> Person A</label></div> */}
+              <CheckBoxes thisMeeting={meeting} setDisplay={setDisplayUsers} />
+              {/* {console.log("HEY",displayUsers)} */}
+              {/* {JSON.stringify(meeting)} */}
+            </div>
           </div>
         </div>
       </div>
     </>
-  )
-}
-
-function Checkboxes({ username, setDict }) {
-  const UpdateDisplay = () => {
-    if (this.checked) {
-      //if check
-      console.log(username + "IS CHECKED")
-      setDict((prevState) => ({ ...prevState, username: true }))
-    } else {
-      console.log(username + "IS UNCHECKED")
-      setDict((prevState) => ({ ...prevState, username: false }))
-    }
-  }
-  return (
-    <div>
-      <input type="checkbox" onChange={UpdateDisplay} />
-      <label>{username}</label>
-    </div>
   )
 }
 

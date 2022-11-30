@@ -1,6 +1,6 @@
 import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
-import Input from "./Input"
+// import Input from "./Input"
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
 

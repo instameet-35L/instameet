@@ -272,13 +272,11 @@ function GroupGrid() {
     {
       setBlue(true)
       console.log(event.target.value + ":GOT BLUE");
-      //RELOAD THE PAGE
     }
     else if(event.target.value === "orange")
     {
       setBlue(false)
       console.log(event.target.value + ":GOT ORANGE"); 
-      //RELOAD THE PAGE
     } 
   }
 
@@ -300,10 +298,6 @@ function GroupGrid() {
           <label>Orange &nbsp;
             <input type="radio" name="color" value="orange" onChange={changeColor}/>
           </label>
-          {/* <br/>
-          <label>Red &nbsp;
-            <input type="radio" name="color" onChange={changeColor("red")}/>
-          </label> */}
         </fieldset>
       </form>
 
