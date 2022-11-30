@@ -6,18 +6,18 @@ const bodyParser = require("body-parser")
 const { connect } = require("./mongoConfig")
 
 //HTTP Request Logger sending info to MongoDB
-app.use(
-  morgan(
-    {
-      connectionString:
-        "mongodb+srv://admin:FD1V0ZHFdfSOSJK2@instameet.curxeae.mongodb.net/httplog?retryWrites=true&w=majority",
-      collection: "logs",
-      dbName: "httplogs",
-    },
-    {},
-    "short"
-  )
-)
+// app.use(
+//   morgan(
+//     {
+//       connectionString:
+//         "mongodb+srv://admin:FD1V0ZHFdfSOSJK2@instameet.curxeae.mongodb.net/httplog?retryWrites=true&w=majority",
+//       collection: "logs",
+//       dbName: "httplogs",
+//     },
+//     {},
+//     "short"
+//   )
+// )
 app.use(cors())
 app.use(bodyParser.json())
 //Connect to MongoDB Atlas

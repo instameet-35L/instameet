@@ -32,9 +32,20 @@ async function getAllMeeting() {
   return await Meeting.find({})
 }
 
+async function addToAvailability(meetingId, meetingTime, userName) {
+  const meeting = await getMeeting(meetingId)
+  meeting.users
+    .find((element) => element.name === userName)
+    .available.push(meetingTime)
+  let updatedMeeting = await meeting.save()
+  console.log(updatedMeeting)
+  return updatedMeeting
+}
+
 module.exports = {
   createMeeting,
   getMeeting,
   getAllMeeting,
   getOrInsertUser,
+  addToAvailability,
 }
