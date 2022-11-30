@@ -58,4 +58,12 @@ router.get("/all", (req, res) => {
     })
 })
 
+// Adds availability to users[i].available
+router.post("/available/:meetingId/:meetingTime", (req, res) => {
+  const targetMeeting = getMeeting(req.params.meetingId).catch((error) =>
+    res.status(404).send(error)
+  )
+  console.log(targetMeeting)
+})
+
 module.exports = router
