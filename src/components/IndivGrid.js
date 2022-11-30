@@ -9,15 +9,83 @@ import "../css/FillSchedule.css"
  *     the number of days chosen by the event creator.
  */
 
-function renderEntry(i) {
+async function addAvailability(meetingId, userName, timeIndex) {
+  if (userName == null) {
+    return null
+  }
+
+  const response = await fetch(`/api/meeting/addAvailability/${meetingId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userName,
+      timeIndex,
+    }),
+  })
+
+  if (!response.ok) {
+    return null
+  }
+
+  return await response.json()
+}
+
+async function removeAvailability(meetingId, userName, timeIndex) {
+  if (userName == null) {
+    return null
+  }
+
+  const response = await fetch(`/api/meeting/removeAvailability/${meetingId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userName,
+      timeIndex,
+    }),
+  })
+
+  if (!response.ok) {
+    return null
+  }
+
+  return await response.json()
+}
+
+function renderEntry(i, meetingId, name, setMeeting) {
   // !! PUT BACK function renderEntry(i, meetingInfo, currUsrName)
+  const NOT_AVAILABLE = "white"
+  const AVAILABLE = "skyblue"
+
   return (
     <button
       className="entry"
       onClick={(event) => {
-        event.target.style.background =
-          event.target.style.background === "skyblue" ? "white" : "skyblue"
-        // meetingInfo.users[currUsrName].available.push(i)    // !!! BROKEN RN // saves click to backend !!! PUT BACK
+        if (name == null) {
+          return
+        }
+
+        if (
+          event.target.style.background === NOT_AVAILABLE ||
+          event.target.style.background === ""
+        ) {
+          addAvailability(meetingId, name, i).then((res) => {
+            if (res != null) {
+              setMeeting(res)
+              event.target.style.background = AVAILABLE
+            }
+          })
+        } else {
+          removeAvailability(meetingId, name, i).then((res) => {
+            if (res != null) {
+              setMeeting(res)
+              event.target.style.background = NOT_AVAILABLE
+            }
+          })
+        }
       }}
     >
       {i}
@@ -33,7 +101,7 @@ function renderTimeEntry(i, timeEntries) {
   return <div className="dateEntry">{timeEntries[i]}</div>
 }
 
-export default function IndivGrid({ meetingInfo }) {
+export default function IndivGrid({ meetingInfo, name, setMeeting }) {
   if (meetingInfo === null || meetingInfo === undefined) {
     return
   }
@@ -127,7 +195,7 @@ export default function IndivGrid({ meetingInfo }) {
           children.push(renderTimeEntry(timeI, timeEntries))
           timeI++
         } else {
-          children.push(renderEntry(entryI)) // !!! PUT BACK children.push(renderEntry(entryI, meetingInfo, currUsrName))
+          children.push(renderEntry(entryI, meetingInfo._id, name, setMeeting)) // !!! PUT BACK children.push(renderEntry(entryI, meetingInfo, currUsrName))
           entryI++
         }
       }
