@@ -1,7 +1,11 @@
-import React from "react"
+import { useState, React } from "react"
 
-export default function CheckBoxes({ thisMeeting, setDisplay }) {
-  if (thisMeeting === null || thisMeeting === undefined) {
+export default function CheckBoxes({
+  thisMeeting,
+  displayUsers,
+  setDisplayUsers,
+}) {
+  if (thisMeeting == null) {
     return
   }
 
@@ -13,15 +17,11 @@ export default function CheckBoxes({ thisMeeting, setDisplay }) {
 
     nameList.push(
       <AddBox
-        username={thisMeeting.users[i].name}
-        setDisplayUsers={setDisplay}
+        username={name}
+        displayUsers={displayUsers}
+        setDisplayUsers={setDisplayUsers}
       />
     )
-
-    setDisplay((prevDisplay) => {
-      prevDisplay[name] = true
-      return prevDisplay
-    })
   }
 
   return (
@@ -34,29 +34,33 @@ export default function CheckBoxes({ thisMeeting, setDisplay }) {
   )
 }
 
-function AddBox({ username, setDisplayUsers }) {
-  if (username === null || username === undefined) {
+function AddBox({ username, displayUsers, setDisplayUsers }) {
+  const [forceUpdate, setForceUpdate] = useState(true)
+
+  if (username == null) {
     return
   }
 
   function UpdateDisplay(checked) {
-    console.log(checked)
-    setDisplayUsers((prevDisplay) => {
-      prevDisplay[username] = checked
-      return prevDisplay
+    setDisplayUsers((display) => {
+      display.set(username, checked)
+      return display
     })
-
-    console.log(`${username} is ${checked ? "checked" : "not checked"}`)
   }
 
   return (
     <div>
       <input
+        key={`${username}`}
         type="checkbox"
-        onChange={(event) => UpdateDisplay(event.target.checked)}
-        defaultChecked
+        id={`checkbox-${username}`}
+        onChange={(event) => {
+          UpdateDisplay(event.target.checked)
+          setForceUpdate((forceUpdate) => !forceUpdate)
+        }}
+        checked={displayUsers.get(username)}
       />
-      <label>&nbsp;{username}</label>
+      <label htmlFor={`checkbox-${username}`}>&nbsp;{username}</label>
     </div>
   )
 }
