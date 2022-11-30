@@ -8,23 +8,30 @@ import "../css/FillSchedule.css"
 
 //ASK PAUL TO RELOAD THE PAGE WHEN COLOR BUTTONS ARE CLICKED
 
+
+function buttonClick(){
+    alert("This is an alert")
+}
+
+
 function renderSwitch(colorBlue, i, numUsrsAvail) {
+
   switch(numUsrsAvail) {
     case 0:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-000">
+          <button className="groupEntry bg-blue-000" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-000">
+          <button className="groupEntry bg-orange-000" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
 
@@ -32,167 +39,167 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-100">
+          <button className="groupEntry bg-blue-100" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-100">
+          <button className="groupEntry bg-orange-100" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 2:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-200">
+          <button className="groupEntry bg-blue-200" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-200">
+          <button className="groupEntry bg-orange-200" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 3:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-300">
+          <button className="groupEntry bg-blue-300" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-300">
+          <button className="groupEntry bg-orange-300" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 4:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-400">
+          <button className="groupEntry bg-blue-400" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-400">
+          <button className="groupEntry bg-orange-400" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 5:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-500">
+          <button className="groupEntry bg-blue-500" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-500">
+          <button className="groupEntry bg-orange-500" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 6:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-600">
+          <button className="groupEntry bg-blue-600" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-600">
+          <button className="groupEntry bg-orange-600" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 7:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-700">
+          <button className="groupEntry bg-blue-700" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-700">
+          <button className="groupEntry bg-orange-700" onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     case 8:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-800">
+          <button className="groupEntry bg-blue-800 "onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-800">
+          <button className="groupEntry bg-orange-800 "onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
     default:
       if(colorBlue)
       {
         return (
-          <div className="groupEntry bg-blue-900">
+          <button className="groupEntry bg-blue-900 "onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
       else
       {
         return (
-          <div className="groupEntry bg-orange-900">
+          <button className="groupEntry bg-orange-900 "onClick={()=>buttonClick()}>
             {i}
-          </div>
+          </button>
         )
       }
   }
 }
 
-function renderGroupEntry(colorBlue, i, numUsrsAvail) {
-  return (
-    <div>
-      <div>
-        {renderSwitch(colorBlue, i, numUsrsAvail)}
-      </div>
-    </div>
-  )
-}
+// function renderGroupEntry(colorBlue, i, numUsrsAvail) {
+//   return (
+//     <div>
+//       <div>
+//         {renderSwitch(colorBlue, i, numUsrsAvail)}
+//       </div>
+//     </div>
+//   )
+// }
 
 function renderDateEntry(i, dateEntries) {
   return (
@@ -250,7 +257,7 @@ function GroupGrid() {
           timeI++
         }
         else {
-          children.push(renderGroupEntry(blue, entryI, numUsrsAvail))
+          children.push(renderSwitch(blue, entryI, numUsrsAvail))
           entryI++
           numUsrsAvail++
         }
@@ -272,13 +279,11 @@ function GroupGrid() {
     {
       setBlue(true)
       console.log(event.target.value + ":GOT BLUE");
-      //RELOAD THE PAGE
     }
     else if(event.target.value === "orange")
     {
       setBlue(false)
       console.log(event.target.value + ":GOT ORANGE"); 
-      //RELOAD THE PAGE
     } 
   }
 
@@ -300,10 +305,6 @@ function GroupGrid() {
           <label>Orange &nbsp;
             <input type="radio" name="color" value="orange" onChange={changeColor}/>
           </label>
-          {/* <br/>
-          <label>Red &nbsp;
-            <input type="radio" name="color" onChange={changeColor("red")}/>
-          </label> */}
         </fieldset>
       </form>
 
