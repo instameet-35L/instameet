@@ -4,7 +4,8 @@ const {
   getMeeting,
   getAllMeeting,
   getOrInsertUser,
-  addToAvailability,
+  addAvailability,
+  removeAvailability,
 } = require("../services/meeting")
 
 const router = express.Router()
@@ -33,9 +34,9 @@ router.get("/get/:meetingId", (req, res) => {
     })
 })
 
-// Update meeting data in database
-router.post("/update/:meetingId", (req, res) => {
-  if (req.body.user !== undefined) {
+// Register new user or login as existing user
+router.post("/registerOrLogin/:meetingId", (req, res) => {
+  if (req.body.user != null) {
     getOrInsertUser(req.params.meetingId, req.body.user)
       .then((response) => res.status(200).send(response))
       .catch((error) => {
@@ -43,6 +44,36 @@ router.post("/update/:meetingId", (req, res) => {
       })
   } else {
     res.status(400).send("No user defined")
+  }
+})
+
+// Add new available time, or don't modify if already in database
+router.post("/addAvailability/:meetingId", (req, res) => {
+  if (req.body.userName != null && req.body.timeIndex != null) {
+    addAvailability(req.params.meetingId, req.body.userName, req.body.timeIndex)
+      .then((response) => res.status(200).send(response))
+      .catch((error) => {
+        res.status(400).send(error)
+      })
+  } else {
+    res.status(400).send("Bad input data")
+  }
+})
+
+// Remove available time, if present
+router.post("/removeAvailability/:meetingId", (req, res) => {
+  if (req.body.userName != null && req.body.timeIndex != null) {
+    removeAvailability(
+      req.params.meetingId,
+      req.body.userName,
+      req.body.timeIndex
+    )
+      .then((response) => res.status(200).send(response))
+      .catch((error) => {
+        res.status(400).send(error)
+      })
+  } else {
+    res.status(400).send("Bad input data")
   }
 })
 

@@ -32,14 +32,33 @@ async function getAllMeeting() {
   return await Meeting.find({})
 }
 
-async function addToAvailability(meetingId, meetingTime, userName) {
+async function addAvailability(meetingId, userName, timeIndex) {
   const meeting = await getMeeting(meetingId)
-  meeting.users
-    .find((element) => element.name === userName)
-    .available.push(meetingTime)
-  let updatedMeeting = await meeting.save()
-  console.log(updatedMeeting)
-  return updatedMeeting
+
+  const userToUpdate = meeting.users.find((user) => user.name === userName)
+
+  if (userToUpdate.available.indexOf(timeIndex) === -1) {
+    userToUpdate.available.push(timeIndex)
+  } else {
+    throw new Error("Available time already exists")
+  }
+
+  return await meeting.save()
+}
+
+async function removeAvailability(meetingId, userName, timeIndex) {
+  const meeting = await getMeeting(meetingId)
+
+  const userToUpdate = meeting.users.find((user) => user.name === userName)
+  const removalIndex = userToUpdate.available.indexOf(timeIndex)
+
+  if (removalIndex !== -1) {
+    userToUpdate.available.splice(removalIndex, 1)
+  } else {
+    throw new Error("Could not find available time to remove")
+  }
+
+  return await meeting.save()
 }
 
 module.exports = {
@@ -47,5 +66,6 @@ module.exports = {
   getMeeting,
   getAllMeeting,
   getOrInsertUser,
-  addToAvailability,
+  addAvailability,
+  removeAvailability,
 }
