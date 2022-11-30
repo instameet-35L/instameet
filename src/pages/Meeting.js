@@ -17,9 +17,9 @@ export default function Meeting() {
   //null -> no one is logged in
   //not null -> someone is logged in and changing their availability
 
-  // Please do not change the default value of {}, the `CheckBoxes` component
-  // depends on it
-  const [displayUsers, setDisplayUsers] = useState({})
+  // Please do not change the default value of `new Map()`, the `CheckBoxes`
+  // component depends on it
+  const [displayUsers, setDisplayUsers] = useState(new Map())
   //dictionary of all users mapped to a boolean of
   //whether they should be displayed in the group grid
   //if bool == true --> display
@@ -32,9 +32,17 @@ export default function Meeting() {
         return
       }
 
-      const body = await response.json()
+      const meetingData = await response.json()
 
-      setMeeting(body)
+      setMeeting(meetingData)
+
+      let _displayUsers = new Map()
+
+      for (const user of meetingData.users) {
+        _displayUsers.set(user.name, true)
+      }
+
+      setDisplayUsers(_displayUsers)
     }
 
     // Necessary to prevent race conditions caused by network responses arriving
@@ -77,7 +85,11 @@ export default function Meeting() {
               {/* <legend>Select whose schedules to display:</legend>
               <input type="checkbox" />
                   <label> Person A</label></div> */}
-              <CheckBoxes thisMeeting={meeting} setDisplay={setDisplayUsers} />
+              <CheckBoxes
+                thisMeeting={meeting}
+                displayUsers={displayUsers}
+                setDisplayUsers={setDisplayUsers}
+              />
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>
