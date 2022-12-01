@@ -8,7 +8,7 @@ import "../css/Popup.css"
  * @returns
  */
 
-const CloseButton = (props) => (
+const CloseButton = () => (
     <div className="close">
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -20,18 +20,28 @@ const CloseButton = (props) => (
             strokeLinecap="round"
             strokeLinejoin="round"
             className="feather feather-x"
-            {...props}
+            // {...props}
         >
             <path d="M18 6 6 18M6 6l12 12" />
         </svg>
     </div>
 )
 
-const Popup = (props) => {
-    const [show, setShow] = useState(props.registered >= 5 ? true : false)
-    // if (props.registered === null) {
-    //     return <></>
+export default function Popup ({meeting1, time}){
+    const [show, setShow]=useState(true)
+    if (meeting1 === null) {
+        return <></>
+    }
+    //useState(meeting1.users.length >= 3 ? true : false)
+    // if(meeting1.users.length>=3)
+    // {
+    //     setShow=true
     // }
+    // else{
+    //     setShow=false
+    // }
+    // = useState(meeting1.users.length >= 3 ? true : false)
+    
     return (
         <div>
             {show && (
@@ -43,13 +53,11 @@ const Popup = (props) => {
                         </div>
                     </div>
                     <div className="contentfraction">
-                        {props.registered} people have filled their availability
+                        {meeting1.users.length} people have filled their availability
                     </div>
-                    {/* <div className="contenttime">{props.time} is the best time</div> */}
+                    <div className="contenttime">{time} is the best time</div>
                 </div>
             )}
         </div>
     )
 }
-
-export default Popup

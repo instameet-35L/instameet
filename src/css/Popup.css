@@ -19,6 +19,7 @@
     width: 25vw;
     padding: 20px;
     border-radius: 25px;
+    float:right;
 }
 .contentfraction {
     margin-top:10px;
