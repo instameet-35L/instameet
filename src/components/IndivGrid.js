@@ -248,7 +248,9 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
 
   return (
     <>
-      <div className="status">{"Your availability:"}</div>
+      <div className="status">
+        {"Please first register or login and then select your availability:"}
+      </div>
       <DatesRow />
       <div>{makeGridRows()}</div>
     </>

@@ -476,7 +476,7 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
 
   return (
     <div>
-      <div className="status">{"Group availability:"}</div>
+      <div className="status">{"Availability of the selected users:"}</div>
       <div>{MakeMyGridDateRow()}</div>
       <div>{MakeMyGridRows()}</div>
       <br />
