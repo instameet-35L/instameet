@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Navigate } from "react-router-dom"
 
-export default function CreateMeeting({ title, timeframe, creator }) {
+export default function CreateMeeting({ title, timeframe }) {
   const [meetingId, setMeetingId] = useState(null)
   const [isValid, setIsValid] = useState(true)
 
@@ -37,14 +37,14 @@ export default function CreateMeeting({ title, timeframe, creator }) {
         <Navigate to={`/${meetingId}`} />
       )}
       <button
-        className="text-base font-medium rounded-lg p-3 bg-[#1087ff] text-white w-max"
+        className="ease-in-out border-4 border-gray-200 hover:border-sky-200 text-base font-medium rounded-lg p-3 bg-sky-600 text-white w-max"
         onClick={requestNewMeeting}
       >
         Create Meeting
       </button>
       {!isValid && (
         <div
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          className="bg-red-100 border border-red-400 text-red-700 p-3 rounded relative"
           role="alert"
         >
           <p className="font-bold">Invalid input</p>

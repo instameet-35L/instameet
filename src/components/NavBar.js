@@ -13,7 +13,7 @@ export default function NavBar() {
           }}
         />
       </a>
-      <div className="self-center text-4xl tracking-wider font-bold text-white">
+      <div className="self-center text-4xl font-serif font-bold text-white">
         instameet
       </div>
       <div className="self-center text-white text-xl flex">

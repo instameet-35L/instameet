@@ -1,12 +1,14 @@
+import { useState } from "react"
 import Calendar from "react-calendar"
+import notify from "./Notify.js"
 import "react-calendar/dist/Calendar.css"
-// import "../css/Calendar.css"
-// import Input from "./Input"
-//this file implements the calendar component
-//value is the date(s) selected by the user when they click
 
-function Cal({ myValue, setMyValue }) {
-  const GetNumberOfDays = (start, end) => {
+const MAX_DAYS = 9
+
+export default function Cal({ setTimeframe }) {
+  const [_timeframe, set_timeframe] = useState(null)
+
+  function numDays(start, end) {
     const startDate = new Date(start)
     const endDate = new Date(end)
 
@@ -25,51 +27,50 @@ function Cal({ myValue, setMyValue }) {
 
     return numDays
   }
+
+  /**
+   * Sets the timeframe for the parent component (dateRange is only used
+   * by this component, since it isn't validated) and notifies if the date range
+   * is too large.
+   * @param {[Date, Date]} value Since `selectRange` is enabled in the
+   * `Calendar` component, changing the calendar results in an array being
+   * returned instead of a single `Date`.
+   */
+  function handleCalendarChange(value) {
+    set_timeframe(value)
+
+    if (numDays(value[0], value[1]) <= MAX_DAYS) {
+      setTimeframe(value)
+    } else {
+      setTimeframe(null)
+      notify(
+        "Error",
+        `Please select a range with ${MAX_DAYS} days or less`,
+        "warning"
+      )
+    }
+  }
+
   return (
-    <div className="calendar self-center justify-items-center">
-      {/* <div>
-        <form>
-          <label for="scheduleName">Please enter your event name below: </label>
-          <br />
-          <Input />
-          <input type="text" id="scheduleName" name="scheduleName"/>
-        </form>
-        
-      </div> */}
-      <div>
-      <span>Select a range of dates that is 14 days or smaller</span>
+    <div className="flex flex-col content-center gap-3">
+      <div className="text-center">
+        Select a range of dates with {`${MAX_DAYS}`} days or less
+      </div>
+      <div className="self-center">
         <Calendar
-          onChange={setMyValue} //when a date is clicked
-          value={myValue} //date = value
-          selectRange={true} //can select a range of dates
+          onChange={handleCalendarChange}
+          value={_timeframe}
+          selectRange={true}
         />
       </div>
-      <div>
-        {GetNumberOfDays(myValue[0], myValue[1]) <= 14 ? (
-          <p>
-            <span>Start:</span> {myValue[0].toDateString()}
-            &nbsp;&nbsp;|&nbsp; &nbsp;
-            <span>End:</span> {myValue[1].toDateString()}
-          </p>
-        ) : (
-          myValue.length > 1 && (
-            <div>
-              <p>
-                <span className="self-center" style={{ color: "red" }}>ERROR: </span>
-                Please select a range that has 14 days or less
-              </p>
-              {/* {setMyValue(null)}
-                  {(myValue===null) ?
-                    (console.log("HEY WE MADE IT NULL"))
-                  : (console.log("UH OH"))} */}
-            </div>
-          )
+      <div className="self-center">
+        {_timeframe != null && (
+          <>
+            <p>Start: {_timeframe[0].toDateString()}</p>
+            <p>End: {_timeframe[1].toDateString()}</p>
+          </>
         )}
-        <br></br>
-        {/* if error set value to null */}
       </div>
     </div>
   )
 }
-
-export default Cal

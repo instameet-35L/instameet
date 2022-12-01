@@ -31,10 +31,10 @@ export default function Login({ name, setName, meetingId }) {
   return (
     <>
       {name == null && (
-        <>
-          <form className="mb-3 xl:w-96">
+        <div className="flex flex-col items-start gap-3 mb-10">
+          <form>
             <label
-              className="form-label inline-block mb-2 text-gray-700"
+              className="form-label inline-block text-gray-700"
               htmlFor="title"
             >
               Enter your name:
@@ -44,8 +44,7 @@ export default function Login({ name, setName, meetingId }) {
               className="form-control
         block
         w-full
-        px-3
-        py-1.5
+        p-3
         text-base
         font-normal
         text-gray-700
@@ -54,7 +53,6 @@ export default function Login({ name, setName, meetingId }) {
         rounded
         transition
         ease-in-out
-        m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="title"
               onChange={(event) => {
@@ -64,23 +62,21 @@ export default function Login({ name, setName, meetingId }) {
             ></input>
           </form>
 
-          <div className="flex flex-col items-center space-y-5">
-            <button
-              className="text-base font-medium rounded-lg p-3 bg-[#1087ff] text-white w-max"
-              onClick={registerOrLogin}
+          <button
+            className="ease-in-out border-4 border-gray-200 hover:border-sky-200 text-base font-medium rounded-lg p-3 bg-sky-600 text-white w-max"
+            onClick={registerOrLogin}
+          >
+            Login / Register
+          </button>
+          {!isValid && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 p-3 rounded relative"
+              role="alert"
             >
-              Login / Register
-            </button>
-            {!isValid && (
-              <div
-                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                role="alert"
-              >
-                <p className="font-bold">Invalid input</p>
-              </div>
-            )}
-          </div>
-        </>
+              <p className="font-bold">Invalid input</p>
+            </div>
+          )}
+        </div>
       )}
       {name != null && <div>You're logged in as {`${name}`}</div>}
     </>

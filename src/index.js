@@ -1,20 +1,26 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import "./css/index.css"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+
 import Home from "./pages/Home"
 import Meeting from "./pages/Meeting"
 import About from "./pages/About"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+
+import { ReactNotifications } from "react-notifications-component"
+
+import "./css/index.css"
+import "react-notifications-component/dist/theme.css"
+import "animate.css"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
   <React.StrictMode>
+    <ReactNotifications />
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/:meetingId" element={<Meeting />} />
-        {/* <Route path="/dummymain" element={<Popup registered = {5} time = {"00:00"}></Popup>} /> */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

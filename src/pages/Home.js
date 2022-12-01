@@ -8,20 +8,25 @@ import NavBar from "../components/NavBar"
 
 export default function Home() {
   const [title, setTitle] = useState()
-  const [timeframe, setTimeframe] = useState(new Date()) //calendar props
+  const [timeframe, setTimeframe] = useState(null)
+
+  let _timeframe = null
+
+  if (timeframe != null) {
+    _timeframe = {
+      start: timeframe[0],
+      end: timeframe[1],
+    }
+  }
 
   return (
-    <div className="main flex grow flex-col items-stretch pb-20 gap-5 bg-[#FAF9F6]">
+    <div className="main flex grow flex-col items-stretch pb-20 gap-5 bg-gradient-to-br from-pink-300 to-sky-300">
       <NavBar />
-      <div className="flex grow justify-evenly">
+      <div className="flex grow justify-evenly align-middle">
         <TitleForm setTitle={setTitle} />
-        <Cal myValue={timeframe} setMyValue={setTimeframe} />
+        <Cal setTimeframe={setTimeframe} />
       </div>
-      <CreateMeeting
-        title={title}
-        timeframe={{ start: timeframe[0], end: timeframe[1] }}
-      />
-      {/* <Board /> */}
+      <CreateMeeting title={title} timeframe={_timeframe} />
     </div>
   )
 }
