@@ -5,6 +5,7 @@ import IndivGrid from "../components/IndivGrid"
 import Login from "../components/Login"
 import NavBar from "../components/NavBar"
 import CheckBoxes from "../components/CheckBox"
+import Popup from "../components/Popup"
 
 export default function Meeting() {
   const meetingId = useParams().meetingId
@@ -58,7 +59,7 @@ export default function Meeting() {
   }, [meetingId, name])
 
   console.log([meeting, meetingId, name, displayUsers])
-
+  //let len = meeting.users.length
   return (
     <>
       <div className="content-center bg-[#FAF9F6] grow">
@@ -95,8 +96,12 @@ export default function Meeting() {
                 displayUsers={displayUsers}
                 setDisplayUsers={setDisplayUsers}
               />
+<<<<<<< Updated upstream
               {console.log("displayUsers just after checkboxes is")}
               {console.log(displayUsers)}
+=======
+              <Popup meeting1 = {meeting} time = {0}></Popup>
+>>>>>>> Stashed changes
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>
