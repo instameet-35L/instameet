@@ -1,4 +1,5 @@
 import { useState, React } from "react"
+import "../css/Popup.css"
 
 export default function CheckBoxes({
   thisMeeting,
@@ -27,7 +28,7 @@ export default function CheckBoxes({
   }
 
   return (
-    <div>
+    <div className="wrappercheckbox">
       <fieldset>
         <legend>Select whose schedule to display:</legend>
         {nameList}
