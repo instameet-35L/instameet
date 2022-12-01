@@ -83,18 +83,14 @@ function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
           <button
             className="groupEntry bg-blue-000"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-000"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
 
@@ -104,158 +100,126 @@ function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
           <button
             className="groupEntry bg-blue-100"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-100"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
+    // case 2:
+    //   if (colorBlue) {
+    //     return (
+    //       <button
+    //         className="groupEntry bg-blue-200"
+    //         onClick={() => handleClick(allAvailsDict, i)}
+    //       ></button>
+    //     )
+    //   } else {
+    //     return (
+    //       <button
+    //         className="groupEntry bg-orange-200"
+    //         onClick={() => handleClick(allAvailsDict, i)}
+    //       ></button>
+    //     )
+    //   }
     case 2:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-200"
-            onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-200"
-            onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
-        )
-      }
-    case 3:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-300"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-300"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
-    case 4:
+    case 3:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-400"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-400"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
-    case 5:
+    case 4:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-500"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-500"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
-    case 6:
+    case 5:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-600"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-600"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
-    case 7:
+    case 6:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-700"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-700"
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
-    case 8:
+    case 7:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-800 "
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-800 "
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
     default:
@@ -264,18 +228,14 @@ function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
           <button
             className="groupEntry bg-blue-900 "
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       } else {
         return (
           <button
             className="groupEntry bg-orange-900 "
             onClick={() => handleClick(allAvailsDict, i)}
-          >
-            {i}
-          </button>
+          ></button>
         )
       }
   }
@@ -407,7 +367,7 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
       dateString = dateEntries[col]
       finalLargest.push(dateString + " " + timeString)
     }
-    setBest(finalLargest)   //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
+    setBest(finalLargest) //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
     //Where should we call this function in order to not cause infinite rerendering
     return finalLargest
   }
