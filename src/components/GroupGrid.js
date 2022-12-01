@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import "../css/FillSchedule.css"
+import notify from "../components/Notify.js"
 
 /*
  * GroupGrid is a grid where you can look at all users availibility
@@ -54,7 +55,8 @@ function getAllAvails(meetingInfo, nameDispDict) {
 
 function handleClick(allAvailsDict, cell) {
   if (allAvailsDict[cell] === undefined) {
-    alert("No one is available at this time.")
+    const title = `${cell}: You have no friends`
+    notify(title, "No one is available at this time.", "default")
     return
   }
   let message = ""
@@ -69,7 +71,8 @@ function handleClick(allAvailsDict, cell) {
   if (len === 1) message += " is "
   else message += " are "
   message += "available at this time."
-  alert(message)
+  const messagetitle = `${cell}: Wow you have friends`
+  notify(messagetitle, message, "success")
 }
 
 function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
