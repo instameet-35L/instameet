@@ -80,15 +80,12 @@ export default function Meeting() {
         </div>
         <div className="flex flex-row space-x-2 justify-evenly px-10">
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            {/* <IndivGrid meetingInfo={meeting} currUsrName={name}/> !!! PUT BACK */}
+            <Login name={name} setName={setName} meetingId={meetingId} />
             <IndivGrid
               meetingInfo={meeting}
               name={name}
               setMeeting={setMeeting}
             />
-            <br />
-            <Login name={name} setName={setName} meetingId={meetingId} />
-            {/* ABOVE CORRECT? NOTE: !!! BROKEN  took out startDay={meeting.timeframe.start} */}
           </div>
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
             {/* {console.log("displayUsers is" + displayUsers)} */}

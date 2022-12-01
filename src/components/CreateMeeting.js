@@ -4,7 +4,6 @@ import notify from "../helpers/notify.js"
 
 export default function CreateMeeting({ title, timeframe }) {
   const [meetingId, setMeetingId] = useState(null)
-  const [isValid, setIsValid] = useState(true)
 
   async function requestNewMeeting() {
     const newMeetingData = {
@@ -23,7 +22,7 @@ export default function CreateMeeting({ title, timeframe }) {
     })
 
     if (!response.ok) {
-      setIsValid(false)
+      notify("Error", "Invalid input", "warning")
       return
     }
 
@@ -43,14 +42,6 @@ export default function CreateMeeting({ title, timeframe }) {
       >
         Create Meeting
       </button>
-      {!isValid && (
-        <div
-          className="bg-red-100 border border-red-400 text-red-700 p-3 rounded relative"
-          role="alert"
-        >
-          <p className="font-bold">Invalid input</p>
-        </div>
-      )}
     </div>
   )
 }

@@ -2,12 +2,11 @@ import { useState } from "react"
 import notify from "../helpers/notify"
 
 export default function Login({ name, setName, meetingId }) {
-  const [isValid, setIsValid] = useState(true)
   const [formValue, setFormValue] = useState(null)
 
   async function registerOrLogin() {
     if (formValue === undefined || formValue === null) {
-      setIsValid(false)
+      notify("", "Please enter your name to register or login", "warning")
       return
     }
 
@@ -20,7 +19,7 @@ export default function Login({ name, setName, meetingId }) {
     })
 
     if (!response.ok) {
-      setIsValid(false)
+      notify("", "Please enter your name to register or login", "warning")
       return
     }
 
@@ -30,7 +29,7 @@ export default function Login({ name, setName, meetingId }) {
   }
 
   return (
-    <>
+    <div className="mb-3 mt-3">
       {name == null && (
         <div className="flex flex-col items-start gap-3 mb-10">
           <form>
@@ -69,17 +68,14 @@ export default function Login({ name, setName, meetingId }) {
           >
             Login / Register
           </button>
-          {!isValid && (
-            <div
-              className="bg-red-100 border border-red-400 text-red-700 p-3 rounded relative"
-              role="alert"
-            >
-              <p className="font-bold">Invalid input</p>
-            </div>
-          )}
         </div>
       )}
-      {name != null && <div>You're logged in as {`${name}`}</div>}
-    </>
+      {name != null && (
+        <div>
+          You're logged in as{" "}
+          <div className="text-sky-600 inline">{`${name}`}</div>
+        </div>
+      )}
+    </div>
   )
 }
