@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Calendar from "react-calendar"
-import notify from "./Notify.js"
+import notify from "../helpers/notify.js"
 import "react-calendar/dist/Calendar.css"
 
 const MAX_DAYS = 9

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import "../css/FillSchedule.css"
-import notify from "../components/Notify.js"
+import notify from "../helpers/notify.js"
 
 /*
  * GroupGrid is a grid where you can look at all users availibility

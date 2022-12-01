@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Navigate } from "react-router-dom"
+import notify from "../helpers/notify.js"
 
 export default function CreateMeeting({ title, timeframe }) {
   const [meetingId, setMeetingId] = useState(null)
