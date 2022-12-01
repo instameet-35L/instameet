@@ -6,6 +6,13 @@ body {
 .App {
   text-align: center;
 }
+
+/* TODO: This is a workaround for a bug where Tailwind's preflight CSS will
+override `button` with `background: transparent` */
+.react-calendar__tile--active, .react-calendar__tile--active:enabled:focus {
+	background: #1087ff !important;
+}
+
 /*
 .App-logo {
   height: 40vmin;
