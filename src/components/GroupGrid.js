@@ -7,7 +7,11 @@ import "../css/FillSchedule.css"
  * - CHECK NUMUSRAVAILABLE
  */
 
-//ASK PAUL TO RELOAD THE PAGE WHEN COLOR BUTTONS ARE CLICKED
+//allAvailsDict
+/*
+  -dictionary where key is entry grid cell number and value is list of user names
+
+  */
 
 function getAllAvails(meetingInfo, nameDispDict) {
   // meetingInfo.users is a list of the user structs
@@ -42,18 +46,42 @@ function getAllAvails(meetingInfo, nameDispDict) {
   return allAvail
 }
 
-function buttonClick() {
-  alert("This is an alert")
+function handleClick(allAvailsDict, cell) {
+  if(allAvailsDict[cell] === undefined)
+  {
+    alert("No one is available at this time.")
+    return
+  }
+  let message = ""
+  let len = allAvailsDict[cell].length
+  for(let i = 0; i < len; i++)
+  {
+    if(len >= 2 && i === len-1)
+      message+="and "
+    message+=allAvailsDict[cell][i]
+    if(len === 2 && i === len-2)
+    {
+      message+=" "
+    }
+    else if(i !== len-1)
+      message+=", "
+  }
+  if(len === 1)
+    message+=" is "
+  else
+    message+= " are "
+  message+= "available at this time."
+  alert(message)
 }
 
-function renderSwitch(colorBlue, i, numUsrsAvail) {
+function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
   switch (numUsrsAvail) {
     case 0:
       if (colorBlue) {
         return (
           <button
             className="groupEntry bg-blue-000"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -62,7 +90,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-000"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -74,7 +102,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-100"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -83,7 +111,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-100"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -94,7 +122,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-200"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -103,7 +131,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-200"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -114,7 +142,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-300"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -123,7 +151,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-300"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -134,7 +162,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-400"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -143,7 +171,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-400"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -154,7 +182,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-500"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -163,7 +191,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-500"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -174,7 +202,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-600"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -183,7 +211,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-600"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -194,7 +222,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-700"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -203,7 +231,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-700"
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -214,7 +242,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-800 "
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -223,7 +251,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-800 "
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -234,7 +262,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-blue-900 "
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -243,7 +271,7 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
         return (
           <button
             className="groupEntry bg-orange-900 "
-            onClick={() => buttonClick()}
+            onClick={() => handleClick(allAvailsDict, i)}
           >
             {i}
           </button>
@@ -406,7 +434,7 @@ export default function GroupGrid({ meetingInfo, nameDispDict }) {
           } else {
             numUsrsAvail = 0
           }
-          children.push(renderSwitch(blue, entryI, numUsrsAvail))
+          children.push(renderSwitch(blue, entryI, numUsrsAvail, allAvailsDict))
           entryI++
           numUsrsAvail++
         }

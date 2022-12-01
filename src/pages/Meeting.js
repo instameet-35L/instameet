@@ -62,7 +62,6 @@ export default function Meeting() {
   return (
     <>
       <div className="content-center bg-[#FAF9F6] grow">
-        {/* <div><NavBar/></div> */}
         <div className="pb-7">
           <NavBar />
         </div>
@@ -87,18 +86,11 @@ export default function Meeting() {
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
             <div>
-              {/* <legend>Select whose schedules to display:</legend>
-              <input type="checkbox" />
-                  <label> Person A</label></div> */}
               <CheckBoxes
                 thisMeeting={meeting}
                 displayUsers={displayUsers}
                 setDisplayUsers={setDisplayUsers}
               />
-              {console.log("displayUsers just after checkboxes is")}
-              {console.log(displayUsers)}
-              {/* {console.log("HEY",displayUsers)} */}
-              {/* {JSON.stringify(meeting)} */}
             </div>
           </div>
         </div>
