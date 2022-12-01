@@ -5,6 +5,7 @@ import IndivGrid from "../components/IndivGrid"
 import Login from "../components/Login"
 import NavBar from "../components/NavBar"
 import CheckBoxes from "../components/CheckBox"
+import Popup from "../components/Popup"
 
 export default function Meeting() {
   const meetingId = useParams().meetingId
@@ -22,6 +23,12 @@ export default function Meeting() {
   //whether they should be displayed in the group grid
   //if bool == true --> display
   //if bool == false --> don't display
+  
+  //create a hook in the parent component
+  //pass it into child componenet
+  //set the value of the hook to the funciton return value
+  //access that variable in the parent component
+  
 
   useEffect(() => {
     async function getMeeting(id) {
@@ -58,7 +65,7 @@ export default function Meeting() {
   }, [meetingId, name])
 
   console.log([meeting, meetingId, name, displayUsers])
-
+  //let len = meeting.users.length
   return (
     <>
       <div className="content-center bg-[#FAF9F6] grow">
@@ -91,6 +98,10 @@ export default function Meeting() {
                 displayUsers={displayUsers}
                 setDisplayUsers={setDisplayUsers}
               />
+
+              <Popup meeting1 = {meeting} time = {0}></Popup>
+              {/* {console.log("HEY",displayUsers)} */}
+              {/* {JSON.stringify(meeting)} */}
             </div>
           </div>
         </div>
