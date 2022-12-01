@@ -1,7 +1,7 @@
-#Instameet Summary:
+# Instameet Summary:
 Instameet is a web application for people to coordinate meeting times and avoid scheduling conflicts. Users can create a blank schedule for themselves and a group of other users to fill out. Users can register for an account in order to mark the times at which they are available and receive notifications. Users can easily view the overlapping availabilities of all the group members and filter which members they want to isolate using the provided checkboxes.
 
-##Getting Started with Instameet
+## Getting Started with Instameet
 
 1.) Run `git clone https://github.com/instameet-35L/instameet.git` for HTTPS protocol or `git@github.com:instameet-35L/instameet.git` for SSH protocol to clone the Instameet source code to your local machine
 
@@ -9,22 +9,27 @@ Instameet is a web application for people to coordinate meeting times and avoid 
 
 3.) Make sure you have Node v19.1.0 installed on your local system
 
-    a.) This can be installed using NVM via curl
-    b.) Run ` curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash ` to install NVM
-    c.) To initialize NVM run
-        i.) `export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" `
-        ii.) ` [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm `
-    d.) Verify NVM is installed with command `nvm -v`
+ This can be installed using NVM via curl:
+    
+ a.) Run `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash` to install NVM
+ 
+ To initialize NVM run:
+ 
+ a.) `export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"`
+        
+ b.) `[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`
+        
+ Verify NVM is installed with command `nvm -v`
 
-4.) Install Node using NVM using
+Install Node using NVM using:
 
-    i.) `nvm install -lts` to install the long term support verison of node
+i.) `nvm install -lts` to install the long term support verison of node
 
-    ii.) `nvm use --lts` to tell nvm to use the LTS version of node
+ii.) `nvm use --lts` to tell nvm to use the LTS version of node
 
-5.) Now that Node is installed, run `npm i` to install all required packages to your local system and you are ready to go
+4.) Now that Node is installed, run `npm i` to install all required packages to your local system and you are ready to go
 
-##Running Instameet
+## Running Instameet
 
 1.) Run `npm run start` to run the React app on localhost:3000 and host the Express server on localhost:3001
 
