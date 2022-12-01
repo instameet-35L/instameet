@@ -381,9 +381,9 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
   function getBestTime() {
     let currLargest = [] // currLargest represents the list of grid entries with the largest num of people available
     let finalLargest = [] // represents the list of times and dates with the largest num of people available
+    if (Object.keys(allAvailsDict).length === 0) return currLargest
     let currLargestKey = Object.keys(allAvailsDict)[0] // grid cell with most num of available users
     // Loop below gets the list of grid entries that have the best availibility
-    console.log("HEY")
     for (const [key, value] of Object.entries(allAvailsDict)) {
       // console.log("key: ", key, " value: ", value)
       if (value.length > allAvailsDict[currLargestKey].length) {
@@ -393,31 +393,24 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
         currLargest.push(key)
       }
     }
-    // console.log("THE CELLS WITH MOST AVAILS ARE ", currLargest)
-
     // Turn the list of grid entries with best availibility into corresponding dates and times
-    // if (currLargest.length > 5) currLargest = currLargest.slice(0, 5) // Don't want too many options, so choose first five
-    // let timeString = ""
-    // let dateString = ""
-    // for (let entry = 0; entry < currLargest.length; entry++) {
-    //   // let row = entry / numDays // floor fxn, returns row
-    //   // let col = entry % numDays
-    //   // timeString = timeEntries[row]
-    //   // dateString = dateEntries[col]
-    //   // finalLargest.push(dateString + " " + timeString)
-    // }
-    // for (const entry of currLargest) {
-    //   let row = entry / numDays // floor fxn, returns row
-    //   let col = entry % numDays
-    //   timeString = timeEntries[row]
-    //   dateString = dateEntries[col]
-    //   finalLargest.push(dateString + " " + timeString)
-    // }
+    if (currLargest.length > 5) {
+      currLargest = currLargest.slice(0, 5)
+    } // Don't want too many options, so choose first five
+    let timeString = ""
+    let dateString = ""
+
+    for (const entry of currLargest) {
+      let row = Math.floor(entry / numDays) // floor fxn, returns row
+      let col = (entry % numDays) + 1
+      timeString = timeEntries[row]
+      dateString = dateEntries[col]
+      finalLargest.push(dateString + " " + timeString)
+    }
+    setBest(finalLargest)   //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
+    //Where should we call this function in order to not cause infinite rerendering
     return finalLargest
   }
-
-  // const bestTime = getBestTime()
-  // setBest(bestTime)
 
   function MakeMyGridDateRow() {
     console.log("=====Entered MakeMyGridDateRows")
