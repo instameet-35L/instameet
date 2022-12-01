@@ -314,10 +314,13 @@ function GroupGrid() {
 
   function changeColor(event) {
     console.log("CHANGE COLOR")
-    if (event.target.value === "blue") {
+    if(event.target.value === "blue") //if button clicked was blue, display blue
+    {
       setBlue(true)
-      console.log(event.target.value + ":GOT BLUE")
-    } else if (event.target.value === "orange") {
+      console.log(event.target.value + ":GOT BLUE");
+    }
+    else if(event.target.value === "orange")  //if button clicked was orange, display orange
+    {
       setBlue(false)
       console.log(event.target.value + ":GOT ORANGE")
     }
