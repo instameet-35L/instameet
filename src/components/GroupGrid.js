@@ -47,30 +47,22 @@ function getAllAvails(meetingInfo, nameDispDict) {
 }
 
 function handleClick(allAvailsDict, cell) {
-  if(allAvailsDict[cell] === undefined)
-  {
+  if (allAvailsDict[cell] === undefined) {
     alert("No one is available at this time.")
     return
   }
   let message = ""
   let len = allAvailsDict[cell].length
-  for(let i = 0; i < len; i++)
-  {
-    if(len >= 2 && i === len-1)
-      message+="and "
-    message+=allAvailsDict[cell][i]
-    if(len === 2 && i === len-2)
-    {
-      message+=" "
-    }
-    else if(i !== len-1)
-      message+=", "
+  for (let i = 0; i < len; i++) {
+    if (len >= 2 && i === len - 1) message += "and "
+    message += allAvailsDict[cell][i]
+    if (len === 2 && i === len - 2) {
+      message += " "
+    } else if (i !== len - 1) message += ", "
   }
-  if(len === 1)
-    message+=" is "
-  else
-    message+= " are "
-  message+= "available at this time."
+  if (len === 1) message += " is "
+  else message += " are "
+  message += "available at this time."
   alert(message)
 }
 
@@ -298,7 +290,7 @@ function renderTimeEntry(i, timeEntries) {
   return <div className="dateEntry">{timeEntries[i]}</div>
 }
 
-export default function GroupGrid({ meetingInfo, nameDispDict }) {
+export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
   console.log("=====!!!Entered GroupGrid function")
   // console.log(nameDispDict)
   const [blue, setBlue] = useState(true)
@@ -377,9 +369,11 @@ export default function GroupGrid({ meetingInfo, nameDispDict }) {
   function getBestTime() {
     let currLargest = [] // currLargest represents the list of grid entries with the largest num of people available
     let finalLargest = [] // represents the list of times and dates with the largest num of people available
-    let currLargestKey = 0
+    let currLargestKey = Object.keys(allAvailsDict)[0] // grid cell with most num of available users
     // Loop below gets the list of grid entries that have the best availibility
+    console.log("HEY")
     for (const [key, value] of Object.entries(allAvailsDict)) {
+      // console.log("key: ", key, " value: ", value)
       if (value.length > allAvailsDict[currLargestKey].length) {
         currLargestKey = key
         currLargest = [key]
@@ -387,19 +381,31 @@ export default function GroupGrid({ meetingInfo, nameDispDict }) {
         currLargest.push(key)
       }
     }
+    // console.log("THE CELLS WITH MOST AVAILS ARE ", currLargest)
+
     // Turn the list of grid entries with best availibility into corresponding dates and times
-    currLargest = currLargest.slice(0, 5) // Don't want too many options, so choose first five
-    let timeString = ""
-    let dateString = ""
-    for (const entry of currLargest) {
-      let row = entry / numDays // floor fxn, returns row
-      let col = entry % numDays
-      timeString = timeEntries[row]
-      dateString = dateEntries[col]
-      finalLargest.push(dateString + " " + timeString)
-    }
+    // if (currLargest.length > 5) currLargest = currLargest.slice(0, 5) // Don't want too many options, so choose first five
+    // let timeString = ""
+    // let dateString = ""
+    // for (let entry = 0; entry < currLargest.length; entry++) {
+    //   // let row = entry / numDays // floor fxn, returns row
+    //   // let col = entry % numDays
+    //   // timeString = timeEntries[row]
+    //   // dateString = dateEntries[col]
+    //   // finalLargest.push(dateString + " " + timeString)
+    // }
+    // for (const entry of currLargest) {
+    //   let row = entry / numDays // floor fxn, returns row
+    //   let col = entry % numDays
+    //   timeString = timeEntries[row]
+    //   dateString = dateEntries[col]
+    //   finalLargest.push(dateString + " " + timeString)
+    // }
     return finalLargest
   }
+
+  // const bestTime = getBestTime()
+  // setBest(bestTime)
 
   function MakeMyGridDateRow() {
     console.log("=====Entered MakeMyGridDateRows")
@@ -452,13 +458,12 @@ export default function GroupGrid({ meetingInfo, nameDispDict }) {
 
   function changeColor(event) {
     console.log("CHANGE COLOR")
-    if(event.target.value === "blue") //if button clicked was blue, display blue
-    {
+    if (event.target.value === "blue") {
+      //if button clicked was blue, display blue
       setBlue(true)
-      console.log(event.target.value + ":GOT BLUE");
-    }
-    else if(event.target.value === "orange")  //if button clicked was orange, display orange
-    {
+      console.log(event.target.value + ":GOT BLUE")
+    } else if (event.target.value === "orange") {
+      //if button clicked was orange, display orange
       setBlue(false)
       console.log(event.target.value + ":GOT ORANGE")
     }

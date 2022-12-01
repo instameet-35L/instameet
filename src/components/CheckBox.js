@@ -4,6 +4,8 @@ export default function CheckBoxes({
   thisMeeting,
   displayUsers,
   setDisplayUsers,
+  refresh,
+  forceRefresh,
 }) {
   if (thisMeeting == null) {
     return
@@ -18,6 +20,8 @@ export default function CheckBoxes({
         username={name}
         displayUsers={displayUsers}
         setDisplayUsers={setDisplayUsers}
+        forceUpdate={refresh}
+        setForceUpdate={forceRefresh}
       />
     )
   }
@@ -32,10 +36,14 @@ export default function CheckBoxes({
   )
 }
 
-function AddBox({ username, displayUsers, setDisplayUsers }) {
-    //force rerendering the page for checkbox bug
-    const [forceUpdate, setForceUpdate] = useState(true)
-    //no checkbox if no username
+function AddBox({
+  username,
+  displayUsers,
+  setDisplayUsers,
+  forceUpdate,
+  setForceUpdate,
+}) {
+  //no checkbox if no username
   if (username == null) {
     return
   }
@@ -43,6 +51,7 @@ function AddBox({ username, displayUsers, setDisplayUsers }) {
   function UpdateDisplay(checked) {
     setDisplayUsers((display) => {
       display.set(username, checked)
+      console.log(displayUsers.get(username))
       return display
     })
   }
@@ -53,7 +62,8 @@ function AddBox({ username, displayUsers, setDisplayUsers }) {
         key={`${username}`}
         type="checkbox"
         id={`checkbox-${username}`}
-        onChange={(event) => {  //call this when checkbox is checked or unchecked
+        onChange={(event) => {
+          //call this when checkbox is checked or unchecked
           UpdateDisplay(event.target.checked)
           setForceUpdate((forceUpdate) => !forceUpdate)
         }}

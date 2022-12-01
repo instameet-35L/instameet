@@ -23,12 +23,16 @@ export default function Meeting() {
   //whether they should be displayed in the group grid
   //if bool == true --> display
   //if bool == false --> don't display
-  
+
   //create a hook in the parent component
   //pass it into child componenet
   //set the value of the hook to the funciton return value
   //access that variable in the parent component
-  
+
+  const [bestTime, setBestTime] = useState(null)
+
+  //force rerendering the page for checkbox bug
+  const [forceUpdate, setForceUpdate] = useState(true)
 
   useEffect(() => {
     async function getMeeting(id) {
@@ -88,7 +92,13 @@ export default function Meeting() {
             {/* {console.log("displayUsers is" + displayUsers)} */}
             {console.log("displayUsers just before group grid is")}
             {console.log(displayUsers)}
-            <GroupGrid meetingInfo={meeting} nameDispDict={displayUsers} />
+            <GroupGrid
+              meetingInfo={meeting}
+              nameDispDict={displayUsers}
+              setBest={setBestTime}
+            />
+            {console.log("THE BEST TIME IS ")}
+            {console.log(bestTime)}
             {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
@@ -97,9 +107,11 @@ export default function Meeting() {
                 thisMeeting={meeting}
                 displayUsers={displayUsers}
                 setDisplayUsers={setDisplayUsers}
+                refresh={forceUpdate}
+                forceRefresh={setForceUpdate}
               />
 
-              <Popup meeting1 = {meeting} time = {0}></Popup>
+              <Popup meeting1={meeting} time={0}></Popup>
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>
