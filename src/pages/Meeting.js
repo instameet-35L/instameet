@@ -79,7 +79,10 @@ export default function Meeting() {
             {/* ABOVE CORRECT? NOTE: !!! BROKEN  took out startDay={meeting.timeframe.start} */}
           </div>
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            <GroupGrid nameDict={displayUsers} />
+            {/* {console.log("displayUsers is" + displayUsers)} */}
+            {console.log("displayUsers just before group grid is")}
+            {console.log(displayUsers)}
+            <GroupGrid meetingInfo={meeting} nameDispDict={displayUsers} />
             {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
@@ -92,6 +95,8 @@ export default function Meeting() {
                 displayUsers={displayUsers}
                 setDisplayUsers={setDisplayUsers}
               />
+              {console.log("displayUsers just after checkboxes is")}
+              {console.log(displayUsers)}
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>

@@ -5,8 +5,8 @@ import "../css/FillSchedule.css"
  * Currently, FillSchedule is a grid where you can select your
  * availibility. Right now, you can select and unselect grid entries.
  * What needs to be changed:
- *   - Need to pass props so that the grid has the number of columns equal to
- *     the number of days chosen by the event creator.
+ *   - Need to make it so that when a button is clicked, that info is
+ *     passed to the backend
  */
 
 /**
@@ -16,6 +16,7 @@ import "../css/FillSchedule.css"
  * @param {Number} timeIndex
  * @returns Meeting data as object or null if the fetch failed
  */
+// Call the data base to add availibilities in backend
 async function addAvailability(meetingId, userName, timeIndex) {
   if (userName == null) {
     return null
@@ -138,7 +139,6 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
     return
   }
 
-  // IndivGrid(meetingInfo, currUsrName) !!! PUT BACK
   function GetNumberOfDays(start, end) {
     const startDate = new Date(start)
     const endDate = new Date(end)
@@ -158,7 +158,6 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
   }
 
   function createDays(beginDate, numDays) {
-    // !!! Need to test
     let startDate = new Date(beginDate)
     let datesArray = ["", startDate.toDateString().substring(4, 10)]
     // datesArray is a array of string dates // need chars 4-9 so [4, 10)
@@ -179,7 +178,6 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
     meetingInfo.timeframe.end
   )
 
-  // const dateEntries = ["", meetingInfo.timeframe.start, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]  // put each date here
   const dateEntries = createDays(meetingInfo.timeframe.start, numDays)
   const timeEntries = [
     "6:00 AM",
@@ -247,9 +245,9 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
 
   return (
     <>
-      <div className="status">{"Your availibility:"}</div>
+      <div className="status">{"Your availability:"}</div>
       <DatesRow />
-      {makeGridRows()}
+      <div>{makeGridRows()}</div>
     </>
   )
 }

@@ -3,10 +3,44 @@ import "../css/FillSchedule.css"
 
 /*
  * GroupGrid is a grid where you can look at all users availibility
- * - Need props to be passed
+ * - Need to make it so that we use the allAvailsDict to generate a numUsrsAvail per entry and then display that
+ * - CHECK NUMUSRAVAILABLE
  */
 
 //ASK PAUL TO RELOAD THE PAGE WHEN COLOR BUTTONS ARE CLICKED
+
+function getAllAvails(meetingInfo, nameDispDict) {
+  // meetingInfo.users is a list of the user structs
+  // schema is under server/models/meeting.js
+  let allAvail =
+    {} /* allAvail is a dictionary-like object containing the grid entry 
+                  as a key and a list of the name of users in that grid entry */
+  for (let count = 0; count < meetingInfo.users.length; count++) {
+    console.log(
+      "===meetingInfo.users[count].name is " + meetingInfo.users[count].name
+    )
+    // console.log("===nameDispDict is " + nameDispDict)
+    // if (nameDispDict[meetingInfo.users[count].name]) {
+    // PUT BACK
+    for (
+      let innerCount = 0;
+      innerCount < meetingInfo.users[count].available.length;
+      innerCount++
+    ) {
+      let currEntry = meetingInfo.users[count].available[innerCount]
+      if (currEntry in allAvail) {
+        allAvail[currEntry].push(meetingInfo.users[count].name)
+      } else {
+        allAvail[currEntry] = [meetingInfo.users[count].name]
+      }
+    }
+    // if the boolean associated with that name is true
+    // meetingInfo.users[count].name is the name (string) of curr count usr
+    // allAvail.push(meetingInfo.users[count].available) // !!! TEST // push that users availibility onto the availibility list
+    // }    PUT BACK
+  }
+  return allAvail
+}
 
 function buttonClick() {
   alert("This is an alert")
@@ -229,25 +263,69 @@ function renderSwitch(colorBlue, i, numUsrsAvail) {
 // }
 
 function renderDateEntry(i, dateEntries) {
-  return (
-    <div key={`group-date-${i}`} className="dateEntry">
-      date
-      {dateEntries[i]}
-    </div>
-  )
+  return <div className="dateEntry">{dateEntries[i]}</div>
 }
 
 function renderTimeEntry(i, timeEntries) {
-  return (
-    <div key={`group-time-${i}`} className="dateEntry">
-      {timeEntries[i]}
-    </div>
-  )
+  return <div className="dateEntry">{timeEntries[i]}</div>
 }
 
-function GroupGrid() {
+export default function GroupGrid({ meetingInfo, nameDispDict }) {
+  console.log("=====!!!Entered GroupGrid function")
+  // console.log(nameDispDict)
   const [blue, setBlue] = useState(true)
-  const dateEntries = ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // put each date here
+  if (
+    meetingInfo === null ||
+    meetingInfo === undefined // ||
+    // nameDispDict === null ||
+    // nameDispDict === undefined
+  ) {
+    console.log("=======Early return from GroupGrid function cuz of null val")
+    return
+  }
+  console.log("=======Got past null check in GroupGrid function")
+  const allAvailsDict = getAllAvails(meetingInfo, nameDispDict) // this stores the grid entry as the key and a list of names of users that are available on that day
+
+  function GetNumberOfDays(start, end) {
+    const startDate = new Date(start)
+    const endDate = new Date(end)
+
+    // One day in milliseconds
+    const lengthOfDay =
+      1000 /* milliseconds */ *
+      60 /* seconds */ *
+      60 /* minutes */ *
+      24 /* hours */
+    // Calculating the time difference between two dates
+    const timeDifference = endDate.getTime() - startDate.getTime()
+    // Calculating the no. of days between two dates
+    const numDays = Math.round(timeDifference / lengthOfDay)
+
+    return numDays
+  }
+
+  function createDays(beginDate, numDays) {
+    let startDate = new Date(beginDate)
+    let datesArray = ["", startDate.toDateString().substring(4, 10)]
+    // datesArray is a array of string dates // need chars 4-9 so [4, 10)
+    let countNumDays = numDays - 1
+    while (countNumDays > 0) {
+      var result = startDate
+      result.setDate(result.getDate() + 1)
+      datesArray.push(result.toDateString().substring(4, 10))
+      startDate = result
+      countNumDays--
+    }
+    return datesArray
+  }
+
+  // const entries = Array(100).fill(null) // should this be array(100) or should there not be a specific sizE??
+  const numDays = GetNumberOfDays(
+    meetingInfo.timeframe.start,
+    meetingInfo.timeframe.end
+  )
+
+  const dateEntries = createDays(meetingInfo.timeframe.start, numDays)
   const timeEntries = [
     "6:00 AM",
     "7:00 AM",
@@ -268,11 +346,38 @@ function GroupGrid() {
     "10:00 PM",
   ]
 
-  const MakeMyGridDateRow = () => {
+  function getBestTime() {
+    let currLargest = [] // currLargest represents the list of grid entries with the largest num of people available
+    let finalLargest = [] // represents the list of times and dates with the largest num of people available
+    let currLargestKey = 0
+    // Loop below gets the list of grid entries that have the best availibility
+    for (const [key, value] of Object.entries(allAvailsDict)) {
+      if (value.length > allAvailsDict[currLargestKey].length) {
+        currLargestKey = key
+        currLargest = [key]
+      } else if (value.length === allAvailsDict[currLargestKey].length) {
+        currLargest.push(key)
+      }
+    }
+    // Turn the list of grid entries with best availibility into corresponding dates and times
+    currLargest = currLargest.slice(0, 5) // Don't want too many options, so choose first five
+    let timeString = ""
+    let dateString = ""
+    for (const entry of currLargest) {
+      let row = entry / numDays // floor fxn, returns row
+      let col = entry % numDays
+      timeString = timeEntries[row]
+      dateString = dateEntries[col]
+      finalLargest.push(dateString + " " + timeString)
+    }
+    return finalLargest
+  }
+
+  function MakeMyGridDateRow() {
+    console.log("=====Entered MakeMyGridDateRows")
     let dateRows = []
     let dateChildren = []
-    const numCols = 8
-    for (let c = 0; c < numCols; c++) {
+    for (let c = 0; c <= numDays; c++) {
       dateChildren.push(renderDateEntry(c, dateEntries))
     }
     dateRows.push(
@@ -283,19 +388,24 @@ function GroupGrid() {
     return dateRows
   }
 
-  const MakeMyGridRows = () => {
+  function MakeMyGridRows() {
+    console.log("=====Entered MakeMyGridRows")
     let rows = []
-    const numCols = 8 // would just need arathi's num from the calendar
     let timeI = 0
     let entryI = 0
     let numUsrsAvail = 0
     for (let r = 0; r < 17; r++) {
       let children = []
-      for (let c = 0; c < numCols; c++) {
+      for (let c = 0; c <= numDays; c++) {
         if (c === 0) {
           children.push(renderTimeEntry(timeI, timeEntries))
           timeI++
         } else {
+          if (entryI in allAvailsDict) {
+            numUsrsAvail = allAvailsDict[entryI].length
+          } else {
+            numUsrsAvail = 0
+          }
           children.push(renderSwitch(blue, entryI, numUsrsAvail))
           entryI++
           numUsrsAvail++
@@ -328,8 +438,7 @@ function GroupGrid() {
 
   return (
     <div>
-      <div className="status">{"Group availibility:"}</div>
-      {/* <div>{startDate}</div> */}
+      <div className="status">{"Group availability:"}</div>
       <div>{MakeMyGridDateRow()}</div>
       <div>{MakeMyGridRows()}</div>
       <br />
@@ -363,5 +472,3 @@ function GroupGrid() {
     </div>
   )
 }
-
-export default GroupGrid
