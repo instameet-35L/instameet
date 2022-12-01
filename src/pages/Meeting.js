@@ -23,6 +23,12 @@ export default function Meeting() {
   //whether they should be displayed in the group grid
   //if bool == true --> display
   //if bool == false --> don't display
+  
+  //create a hook in the parent component
+  //pass it into child componenet
+  //set the value of the hook to the funciton return value
+  //access that variable in the parent component
+  
 
   useEffect(() => {
     async function getMeeting(id) {
