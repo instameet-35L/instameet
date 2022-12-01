@@ -47,7 +47,7 @@ export default function Popup ({meeting1, time}){
             {show && (
                 <div className="wrapper">
                     <div className="notification_wrapper">
-                        Notification:
+                        Meeting Info:
                         <div onClick={() => { setShow(!show) }}>
                             <CloseButton />
                         </div>
