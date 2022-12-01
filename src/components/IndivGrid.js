@@ -9,6 +9,13 @@ import "../css/FillSchedule.css"
  *     the number of days chosen by the event creator.
  */
 
+/**
+ * Add a user's available time to the database
+ * @param {String} meetingId
+ * @param {String} userName
+ * @param {Number} timeIndex
+ * @returns Meeting data as object or null if the fetch failed
+ */
 async function addAvailability(meetingId, userName, timeIndex) {
   if (userName == null) {
     return null
@@ -32,6 +39,13 @@ async function addAvailability(meetingId, userName, timeIndex) {
   return await response.json()
 }
 
+/**
+ * Remove a user's available time from the database
+ * @param {String} meetingId
+ * @param {String} userName
+ * @param {Number} timeIndex
+ * @returns Meeting data as object or null if the fetch failed
+ */
 async function removeAvailability(meetingId, userName, timeIndex) {
   if (userName == null) {
     return null
@@ -55,14 +69,24 @@ async function removeAvailability(meetingId, userName, timeIndex) {
   return await response.json()
 }
 
-function renderEntry(i, meetingId, name, setMeeting) {
+function TimeToggleCell({ id, meetingInfo, meetingId, name, setMeeting }) {
   // !! PUT BACK function renderEntry(i, meetingInfo, currUsrName)
   const NOT_AVAILABLE = "white"
   const AVAILABLE = "skyblue"
 
+  const loggedInUser = meetingInfo.users.find((user) => user.name === name)
+
+  // Check if the user is available at this time (represented by `id`)
+  const available =
+    loggedInUser != null ? loggedInUser.available.indexOf(id) !== -1 : false
+
   return (
     <button
+      key={`time-${id}`}
       className="entry"
+      style={{
+        background: available ? AVAILABLE : NOT_AVAILABLE,
+      }}
       onClick={(event) => {
         if (name == null) {
           return
@@ -72,14 +96,14 @@ function renderEntry(i, meetingId, name, setMeeting) {
           event.target.style.background === NOT_AVAILABLE ||
           event.target.style.background === ""
         ) {
-          addAvailability(meetingId, name, i).then((res) => {
+          addAvailability(meetingId, name, id).then((res) => {
             if (res != null) {
               setMeeting(res)
               event.target.style.background = AVAILABLE
             }
           })
         } else {
-          removeAvailability(meetingId, name, i).then((res) => {
+          removeAvailability(meetingId, name, id).then((res) => {
             if (res != null) {
               setMeeting(res)
               event.target.style.background = NOT_AVAILABLE
@@ -88,17 +112,25 @@ function renderEntry(i, meetingId, name, setMeeting) {
         }
       }}
     >
-      {i}
+      {id}
     </button>
   )
 }
 
-function renderDateEntry(i, dateEntries) {
-  return <div className="dateEntry">{dateEntries[i]}</div>
+function DateOfColCell({ id, dateEntries }) {
+  return (
+    <div key={`date-${id}`} className="dateEntry">
+      {dateEntries[id]}
+    </div>
+  )
 }
 
-function renderTimeEntry(i, timeEntries) {
-  return <div className="dateEntry">{timeEntries[i]}</div>
+function TimeOfRowCell({ id, timeEntries }) {
+  return (
+    <div key={`row-time-${id}`} className="dateEntry">
+      {timeEntries[id]}
+    </div>
+  )
 }
 
 export default function IndivGrid({ meetingInfo, name, setMeeting }) {
@@ -169,22 +201,18 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
     "10:00 PM",
   ]
 
-  function MakeGridDateRow() {
+  function DatesRow() {
     // creating the row of dates below
     let dateRows = []
     let dateChildren = []
     for (let c = 0; c <= numDays; c++) {
-      dateChildren.push(renderDateEntry(c, dateEntries))
+      dateChildren.push(<DateOfColCell id={c} dateEntries={dateEntries} />)
     }
-    dateRows.push(
-      <div key={0} className="board-row">
-        {dateChildren}
-      </div>
-    )
+    dateRows.push(<div className="board-row">{dateChildren}</div>)
     return dateRows
   }
 
-  function MakeGridRows() {
+  function makeGridRows() {
     let rows = [] // would just need arathi's num from the calendar
     let timeI = 0
     let entryI = 0
@@ -192,16 +220,24 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
       let children = []
       for (let c = 0; c <= numDays; c++) {
         if (c === 0) {
-          children.push(renderTimeEntry(timeI, timeEntries))
+          children.push(<TimeOfRowCell id={timeI} timeEntries={timeEntries} />)
           timeI++
         } else {
-          children.push(renderEntry(entryI, meetingInfo._id, name, setMeeting)) // !!! PUT BACK children.push(renderEntry(entryI, meetingInfo, currUsrName))
+          children.push(
+            <TimeToggleCell
+              id={entryI}
+              meetingInfo={meetingInfo}
+              meetingId={meetingInfo._id}
+              name={name}
+              setMeeting={setMeeting}
+            />
+          )
           entryI++
         }
       }
 
       rows.push(
-        <div key={r} className="board-row">
+        <div key={`row-${r}`} className="board-row">
           {children}
         </div>
       )
@@ -212,11 +248,8 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
   return (
     <>
       <div className="status">{"Your availibility:"}</div>
-      {/* <div>{startDate}</div> */}
-      {/* <div className="dates">{dateChildren}</div> */}
-      <div>{MakeGridDateRow()}</div>
-      {/* <p>Test, above are the dates</p> */}
-      <div>{MakeGridRows()}</div>
+      <DatesRow />
+      {makeGridRows()}
     </>
   )
 }
