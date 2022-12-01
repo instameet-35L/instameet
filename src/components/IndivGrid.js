@@ -173,10 +173,13 @@ export default function IndivGrid({ meetingInfo, name, setMeeting }) {
   }
 
   // const entries = Array(100).fill(null) // should this be array(100) or should there not be a specific sizE??
-  const numDays = GetNumberOfDays(
+  let numDays = GetNumberOfDays(
     meetingInfo.timeframe.start,
     meetingInfo.timeframe.end
   )
+  if (numDays > 9) {
+    numDays = 9
+  }
 
   const dateEntries = createDays(meetingInfo.timeframe.start, numDays)
   const timeEntries = [

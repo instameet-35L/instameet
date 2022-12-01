@@ -18,7 +18,9 @@ export default function Meeting() {
   //null -> no one is logged in
   //not null -> someone is logged in and changing their availability
 
-  const [displayUsers, setDisplayUsers] = useState(null)
+  // Please do not change the default value of `new Map()`, the `CheckBoxes`
+  // component depends on it
+  const [displayUsers, setDisplayUsers] = useState(new Map())
   //dictionary of all users mapped to a boolean of
   //whether they should be displayed in the group grid
   //if bool == true --> display

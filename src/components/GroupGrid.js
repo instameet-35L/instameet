@@ -16,6 +16,7 @@ import "../css/FillSchedule.css"
 function getAllAvails(meetingInfo, nameDispDict) {
   // meetingInfo.users is a list of the user structs
   // schema is under server/models/meeting.js
+  console.log("=== ENTERED getAllAvails")
   let allAvail =
     {} /* allAvail is a dictionary-like object containing the grid entry 
                   as a key and a list of the name of users in that grid entry */
@@ -23,25 +24,30 @@ function getAllAvails(meetingInfo, nameDispDict) {
     console.log(
       "===meetingInfo.users[count].name is " + meetingInfo.users[count].name
     )
-    // console.log("===nameDispDict is " + nameDispDict)
-    // if (nameDispDict[meetingInfo.users[count].name]) {
-    // PUT BACK
-    for (
-      let innerCount = 0;
-      innerCount < meetingInfo.users[count].available.length;
-      innerCount++
-    ) {
-      let currEntry = meetingInfo.users[count].available[innerCount]
-      if (currEntry in allAvail) {
-        allAvail[currEntry].push(meetingInfo.users[count].name)
-      } else {
-        allAvail[currEntry] = [meetingInfo.users[count].name]
+    console.log("===nameDispDict info is: ")
+    // console.log(nameDispDict[meetingInfo.users[count].name])
+    console.log(nameDispDict)
+    console.log("meetingInfo.users[count] is: ")
+    console.log(meetingInfo.users[count].name)
+    if (nameDispDict.get(meetingInfo.users[count].name)) {
+      console.log("ENTERED IF!!!!!!!!!!!")
+      // PUT BACK
+      for (
+        let innerCount = 0;
+        innerCount < meetingInfo.users[count].available.length;
+        innerCount++
+      ) {
+        let currEntry = meetingInfo.users[count].available[innerCount]
+        if (currEntry in allAvail) {
+          allAvail[currEntry].push(meetingInfo.users[count].name)
+        } else {
+          allAvail[currEntry] = [meetingInfo.users[count].name]
+        }
       }
-    }
-    // if the boolean associated with that name is true
-    // meetingInfo.users[count].name is the name (string) of curr count usr
-    // allAvail.push(meetingInfo.users[count].available) // !!! TEST // push that users availibility onto the availibility list
-    // }    PUT BACK
+      // if the boolean associated with that name is true
+      // meetingInfo.users[count].name is the name (string) of curr count usr
+      // allAvail.push(meetingInfo.users[count].available) // !!! TEST // push that users availibility onto the availibility list
+    } // PUT BACK
   }
   return allAvail
 }
@@ -296,16 +302,17 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
   const [blue, setBlue] = useState(true)
   if (
     meetingInfo === null ||
-    meetingInfo === undefined // ||
-    // nameDispDict === null ||
-    // nameDispDict === undefined
+    meetingInfo === undefined ||
+    nameDispDict === null ||
+    nameDispDict === undefined
   ) {
     console.log("=======Early return from GroupGrid function cuz of null val")
     return
   }
   console.log("=======Got past null check in GroupGrid function")
   const allAvailsDict = getAllAvails(meetingInfo, nameDispDict) // this stores the grid entry as the key and a list of names of users that are available on that day
-
+  console.log("get allAvailsDict is: ")
+  console.log(allAvailsDict)
   function GetNumberOfDays(start, end) {
     const startDate = new Date(start)
     const endDate = new Date(end)
@@ -340,11 +347,13 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
   }
 
   // const entries = Array(100).fill(null) // should this be array(100) or should there not be a specific sizE??
-  const numDays = GetNumberOfDays(
+  let numDays = GetNumberOfDays(
     meetingInfo.timeframe.start,
     meetingInfo.timeframe.end
   )
-
+  if (numDays > 9) {
+    numDays = 9
+  }
   const dateEntries = createDays(meetingInfo.timeframe.start, numDays)
   const timeEntries = [
     "6:00 AM",
