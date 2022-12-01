@@ -96,12 +96,9 @@ export default function Meeting() {
                 displayUsers={displayUsers}
                 setDisplayUsers={setDisplayUsers}
               />
-<<<<<<< Updated upstream
               {console.log("displayUsers just after checkboxes is")}
               {console.log(displayUsers)}
-=======
               <Popup meeting1 = {meeting} time = {0}></Popup>
->>>>>>> Stashed changes
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>
