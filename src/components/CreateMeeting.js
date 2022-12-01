@@ -37,7 +37,7 @@ export default function CreateMeeting({ title, timeframe, creator }) {
         <Navigate to={`/${meetingId}`} />
       )}
       <button
-        className="text-base font-medium rounded-lg p-3 bg-cyan-600 text-white w-max"
+        className="text-base font-medium rounded-lg p-3 bg-[#1087ff] text-white w-max"
         onClick={requestNewMeeting}
       >
         Create Meeting

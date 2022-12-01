@@ -1,5 +1,6 @@
 import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
+// import "../css/Calendar.css"
 // import Input from "./Input"
 //this file implements the calendar component
 //value is the date(s) selected by the user when they click
@@ -36,7 +37,7 @@ function Cal({ myValue, setMyValue }) {
         
       </div> */}
       <div>
-      <span>Please select a range of dates that is 14 days or smaller</span>
+      <span>Select a range of dates that is 14 days or smaller</span>
         <Calendar
           onChange={setMyValue} //when a date is clicked
           value={myValue} //date = value
@@ -54,7 +55,7 @@ function Cal({ myValue, setMyValue }) {
           myValue.length > 1 && (
             <div>
               <p>
-                <span style={{ color: "red" }}>ERROR: </span>
+                <span className="self-center" style={{ color: "red" }}>ERROR: </span>
                 Please select a range that has 14 days or less
               </p>
               {/* {setMyValue(null)}

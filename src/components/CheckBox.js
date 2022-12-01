@@ -9,12 +9,10 @@ export default function CheckBoxes({
     return
   }
 
-  // creates a checkbox for each user
   let nameList = []
-
+  //loop through all users and creates a checkbox for each
   for (let i = 0; i < thisMeeting.users.length; i++) {
     const name = thisMeeting.users[i].name
-
     nameList.push(
       <AddBox
         username={name}
@@ -27,7 +25,7 @@ export default function CheckBoxes({
   return (
     <div>
       <fieldset>
-        <legend>Select whose schedules to display:</legend>
+        <legend>Select whose schedule to display:</legend>
         {nameList}
       </fieldset>
     </div>
@@ -35,12 +33,13 @@ export default function CheckBoxes({
 }
 
 function AddBox({ username, displayUsers, setDisplayUsers }) {
-  const [forceUpdate, setForceUpdate] = useState(true)
-
+    //force rerendering the page for checkbox bug
+    const [forceUpdate, setForceUpdate] = useState(true)
+    //no checkbox if no username
   if (username == null) {
     return
   }
-
+  //if checkbox is clicked, update the display dictionary
   function UpdateDisplay(checked) {
     setDisplayUsers((display) => {
       display.set(username, checked)
@@ -54,7 +53,7 @@ function AddBox({ username, displayUsers, setDisplayUsers }) {
         key={`${username}`}
         type="checkbox"
         id={`checkbox-${username}`}
-        onChange={(event) => {
+        onChange={(event) => {  //call this when checkbox is checked or unchecked
           UpdateDisplay(event.target.checked)
           setForceUpdate((forceUpdate) => !forceUpdate)
         }}

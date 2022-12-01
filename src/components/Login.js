@@ -66,7 +66,7 @@ export default function Login({ name, setName, meetingId }) {
 
           <div className="flex flex-col items-center space-y-5">
             <button
-              className="text-base font-medium rounded-lg p-3 bg-cyan-600 text-white w-max"
+              className="text-base font-medium rounded-lg p-3 bg-[#1087ff] text-white w-max"
               onClick={registerOrLogin}
             >
               Login / Register
