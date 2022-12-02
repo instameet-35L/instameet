@@ -111,7 +111,7 @@ function getBestTimes(meetingInfo, allAvailsDict) {
   }
 
   // Turn the list of grid entries with best availibility into corresponding dates and times
-  if (currLargest.length > 5) {
+  if (currLargest.length > 3) {
     currLargest = currLargest.slice(0, 3)
   } // Don't want too many options, so choose first five
   let timeString = ""
@@ -122,7 +122,7 @@ function getBestTimes(meetingInfo, allAvailsDict) {
     let col = (entry % numDays) + 1
     timeString = timeEntries[row]
     dateString = dateEntries[col]
-    finalLargest.push(dateString + " " + timeString)
+    finalLargest.push(" " + dateString + " " + timeString)
   }
 
   // Where should we call this function in order to not cause infinite rerendering
