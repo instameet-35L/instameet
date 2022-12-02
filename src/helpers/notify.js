@@ -19,7 +19,7 @@ export default function notify(title, message, type) {
     animationIn: ["animate__animated", "animate__fadeIn"],
     animationOut: ["animate__animated", "animate__fadeOut"],
     dismiss: {
-      duration: 2000,
+      duration: 3000,
       onScreen: true,
       pauseOnHover: true,
       showIcon: true,
