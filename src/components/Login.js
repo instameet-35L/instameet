@@ -29,7 +29,7 @@ export default function Login({ name, setName, meetingId }) {
   }
 
   return (
-    <div className="mb-3 mt-3">
+    <div className="mb-3">
       {name == null && (
         <div className="flex flex-col items-start gap-3 mb-10">
           <form>

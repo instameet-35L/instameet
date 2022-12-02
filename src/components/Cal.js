@@ -64,10 +64,16 @@ export default function Cal({ setTimeframe }) {
         />
       </div>
       <div className="self-center">
-        {_timeframe != null && (
+        {/* &nbsp prevents the div from disappearing when there's no other text. */}
+        {_timeframe != null ? (
           <>
             <p>Start: {_timeframe[0].toDateString()}</p>
             <p>End: {_timeframe[1].toDateString()}</p>
+          </>
+        ) : (
+          <>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
           </>
         )}
       </div>

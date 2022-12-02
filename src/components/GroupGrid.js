@@ -53,194 +53,6 @@ function getAllAvails(meetingInfo, nameDispDict) {
   return allAvail
 }
 
-function handleClick(allAvailsDict, cell) {
-  if (allAvailsDict[cell] === undefined) {
-    const title = `${cell}: You have no friends`
-    notify(title, "No one is available at this time.", "default")
-    return
-  }
-  let message = ""
-  let len = allAvailsDict[cell].length
-  for (let i = 0; i < len; i++) {
-    if (len >= 2 && i === len - 1) message += "and "
-    message += allAvailsDict[cell][i]
-    if (len === 2 && i === len - 2) {
-      message += " "
-    } else if (i !== len - 1) message += ", "
-  }
-  if (len === 1) message += " is "
-  else message += " are "
-  message += "available at this time."
-  const messagetitle = `${cell}: Wow you have friends`
-  notify(messagetitle, message, "success")
-}
-
-function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
-  switch (numUsrsAvail) {
-    case 0:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-000"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-000"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-
-    case 1:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-100"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-100"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    // case 2:
-    //   if (colorBlue) {
-    //     return (
-    //       <button
-    //         className="groupEntry bg-blue-200"
-    //         onClick={() => handleClick(allAvailsDict, i)}
-    //       ></button>
-    //     )
-    //   } else {
-    //     return (
-    //       <button
-    //         className="groupEntry bg-orange-200"
-    //         onClick={() => handleClick(allAvailsDict, i)}
-    //       ></button>
-    //     )
-    //   }
-    case 2:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-300"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-300"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    case 3:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-400"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-400"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    case 4:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-500"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-500"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    case 5:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-600"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-600"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    case 6:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-700"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-700"
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    case 7:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-800 "
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-800 "
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-    default:
-      if (colorBlue) {
-        return (
-          <button
-            className="groupEntry bg-blue-900 "
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      } else {
-        return (
-          <button
-            className="groupEntry bg-orange-900 "
-            onClick={() => handleClick(allAvailsDict, i)}
-          ></button>
-        )
-      }
-  }
-}
-
 // function renderGroupEntry(colorBlue, i, numUsrsAvail) {
 //   return (
 //     <div>
@@ -276,6 +88,7 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
   const allAvailsDict = getAllAvails(meetingInfo, nameDispDict) // this stores the grid entry as the key and a list of names of users that are available on that day
   console.log("get allAvailsDict is: ")
   console.log(allAvailsDict)
+
   function GetNumberOfDays(start, end) {
     const startDate = new Date(start)
     const endDate = new Date(end)
@@ -357,20 +170,21 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
     if (currLargest.length > 5) {
       currLargest = currLargest.slice(0, 5)
     } // Don't want too many options, so choose first five
-    let timeString = ""
+
     let dateString = ""
+    let timeString = ""
 
     for (const entry of currLargest) {
-      let row = Math.floor(entry / numDays) // floor fxn, returns row
-      let col = (entry % numDays) + 1
-      timeString = timeEntries[row]
-      dateString = dateEntries[col]
+      timeString = getTimeOfEntry(entry)
+      dateString = getDateOfEntry(entry)
       finalLargest.push(dateString + " " + timeString)
     }
-    setBest(finalLargest) //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
+    // setBest(finalLargest) //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
     //Where should we call this function in order to not cause infinite rerendering
+    console.log("THE BEST TIME IS", finalLargest)
     return finalLargest
   }
+  console.log(getBestTime())
 
   function MakeMyGridDateRow() {
     console.log("=====Entered MakeMyGridDateRows")
@@ -431,6 +245,212 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
       //if button clicked was orange, display orange
       setBlue(false)
       console.log(event.target.value + ":GOT ORANGE")
+    }
+  }
+
+  function getDateOfEntry(i) {
+    let col = (i % numDays) + 1
+    let dateString = dateEntries[col]
+    return dateString
+  }
+
+  function getTimeOfEntry(i) {
+    let row = Math.floor(i / numDays) // floor fxn, returns row
+    let timeString = timeEntries[row]
+    return timeString
+  }
+
+  function handleClick(allAvailsDict, cell) {
+    const cellDate = getDateOfEntry(cell)
+    const cellTime = getTimeOfEntry(cell)
+    if (allAvailsDict[cell] === undefined) {
+      const title = `You have no friends`
+      notify(
+        title,
+        `No one is available on ${cellDate} at ${cellTime}.`,
+        "default"
+      )
+      return
+    }
+    let message = ""
+    let len = allAvailsDict[cell].length
+    for (let i = 0; i < len; i++) {
+      if (len >= 2 && i === len - 1) message += "and "
+      message += allAvailsDict[cell][i]
+      if (len === 2 && i === len - 2) {
+        message += " "
+      } else if (i !== len - 1) message += ", "
+    }
+    if (len === 1) message += " is "
+    else message += " are "
+    message += `available on ${cellDate} at ${cellTime}.`
+    const messagetitle = `Wow you have friends`
+    notify(messagetitle, message, "success")
+  }
+
+  function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
+    switch (numUsrsAvail) {
+      case 0:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-000"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-000"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+
+      case 1:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-100"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-100"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      // case 2:
+      //   if (colorBlue) {
+      //     return (
+      //       <button
+      //         className="groupEntry bg-blue-200"
+      //         onClick={() => handleClick(allAvailsDict, i)}
+      //       ></button>
+      //     )
+      //   } else {
+      //     return (
+      //       <button
+      //         className="groupEntry bg-orange-200"
+      //         onClick={() => handleClick(allAvailsDict, i)}
+      //       ></button>
+      //     )
+      //   }
+      case 2:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-300"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-300"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      case 3:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-400"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-400"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      case 4:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-500"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-500"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      case 5:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-600"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-600"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      case 6:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-700"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-700"
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      case 7:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-800 "
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-800 "
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
+      default:
+        if (colorBlue) {
+          return (
+            <button
+              className="groupEntry bg-blue-900 "
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        } else {
+          return (
+            <button
+              className="groupEntry bg-orange-900 "
+              onClick={() => handleClick(allAvailsDict, i)}
+            ></button>
+          )
+        }
     }
   }
 

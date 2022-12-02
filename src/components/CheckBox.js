@@ -1,4 +1,4 @@
-import { useState, React } from "react"
+import React from "react"
 import "../css/Popup.css"
 
 export default function CheckBoxes({

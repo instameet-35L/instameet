@@ -30,7 +30,6 @@ export default function Meeting() {
   //pass it into child componenet
   //set the value of the hook to the funciton return value
   //access that variable in the parent component
-
   const [bestTime, setBestTime] = useState(null)
 
   //force rerendering the page for checkbox bug
@@ -71,7 +70,7 @@ export default function Meeting() {
   }, [meetingId, name])
 
   console.log([meeting, meetingId, name, displayUsers])
-  //let len = meeting.users.length
+
   return (
     <>
       <div className="content-center bg-[#FAF9F6] grow">
@@ -86,9 +85,10 @@ export default function Meeting() {
               name={name}
               setMeeting={setMeeting}
             />
+            <br />
+            <br />
           </div>
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            {/* {console.log("displayUsers is" + displayUsers)} */}
             {console.log("displayUsers just before group grid is")}
             {console.log(displayUsers)}
             <GroupGrid
@@ -111,8 +111,6 @@ export default function Meeting() {
               />
 
               <Popup meeting1={meeting} time={0}></Popup>
-              {/* {console.log("HEY",displayUsers)} */}
-              {/* {JSON.stringify(meeting)} */}
             </div>
           </div>
         </div>
