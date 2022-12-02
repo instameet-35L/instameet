@@ -8,6 +8,12 @@ async function createMeeting(body) {
   return await meeting.save()
 }
 
+async function addBestTime(id, time) {
+  const meeting = await getMeeting(id)
+  meeting.bestTime.push(time)
+  return await meeting.save()
+}
+
 async function getMeeting(id) {
   return await Meeting.findById(ObjectId(id))
 }
@@ -64,6 +70,7 @@ async function removeAvailability(meetingId, userName, timeIndex) {
 module.exports = {
   createMeeting,
   getMeeting,
+  addBestTime,
   getAllMeeting,
   getOrInsertUser,
   addAvailability,
