@@ -2,6 +2,7 @@ const express = require("express")
 const {
   createMeeting,
   getMeeting,
+  addBestTime,
   getAllMeeting,
   getOrInsertUser,
   addAvailability,
@@ -95,11 +96,21 @@ router.get("/all", (req, res) => {
 //Returns updated meeting Object
 //Probably use for loop to call API on every meetingTime for a user
 router.post("/available/:meetingId/:meetingTime/:userName", (req, res) => {
-  addToAvailability(
+  addAvailability(
     req.params.meetingId,
     req.params.meetingTime,
     req.params.userName
   )
+    .then((response) => {
+      res.status(200).send(response)
+    })
+    .catch((error) => {
+      res.status(404).send(error)
+    })
+})
+
+router.post("/addBestTime/:id/:time", (req, res) => {
+  addBestTime(req.params.id, req.params.time)
     .then((response) => {
       res.status(200).send(response)
     })

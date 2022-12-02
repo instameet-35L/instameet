@@ -42,6 +42,10 @@ const meetingSchema = new mongoose.Schema({
     type: [userSchema],
     default: [],
   },
+  bestTime: {
+    type: [String],
+    default: [],
+  },
 })
 
 module.exports = mongoose.model("Meetings", meetingSchema)

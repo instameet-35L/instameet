@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 // import { useEffect, useState } from "react"
 import "../css/Popup.css"
 
@@ -32,6 +32,17 @@ export default function Popup({ meeting1, time }) {
   if (meeting1 === null) {
     return <></>
   }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // useEffect(() => {
+  //   fetch("localhost:3000/api/meeting/", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       id: meeting1._id,
+  //       bestTime: "Dec 1",
+  //     }),
+  //   })
+  // }, [meeting1._id])
   //useState(meeting1.users.length >= 3 ? true : false)
   // if(meeting1.users.length>=3)
   // {

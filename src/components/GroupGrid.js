@@ -368,7 +368,7 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
       finalLargest.push(dateString + " " + timeString)
     }
     setBest(finalLargest) //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
-    //Where should we call this function in order to not cause infinite rerendering
+    // //Where should we call this function in order to not cause infinite rerendering
     return finalLargest
   }
 
