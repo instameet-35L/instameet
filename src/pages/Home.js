@@ -1,7 +1,6 @@
 import "../css/Home.css"
 import React, { useState } from "react"
 import Cal from "../components/Cal.js"
-import TestAPI from "../components/TestAPI"
 import CreateMeeting from "../components/CreateMeeting"
 import TitleForm from "../components/TitleForm"
 import NavBar from "../components/NavBar"
