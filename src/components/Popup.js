@@ -27,7 +27,7 @@ const CloseButton = () => (
   </div>
 )
 
-export default function Popup({ meeting1, bestTime }) {
+export default function Popup({ meeting1, bestTimes }) {
   const [show, setShow] = useState(true)
 
   if (meeting1 === null) {
@@ -55,10 +55,10 @@ export default function Popup({ meeting1, bestTime }) {
   // = useState(meeting1.users.length >= 3 ? true : false)
 
   let bestTimesContent =
-    bestTime == null
+    bestTimes == null || bestTimes.length === 0
       ? "No times filled out yet. You have no friends!"
-      : `${bestTime.toString()} ${
-          bestTime.length === 1 ? "is the best time" : "are the best times"
+      : `${bestTimes.toString()} ${
+          bestTimes.length === 1 ? "is the best time" : "are the best times"
         }`
 
   return (

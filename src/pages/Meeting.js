@@ -114,7 +114,7 @@ export default function Meeting() {
                 refresh={forceUpdate}
                 forceRefresh={setForceUpdate}
               />
-              <Popup meeting1={meeting} bestTime={bestTimes} />
+              <Popup meeting1={meeting} bestTimes={bestTimes} />
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>
