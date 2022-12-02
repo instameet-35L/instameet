@@ -103,7 +103,9 @@ export default function Meeting() {
             {console.log("THE BEST TIME IS ")}
             {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
-          <div className="flex-grow: 1 max-w-[20%] content-center">
+          <div className="flex-grow: 1 max-w-[20%] content-center pt-4">
+            <br />
+            <br />
             <div>
               <CheckBoxes
                 thisMeeting={meeting}
