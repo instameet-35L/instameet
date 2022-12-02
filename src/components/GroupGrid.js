@@ -14,6 +14,26 @@ import notify from "../helpers/notify.js"
 
   */
 
+const timeEntries = [
+  "6:00 AM",
+  "7:00 AM",
+  "8:00 AM",
+  "9:00 AM",
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "1:00 PM",
+  "2:00 PM",
+  "3:00 PM",
+  "4:00 PM",
+  "5:00 PM",
+  "6:00 PM",
+  "7:00 PM",
+  "8:00 PM",
+  "9:00 PM",
+  "10:00 PM",
+]
+
 function getAllAvails(meetingInfo, nameDispDict) {
   // meetingInfo.users is a list of the user structs
   // schema is under server/models/meeting.js
@@ -53,6 +73,284 @@ function getAllAvails(meetingInfo, nameDispDict) {
   return allAvail
 }
 
+/**
+ * Calculates the best meeting times based on how many users are available
+ * @returns Array of Strings representing the best times
+ */
+function getBestTimes(meetingInfo, allAvailsDict) {
+  if (allAvailsDict == null) {
+    return []
+  }
+
+  const NUM_BEST_TIMES = 3
+
+  const numDays = GetNumberOfDays(
+    meetingInfo.timeframe.start,
+    meetingInfo.timeframe.end
+  )
+  const dateEntries = createDays(meetingInfo.timeframe.start, numDays)
+
+  let currLargest = [] // currLargest represents the list of grid entries with the largest num of people available
+  let finalLargest = [] // represents the list of times and dates with the largest num of people available
+
+  if (Object.keys(allAvailsDict).length === 0) {
+    return currLargest
+  }
+
+  let currLargestKey = Object.keys(allAvailsDict)[0] // grid cell with most num of available users
+  // Loop below gets the list of grid entries that have the best availibility
+
+  for (const [key, value] of Object.entries(allAvailsDict)) {
+    // console.log("key: ", key, " value: ", value)
+    if (value.length > allAvailsDict[currLargestKey].length) {
+      currLargestKey = key
+      currLargest = [key]
+    } else if (value.length === allAvailsDict[currLargestKey].length) {
+      currLargest.push(key)
+    }
+  }
+
+  // Turn the list of grid entries with best availibility into corresponding dates and times
+  if (currLargest.length > 5) {
+    currLargest = currLargest.slice(0, 3)
+  } // Don't want too many options, so choose first five
+  let timeString = ""
+  let dateString = ""
+
+  for (const entry of currLargest) {
+    let row = Math.floor(entry / numDays) // floor fxn, returns row
+    let col = (entry % numDays) + 1
+    timeString = timeEntries[row]
+    dateString = dateEntries[col]
+    finalLargest.push(dateString + " " + timeString)
+  }
+
+  // Where should we call this function in order to not cause infinite rerendering
+  console.log(finalLargest)
+  return finalLargest
+}
+
+function GetNumberOfDays(start, end) {
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  // One day in milliseconds
+  const lengthOfDay =
+    1000 /* milliseconds */ *
+    60 /* seconds */ *
+    60 /* minutes */ *
+    24 /* hours */
+  // Calculating the time difference between two dates
+  const timeDifference = endDate.getTime() - startDate.getTime()
+  // Calculating the no. of days between two dates
+  const numDays = Math.round(timeDifference / lengthOfDay)
+
+  return numDays
+}
+
+function createDays(beginDate, numDays) {
+  let startDate = new Date(beginDate)
+  let datesArray = ["", startDate.toDateString().substring(4, 10)]
+  // datesArray is a array of string dates // need chars 4-9 so [4, 10)
+  let countNumDays = numDays - 1
+  while (countNumDays > 0) {
+    var result = startDate
+    result.setDate(result.getDate() + 1)
+    datesArray.push(result.toDateString().substring(4, 10))
+    startDate = result
+    countNumDays--
+  }
+  return datesArray
+}
+
+function handleClick(allAvailsDict, cell) {
+  if (allAvailsDict[cell] === undefined) {
+    const title = `${cell}: You have no friends`
+    notify(title, "No one is available at this time.", "default")
+    return
+  }
+  let message = ""
+  let len = allAvailsDict[cell].length
+  for (let i = 0; i < len; i++) {
+    if (len >= 2 && i === len - 1) message += "and "
+    message += allAvailsDict[cell][i]
+    if (len === 2 && i === len - 2) {
+      message += " "
+    } else if (i !== len - 1) message += ", "
+  }
+  if (len === 1) message += " is "
+  else message += " are "
+  message += "available at this time."
+  const messagetitle = `${cell}: Wow you have friends`
+  notify(messagetitle, message, "success")
+}
+
+function renderSwitch(colorBlue, i, numUsrsAvail, allAvailsDict) {
+  switch (numUsrsAvail) {
+    case 0:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-000"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-000"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+
+    case 1:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-100"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-100"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    // case 2:
+    //   if (colorBlue) {
+    //     return (
+    //       <button
+    //         className="groupEntry bg-blue-200"
+    //         onClick={() => handleClick(allAvailsDict, i)}
+    //       ></button>
+    //     )
+    //   } else {
+    //     return (
+    //       <button
+    //         className="groupEntry bg-orange-200"
+    //         onClick={() => handleClick(allAvailsDict, i)}
+    //       ></button>
+    //     )
+    //   }
+    case 2:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-300"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-300"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    case 3:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-400"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-400"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    case 4:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-500"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-500"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    case 5:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-600"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-600"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    case 6:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-700"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-700"
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    case 7:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-800 "
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-800 "
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+    default:
+      if (colorBlue) {
+        return (
+          <button
+            className="groupEntry bg-blue-900 "
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      } else {
+        return (
+          <button
+            className="groupEntry bg-orange-900 "
+            onClick={() => handleClick(allAvailsDict, i)}
+          ></button>
+        )
+      }
+  }
+}
+
 // function renderGroupEntry(colorBlue, i, numUsrsAvail) {
 //   return (
 //     <div>
@@ -71,56 +369,20 @@ function renderTimeEntry(i, timeEntries) {
   return <div className="dateEntry">{timeEntries[i]}</div>
 }
 
-export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
+export default function GroupGrid({ meetingInfo, nameDispDict }) {
   console.log("=====!!!Entered GroupGrid function")
   // console.log(nameDispDict)
   const [blue, setBlue] = useState(true)
-  if (
-    meetingInfo === null ||
-    meetingInfo === undefined ||
-    nameDispDict === null ||
-    nameDispDict === undefined
-  ) {
+
+  if (meetingInfo == null || nameDispDict == null) {
     console.log("=======Early return from GroupGrid function cuz of null val")
     return
   }
   console.log("=======Got past null check in GroupGrid function")
+
   const allAvailsDict = getAllAvails(meetingInfo, nameDispDict) // this stores the grid entry as the key and a list of names of users that are available on that day
   console.log("get allAvailsDict is: ")
   console.log(allAvailsDict)
-
-  function GetNumberOfDays(start, end) {
-    const startDate = new Date(start)
-    const endDate = new Date(end)
-
-    // One day in milliseconds
-    const lengthOfDay =
-      1000 /* milliseconds */ *
-      60 /* seconds */ *
-      60 /* minutes */ *
-      24 /* hours */
-    // Calculating the time difference between two dates
-    const timeDifference = endDate.getTime() - startDate.getTime()
-    // Calculating the no. of days between two dates
-    const numDays = Math.round(timeDifference / lengthOfDay)
-
-    return numDays
-  }
-
-  function createDays(beginDate, numDays) {
-    let startDate = new Date(beginDate)
-    let datesArray = ["", startDate.toDateString().substring(4, 10)]
-    // datesArray is a array of string dates // need chars 4-9 so [4, 10)
-    let countNumDays = numDays - 1
-    while (countNumDays > 0) {
-      var result = startDate
-      result.setDate(result.getDate() + 1)
-      datesArray.push(result.toDateString().substring(4, 10))
-      startDate = result
-      countNumDays--
-    }
-    return datesArray
-  }
 
   // const entries = Array(100).fill(null) // should this be array(100) or should there not be a specific sizE??
   let numDays = GetNumberOfDays(
@@ -131,60 +393,6 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
     numDays = 9
   }
   const dateEntries = createDays(meetingInfo.timeframe.start, numDays)
-  const timeEntries = [
-    "6:00 AM",
-    "7:00 AM",
-    "8:00 AM",
-    "9:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "1:00 PM",
-    "2:00 PM",
-    "3:00 PM",
-    "4:00 PM",
-    "5:00 PM",
-    "6:00 PM",
-    "7:00 PM",
-    "8:00 PM",
-    "9:00 PM",
-    "10:00 PM",
-  ]
-
-  function getBestTime() {
-    let currLargest = [] // currLargest represents the list of grid entries with the largest num of people available
-    let finalLargest = [] // represents the list of times and dates with the largest num of people available
-    if (Object.keys(allAvailsDict).length === 0) return currLargest
-    let currLargestKey = Object.keys(allAvailsDict)[0] // grid cell with most num of available users
-    // Loop below gets the list of grid entries that have the best availibility
-    for (const [key, value] of Object.entries(allAvailsDict)) {
-      // console.log("key: ", key, " value: ", value)
-      if (value.length > allAvailsDict[currLargestKey].length) {
-        currLargestKey = key
-        currLargest = [key]
-      } else if (value.length === allAvailsDict[currLargestKey].length) {
-        currLargest.push(key)
-      }
-    }
-    // Turn the list of grid entries with best availibility into corresponding dates and times
-    if (currLargest.length > 5) {
-      currLargest = currLargest.slice(0, 5)
-    } // Don't want too many options, so choose first five
-
-    let dateString = ""
-    let timeString = ""
-
-    for (const entry of currLargest) {
-      timeString = getTimeOfEntry(entry)
-      dateString = getDateOfEntry(entry)
-      finalLargest.push(dateString + " " + timeString)
-    }
-    // setBest(finalLargest) //THIS IS THE SET STATE THAT CAUSES IT TO RE-RENDER A MILLION TIMES
-    //Where should we call this function in order to not cause infinite rerendering
-    console.log("THE BEST TIME IS", finalLargest)
-    return finalLargest
-  }
-  console.log(getBestTime())
 
   function MakeMyGridDateRow() {
     console.log("=====Entered MakeMyGridDateRows")
@@ -455,7 +663,7 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
   }
 
   return (
-    <div>
+    <>
       <div className="status">{"Availability of the selected users:"}</div>
       <div>{MakeMyGridDateRow()}</div>
       <div>{MakeMyGridRows()}</div>
@@ -487,6 +695,8 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
           </fieldset>
         </form>
       </div>
-    </div>
+    </>
   )
 }
+
+export { getAllAvails, getBestTimes }

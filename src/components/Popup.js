@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 // import { useEffect, useState } from "react"
 import "../css/Popup.css"
 
@@ -27,8 +27,9 @@ const CloseButton = () => (
   </div>
 )
 
-export default function Popup({ meeting1, time }) {
+export default function Popup({ meeting1, bestTime }) {
   const [show, setShow] = useState(true)
+
   if (meeting1 === null) {
     return <></>
   }
@@ -53,6 +54,13 @@ export default function Popup({ meeting1, time }) {
   // }
   // = useState(meeting1.users.length >= 3 ? true : false)
 
+  let bestTimesContent =
+    bestTime == null
+      ? "No times filled out yet. You have no friends!"
+      : `${bestTime.toString()} ${
+          bestTime.length === 1 ? "is the best time" : "are the best times"
+        }`
+
   return (
     <div>
       {show && (
@@ -68,9 +76,11 @@ export default function Popup({ meeting1, time }) {
             </div>
           </div>
           <div className="contentfraction">
-            {meeting1.users.length} people have filled their availability
+            {`${meeting1.users.length} ${
+              meeting1.users.length === 1 ? "person has" : "people have"
+            } filled their availability`}
           </div>
-          <div className="contenttime">{time} is the best time</div>
+          <div className="contenttime">{bestTimesContent}</div>
         </div>
       )}
     </div>
