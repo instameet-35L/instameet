@@ -73,13 +73,6 @@ export default function Meeting() {
 
   console.log([meeting, meetingId, name, displayUsers])
 
-  let bestTimes = null
-
-  if (meeting != null && displayUsers != null) {
-    const allAvailsDict = getAllAvails(meeting, displayUsers)
-    bestTimes = getBestTimes(meeting, allAvailsDict)
-  }
-
   return (
     <>
       <div className="content-center bg-[#FAF9F6] grow">
