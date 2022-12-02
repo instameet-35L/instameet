@@ -7,6 +7,8 @@ import NavBar from "../components/NavBar"
 import CheckBoxes from "../components/CheckBox"
 import Popup from "../components/Popup"
 
+import { getAllAvails, getBestTimes } from "../components/GroupGrid"
+
 export default function Meeting() {
   const meetingId = useParams().meetingId
   const [meeting, setMeeting] = useState(null)
@@ -30,8 +32,6 @@ export default function Meeting() {
   //pass it into child componenet
   //set the value of the hook to the funciton return value
   //access that variable in the parent component
-
-  const [bestTime, setBestTime] = useState(null)
 
   //force rerendering the page for checkbox bug
   const [forceUpdate, setForceUpdate] = useState(true)
@@ -71,7 +71,14 @@ export default function Meeting() {
   }, [meetingId, name])
 
   console.log([meeting, meetingId, name, displayUsers])
-  //let len = meeting.users.length
+
+  let bestTimes = null
+
+  if (meeting != null && displayUsers != null) {
+    const allAvailsDict = getAllAvails(meeting, displayUsers)
+    bestTimes = getBestTimes(meeting, allAvailsDict)
+  }
+
   return (
     <>
       <div className="content-center bg-[#FAF9F6] grow">
@@ -91,13 +98,8 @@ export default function Meeting() {
             {/* {console.log("displayUsers is" + displayUsers)} */}
             {console.log("displayUsers just before group grid is")}
             {console.log(displayUsers)}
-            <GroupGrid
-              meetingInfo={meeting}
-              nameDispDict={displayUsers}
-              setBest={setBestTime}
-            />
+            <GroupGrid meetingInfo={meeting} nameDispDict={displayUsers} />
             {console.log("THE BEST TIME IS ")}
-            {console.log(bestTime)}
             {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
           <div className="flex-grow: 1 max-w-[20%] content-center">
@@ -109,8 +111,7 @@ export default function Meeting() {
                 refresh={forceUpdate}
                 forceRefresh={setForceUpdate}
               />
-
-              <Popup meeting1={meeting} time={0}></Popup>
+              <Popup meeting1={meeting} bestTime={bestTimes} />
               {/* {console.log("HEY",displayUsers)} */}
               {/* {JSON.stringify(meeting)} */}
             </div>
