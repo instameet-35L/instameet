@@ -87,12 +87,15 @@ export default function Meeting() {
         </div>
         <div className="flex flex-row space-x-2 justify-evenly px-10">
           <div className="flex-grow: 1 flex-nowrap min-w-[40%]">
-            <Login name={name} setName={setName} meetingId={meetingId} />
-            <IndivGrid
-              meetingInfo={meeting}
-              name={name}
-              setMeeting={setMeeting}
-            />
+            {name == null ? (
+              <Login name={name} setName={setName} meetingId={meetingId} />
+            ) : (
+              <IndivGrid
+                meetingInfo={meeting}
+                name={name}
+                setMeeting={setMeeting}
+              />
+            )}
             <br />
             <br />
           </div>

@@ -37,7 +37,7 @@ export default function Login({ name, setName, meetingId }) {
               className="form-label inline-block text-gray-700"
               htmlFor="title"
             >
-              Enter your name:
+              Enter your name to fill out your availability:
             </label>
             <input
               type="text"
@@ -68,12 +68,6 @@ export default function Login({ name, setName, meetingId }) {
           >
             Login / Register
           </button>
-        </div>
-      )}
-      {name != null && (
-        <div>
-          You're logged in as{" "}
-          <div className="text-sky-600 inline">{`${name}`}</div>
         </div>
       )}
     </div>
