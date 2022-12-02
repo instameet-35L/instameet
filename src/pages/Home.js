@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   return (
-    <div className="main flex grow flex-col gap-5 bg-gradient-to-br from-gray-300 to-sky-300">
+    <div className="main flex grow flex-col gap-5 bg-gradient-to-br from-pink-300 to-sky-300">
       <NavBar />
       <div className="flex justify-evenly align-middle mt-10">
         <TitleForm setTitle={setTitle} />

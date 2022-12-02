@@ -32,7 +32,6 @@ export default function Meeting() {
   //pass it into child componenet
   //set the value of the hook to the funciton return value
   //access that variable in the parent component
-  const [bestTime, setBestTime] = useState(null)
 
   //force rerendering the page for checkbox bug
   const [forceUpdate, setForceUpdate] = useState(true)
@@ -72,6 +71,13 @@ export default function Meeting() {
   }, [meetingId, name])
 
   console.log([meeting, meetingId, name, displayUsers])
+
+  let bestTimes = null
+
+  if (meeting != null && displayUsers != null) {
+    const allAvailsDict = getAllAvails(meeting, displayUsers)
+    bestTimes = getBestTimes(meeting, allAvailsDict)
+  }
 
   return (
     <>
