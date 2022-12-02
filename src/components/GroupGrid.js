@@ -456,10 +456,15 @@ export default function GroupGrid({ meetingInfo, nameDispDict, setBest }) {
 
   return (
     <div>
-      <div className="status">{"Availability of the selected users:"}</div>
+      <br />
+      <div className="status pt-2">{"Availability of the selected users:"}</div>
       <div>{MakeMyGridDateRow()}</div>
       <div>{MakeMyGridRows()}</div>
-      <br />
+
+      <div className="status">
+        {/* KEEP? */}
+        {"Click on an entry to see who is available at that time"}
+      </div>
       <div>
         <form>
           <fieldset>

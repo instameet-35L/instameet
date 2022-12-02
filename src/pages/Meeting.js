@@ -100,7 +100,9 @@ export default function Meeting() {
             {console.log(bestTime)}
             {/* ABOVE BROKEN RN. NEED TO MAKE WORK!!! */}
           </div>
-          <div className="flex-grow: 1 max-w-[20%] content-center">
+          <div className="flex-grow: 1 max-w-[20%] content-center pt-4">
+            <br />
+            <br />
             <div>
               <CheckBoxes
                 thisMeeting={meeting}
@@ -111,6 +113,7 @@ export default function Meeting() {
               />
 
               <Popup meeting1={meeting} time={0}></Popup>
+              <br />
             </div>
           </div>
         </div>
