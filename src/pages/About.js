@@ -3,10 +3,10 @@ import NavBar from "../components/NavBar"
 
 export default function About() {
   return (
-    <div className="flex flex-col bg-gradient-to-br from-pink-300 to-sky-300 w-[100%]">
+    <div className="flex flex-col bg-gradient-to-br from-gray-300 to-sky-300 w-[100%]">
       <NavBar />
       <div className="flex flex-col items-center gap-5 m-5">
-        <div className="text-center text-lg tracking-wider text-2xl">
+        <div className="text-center tracking-wider text-2xl">
           Welcome to Instameet!
         </div>
         <div className="px-20 max-w-prose">
