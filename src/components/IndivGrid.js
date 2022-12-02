@@ -97,16 +97,16 @@ function TimeToggleCell({ id, meetingInfo, meetingId, name, setMeeting }) {
           event.target.style.background === NOT_AVAILABLE ||
           event.target.style.background === ""
         ) {
-          event.target.style.background = AVAILABLE
           addAvailability(meetingId, name, id).then((res) => {
             if (res != null) {
+              event.target.style.background = AVAILABLE
               setMeeting(res)
             }
           })
         } else {
-          event.target.style.background = NOT_AVAILABLE
           removeAvailability(meetingId, name, id).then((res) => {
             if (res != null) {
+              event.target.style.background = NOT_AVAILABLE
               setMeeting(res)
             }
           })
